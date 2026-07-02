@@ -63,6 +63,9 @@ importers:
       '@storybook/addon-themes':
         specifier: ^8.2.0
         version: 8.6.18(storybook@8.6.18(prettier@3.9.4))
+      '@storybook/react':
+        specifier: ^8.6.18
+        version: 8.6.18(@storybook/test@8.6.18(storybook@8.6.18(prettier@3.9.4)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.18(prettier@3.9.4))(typescript@5.9.3)
       '@storybook/react-vite':
         specifier: ^8.2.0
         version: 8.6.18(@storybook/test@8.6.18(storybook@8.6.18(prettier@3.9.4)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.62.2)(storybook@8.6.18(prettier@3.9.4))(typescript@5.9.3)(vite@5.4.21)
@@ -96,6 +99,9 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
+      storybook:
+        specifier: ^8.6.18
+        version: 8.6.18(prettier@3.9.4)
       tailwindcss:
         specifier: ^3.4.0
         version: 3.4.19
