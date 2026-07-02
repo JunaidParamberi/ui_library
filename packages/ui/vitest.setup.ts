@@ -5,8 +5,7 @@ import { axe } from "vitest-axe";
 // Register toHaveNoViolations matcher compatible with vitest 2.x
 expect.extend({
   async toHaveNoViolations(received) {
-    const result = typeof received.then === "function" ? await received : received;
-    const violations = result.violations ?? [];
+    const violations = received.violations ?? [];
     const pass = violations.length === 0;
     return {
       pass,
@@ -25,4 +24,4 @@ expect.extend({
   },
 });
 
-export { axe };
+export {};
