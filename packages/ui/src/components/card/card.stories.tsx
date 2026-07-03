@@ -1,34 +1,67 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { MoreHorizontal } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardBody, CardFooter } from "./card";
-import { Button } from "../button";
+import { Button } from "../button/button";
 
-const meta = {
-  title: "Core/Card",
-  component: Card,
-  tags: ["autodocs"],
-} satisfies Meta<typeof Card>;
+const meta = { title: "Core/Card", parameters: { layout: "centered" } } satisfies Meta;
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-
-export const Basic: Story = {
-  render: (args) => (
-    <Card {...args} className="w-80">
-      <CardHeader>
-        <CardTitle>Revenue</CardTitle>
-        <Button variant="ghost" size="sm">View</Button>
-      </CardHeader>
-      <CardBody>Body content goes here.</CardBody>
-      <CardFooter>Updated 2 hours ago</CardFooter>
+export const Basic: StoryObj = {
+  render: () => (
+    <Card className="w-80">
+      <CardBody>A simple card with body content.</CardBody>
     </Card>
   ),
 };
 
-export const Interactive: Story = { ...Basic, args: { interactive: true } };
-export const Dashed: Story = {
+export const WithHeaderAndAction: StoryObj = {
+  name: "Header + Action",
   render: () => (
-    <Card dashed className="w-80 p-6 text-sm text-muted-foreground">
-      Drop a file here, or click to browse.
+    <Card className="w-80">
+      <CardHeader>
+        <CardTitle>Recent Invoices</CardTitle>
+        <Button variant="ghost" size="icon-sm" aria-label="More"><MoreHorizontal /></Button>
+      </CardHeader>
+      <CardBody>Invoice list goes here.</CardBody>
+    </Card>
+  ),
+};
+
+export const WithFooter: StoryObj = {
+  name: "With Footer",
+  render: () => (
+    <Card className="w-80">
+      <CardHeader><CardTitle>Summary</CardTitle></CardHeader>
+      <CardBody>Body content.</CardBody>
+      <CardFooter>Last updated 3 days ago</CardFooter>
+    </Card>
+  ),
+};
+
+export const Interactive: StoryObj = {
+  render: () => (
+    <Card interactive className="w-80 cursor-pointer">
+      <CardBody>Hover me — shadow elevates.</CardBody>
+    </Card>
+  ),
+};
+
+export const DashedExplainer: StoryObj = {
+  name: "Dashed (Explainer)",
+  render: () => (
+    <Card dashed className="w-80">
+      <CardBody className="text-muted-foreground text-sm">
+        No workers added yet. Add your first worker to get started.
+      </CardBody>
+    </Card>
+  ),
+};
+
+export const Customization: StoryObj = {
+  name: "Customization (className wins)",
+  render: () => (
+    <Card className="w-80 border-primary/40 bg-primary/5">
+      <CardBody>Custom border and background.</CardBody>
     </Card>
   ),
 };
