@@ -1,10 +1,11 @@
 import "@testing-library/jest-dom/vitest";
 import { expect } from "vitest";
+import type { Assertion } from "vitest";
 import { axe } from "vitest-axe";
 
 // Register toHaveNoViolations matcher compatible with vitest 2.x
 expect.extend({
-  async toHaveNoViolations(received) {
+  async toHaveNoViolations(received: any) {
     const violations = received.violations ?? [];
     const pass = violations.length === 0;
     return {
@@ -23,5 +24,11 @@ expect.extend({
     };
   },
 });
+
+declare module "vitest" {
+  interface Assertion<T = any> {
+    toHaveNoViolations(): T;
+  }
+}
 
 export {};
