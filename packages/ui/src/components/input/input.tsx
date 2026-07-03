@@ -53,7 +53,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 );
 Textarea.displayName = "Textarea";
 
-export interface FieldProps {
+export interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
   hint?: string;
   error?: string;
@@ -62,9 +62,9 @@ export interface FieldProps {
   children: React.ReactNode;
 }
 
-export function Field({ label, hint, error, required, htmlFor, children }: FieldProps) {
-  return (
-    <div className="flex flex-col gap-1.5">
+export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
+  ({ label, hint, error, required, htmlFor, children, className, ...rest }, ref) => (
+    <div ref={ref} className={cn("flex flex-col gap-1.5", className)} {...rest}>
       {label && (
         <label
           htmlFor={htmlFor}
@@ -78,5 +78,6 @@ export function Field({ label, hint, error, required, htmlFor, children }: Field
       {error  && <p className="text-xs text-destructive" role="alert">{error}</p>}
       {!error && hint && <p className="text-xs text-muted-foreground">{hint}</p>}
     </div>
-  );
-}
+  ),
+);
+Field.displayName = "Field";

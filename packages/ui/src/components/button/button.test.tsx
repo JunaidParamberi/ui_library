@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { describe, expect, it } from "vitest";
-import { Plus } from "lucide-react";
 import { Button } from "../../index";
 
 describe("Button", () => {

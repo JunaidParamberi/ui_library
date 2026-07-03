@@ -33,10 +33,8 @@ export const Checkbox = React.forwardRef<
       {...props}
     >
       <RadixCheckbox.Indicator className="flex items-center justify-center text-current">
-        {props.checked === "indeterminate"
-          ? <Minus className="size-3" />
-          : <Check className="size-3" />
-        }
+        <Check className="size-3 data-[state=indeterminate]:hidden" />
+        <Minus className="size-3 hidden data-[state=indeterminate]:block" />
       </RadixCheckbox.Indicator>
     </RadixCheckbox.Root>
     {label && (
