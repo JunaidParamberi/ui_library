@@ -5,3 +5,4 @@ export * from "./components/card";
 export * from "./components/kpi-card";
 export * from "./components/input";
 export * from "./components/select";
+export * from "./components/checkbox";
