@@ -1,0 +1,24 @@
+{
+  "name": "@manpowerhub/tokens",
+  "version": "0.1.0",
+  "type": "module",
+  "sideEffects": ["*.css"],
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./preset": { "types": "./dist/preset.d.ts", "import": "./dist/preset.js" },
+    "./globals.css": "./src/globals.css"
+  },
+  "files": ["dist", "src/globals.css"],
+  "scripts": {
+    "build": "tsup src/index.ts src/preset.ts --format esm --dts --clean"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.0",
+    "tailwindcss": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}

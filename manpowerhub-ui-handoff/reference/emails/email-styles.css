@@ -1,0 +1,436 @@
+/* Craftly — email template styles
+ * Designed to map 1:1 to React Email components in dev.
+ *
+ *   <Container>          → .em-container   (600px max, white card)
+ *   <Section>            → .em-section
+ *   <Row>/<Column>       → .em-row / .em-col   (table-row simulation)
+ *   <Heading>            → .em-h1 / .em-h2
+ *   <Text>               → .em-text
+ *   <Button>             → .em-btn / .em-btn--secondary
+ *   <Hr>                 → .em-hr
+ *   <Img>                → use .em-brandmark / inline imgs
+ *
+ * All visual rules use email-safe properties: solid colors, fixed widths,
+ * basic border-radius, no flexbox-only layouts, no CSS grid. The on-canvas
+ * preview uses flex for the row UI sugar, but in React Email the same row
+ * becomes a <table> with one row of <Column>s — both render identically.
+ */
+
+.em-canvas {
+  background: #F4F4F1;
+  padding: 32px 0 48px;
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+  width: 100%;
+}
+
+.em-wrap { width: 600px; }
+
+/* Preheader (hidden in render but visible in inbox preview) */
+.em-preheader {
+  font-size: 11px;
+  color: #898E96;
+  padding: 0 8px 12px;
+  letter-spacing: 0.04em;
+}
+
+/* From-line — sender info above container, like Gmail/Apple Mail rendering */
+.em-from {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px 14px;
+  font-size: 12px;
+  color: #54585F;
+}
+.em-from .avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3550E0, #6E83F0);
+  display: grid; place-items: center;
+  color: #fff; font-weight: 600; font-size: 11px;
+}
+.em-from .name { font-weight: 500; color: #14161A; }
+.em-from .addr { color: #898E96; }
+
+/* Main container — the actual email card */
+.em-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 1px 0 rgba(20,22,26,0.04), 0 8px 24px -12px rgba(20,22,26,0.12);
+  overflow: hidden;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #14161A;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Brand strip at top of container */
+.em-brand {
+  padding: 28px 36px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.em-brandmark {
+  width: 30px; height: 30px;
+  border-radius: 7px;
+  background: #14161A;
+  color: #fff;
+  display: grid; place-items: center;
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 700; font-size: 15px;
+  letter-spacing: -0.04em;
+}
+.em-brand-name {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 600; font-size: 14px;
+  letter-spacing: -0.012em;
+  color: #14161A;
+}
+.em-brand .em-meta {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: #898E96;
+}
+
+/* Sections — main vertical rhythm inside the container */
+.em-section { padding: 28px 36px; }
+.em-section--tight { padding: 16px 36px; }
+.em-section--inset { background: #FBFBF9; }
+.em-section--accent {
+  background: linear-gradient(180deg, #EAEEFC 0%, #ffffff 100%);
+}
+
+.em-hr {
+  border: 0;
+  border-top: 1px solid #ECECE7;
+  margin: 0;
+}
+
+/* Headings + text */
+.em-h1 {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #14161A;
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+.em-h2 {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.25;
+  letter-spacing: -0.018em;
+  color: #14161A;
+  margin: 0 0 8px;
+}
+.em-h3 {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: #14161A;
+  margin: 0 0 6px;
+}
+.em-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #898E96;
+  margin: 0 0 10px;
+}
+.em-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #14161A;
+  margin: 0 0 12px;
+}
+.em-text--muted { color: #54585F; }
+.em-text--dim { color: #898E96; font-size: 12.5px; }
+.em-text--lede { font-size: 15.5px; line-height: 1.55; }
+
+/* Pill button — primary + secondary */
+.em-btn {
+  display: inline-block;
+  background: #14161A;
+  color: #ffffff !important;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  line-height: 1;
+}
+.em-btn--primary { background: #14161A; }
+.em-btn--accent { background: #3550E0; }
+.em-btn--secondary {
+  background: #ffffff;
+  color: #14161A !important;
+  border: 1px solid #D9D9D2;
+}
+.em-btn-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 16px 0 4px;
+}
+.em-btn-meta {
+  font-size: 12px;
+  color: #898E96;
+  margin-top: 12px;
+}
+
+/* Amount hero — used in invoice/payment emails */
+.em-amount-card {
+  background: #FBFBF9;
+  border: 1px solid #ECECE7;
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 16px 0;
+}
+.em-amount-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+.em-amount-row:last-child { margin-bottom: 0; }
+.em-amount-row .k { color: #898E96; }
+.em-amount-row .v {
+  font-variant-numeric: tabular-nums;
+  color: #14161A;
+}
+.em-amount-row.grand {
+  border-top: 1px solid #ECECE7;
+  padding-top: 12px;
+  margin-top: 8px;
+}
+.em-amount-row.grand .v {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.018em;
+}
+
+/* Two-column key/value grid (Bill to / Due date) */
+.em-kv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 28px;
+  margin: 6px 0 4px;
+}
+.em-kv .k {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #898E96;
+  margin-bottom: 4px;
+}
+.em-kv .v {
+  font-size: 13px;
+  color: #14161A;
+  line-height: 1.5;
+}
+
+/* Inline alert bar — for reminders, overdue, accepted */
+.em-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.em-alert--warn { background: #FAF0DD; color: #7A4A0C; }
+.em-alert--ok   { background: #E6F2EB; color: #145C36; }
+.em-alert--info { background: #EAEEFC; color: #1F3399; }
+.em-alert--danger{background: #FBE9E9; color: #8E2828; }
+.em-alert .icon {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.em-alert .title { font-weight: 500; }
+
+/* Status pill — same vocab as the documents */
+.em-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #F4F4F1;
+  color: #54585F;
+}
+.em-pill--success { background: #E6F2EB; color: #1F8A52; }
+.em-pill--warn    { background: #FAF0DD; color: #B36A12; }
+.em-pill--accent  { background: #EAEEFC; color: #3550E0; }
+.em-pill--dot::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor;
+}
+
+/* Footer — sits below container, signature + unsubscribe */
+.em-footer {
+  padding: 24px 36px 0;
+  text-align: center;
+  font-size: 11.5px;
+  color: #898E96;
+  line-height: 1.6;
+}
+.em-footer a { color: #3550E0; text-decoration: none; }
+.em-footer-brand {
+  margin-top: 18px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #B0B3B8;
+  text-transform: uppercase;
+}
+
+/* Magic-link giant code styling */
+.em-code {
+  display: block;
+  background: #FBFBF9;
+  border: 1px solid #ECECE7;
+  border-radius: 10px;
+  padding: 18px 24px;
+  text-align: center;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #14161A;
+  margin: 16px 0;
+}
+
+/* Digest — KPI mini-grid */
+.em-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 4px 0 18px;
+}
+.em-kpi {
+  background: #FBFBF9;
+  border: 1px solid #ECECE7;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.em-kpi .k {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #898E96;
+  margin-bottom: 6px;
+}
+.em-kpi .v {
+  font-family: "Inter Tight", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  font-variant-numeric: tabular-nums;
+  color: #14161A;
+}
+.em-kpi .d { font-size: 11px; color: #1F8A52; margin-top: 3px; }
+.em-kpi .d--down { color: #C13838; }
+
+/* Digest — list rows */
+.em-row-list { display: grid; gap: 1px; background: #ECECE7; border-radius: 10px; overflow: hidden; border: 1px solid #ECECE7; }
+.em-row-item {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  font-size: 13px;
+  align-items: center;
+}
+.em-row-item .ico {
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  background: #F4F4F1;
+  color: #54585F;
+  display: grid; place-items: center;
+}
+.em-row-item .ico--ok { background: #E6F2EB; color: #1F8A52; }
+.em-row-item .ico--warn { background: #FAF0DD; color: #B36A12; }
+.em-row-item .ico--accent { background: #EAEEFC; color: #3550E0; }
+.em-row-item .name { font-weight: 500; color: #14161A; }
+.em-row-item .sub { color: #898E96; font-size: 11.5px; margin-top: 2px; }
+.em-row-item .amount {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+/* Big quote pull-quote (used in proposal/quote emails) */
+.em-quote {
+  border-left: 3px solid #3550E0;
+  padding: 4px 0 4px 14px;
+  font-size: 14.5px;
+  color: #14161A;
+  line-height: 1.55;
+  margin: 4px 0 16px;
+}
+
+/* Tiny avatar list */
+.em-avatars {
+  display: flex; align-items: center; gap: -6px;
+}
+.em-avatars .avatar {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  margin-left: -6px;
+  background: linear-gradient(135deg, #3550E0, #6E83F0);
+  color: #fff; font-size: 9px; font-weight: 600;
+  display: grid; place-items: center;
+}
+.em-avatars .avatar:first-child { margin-left: 0; }
+
+/* Faint thumbnail of the attached document */
+.em-attach {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid #ECECE7;
+  border-radius: 10px;
+  margin: 4px 0 4px;
+  background: #fff;
+}
+.em-attach .thumb {
+  width: 44px; height: 56px;
+  background:
+    linear-gradient(180deg, #fff 0%, #fff 28%, transparent 28%),
+    repeating-linear-gradient(180deg, #ECECE7 0 1px, transparent 1px 9px);
+  border: 1px solid #D9D9D2;
+  border-radius: 4px;
+  position: relative;
+  flex-shrink: 0;
+}
+.em-attach .thumb::before {
+  content: "";
+  position: absolute; top: 6px; left: 6px;
+  width: 16px; height: 4px;
+  background: #14161A;
+  border-radius: 1px;
+}
+.em-attach .info { flex: 1; min-width: 0; }
+.em-attach .info .name { font-weight: 500; font-size: 13px; color: #14161A; }
+.em-attach .info .meta { font-size: 11.5px; color: #898E96; margin-top: 2px; font-family: "JetBrains Mono", monospace; }

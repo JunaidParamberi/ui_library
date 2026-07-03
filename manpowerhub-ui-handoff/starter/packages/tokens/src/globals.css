@@ -1,0 +1,114 @@
+@layer base {
+  :root {
+    /* ── shadcn semantic (light) ── */
+    --background: 60 20% 98%;
+    --foreground: 43 12% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 43 12% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 43 12% 12%;
+    --primary: 156 37% 33%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 48 20% 95%;
+    --secondary-foreground: 43 12% 12%;
+    --muted: 48 20% 95%;
+    --muted-foreground: 42 7% 39%;
+    --accent: 48 20% 95%;
+    --accent-foreground: 43 12% 12%;
+    --destructive: 5 49% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 47 24% 90%;
+    --input: 47 24% 90%;
+    --ring: 156 36% 33%;
+    --radius: 0.5625rem;
+
+    --chart-1: 156 37% 33%;
+    --chart-2: 148 22% 57%;
+    --chart-3: 148 28% 43%;
+    --chart-4: 37 59% 46%;
+    --chart-5: 213 37% 47%;
+
+    /* ── ManpowerHub raw vocabulary ── */
+    --mph-bg-sunken: 45 21% 92%;
+    --mph-border-strong: 46 24% 84%;
+    --mph-fg-2: 42 7% 39%;
+    --mph-fg-3: 44 8% 60%;
+    --mph-accent-hover: 157 37% 27%;
+    --mph-accent-press: 157 36% 21%;
+    --mph-success: 148 28% 43%;
+    --mph-warning: 37 59% 46%;
+    --mph-danger: 5 49% 50%;
+    --mph-info: 213 37% 47%;
+
+    --mph-accent-soft: 156 37% 33%;
+    --mph-success-soft: 148 28% 43%;
+    --mph-warning-soft: 37 59% 46%;
+    --mph-danger-soft: 5 49% 50%;
+    --mph-info-soft: 213 37% 47%;
+
+    --shadow-xs: 0 1px 0 rgba(40, 36, 28, 0.03);
+    --shadow-sm: 0 1px 2px rgba(40, 36, 28, 0.05), 0 1px 0 rgba(40, 36, 28, 0.02);
+    --shadow-md: 0 6px 16px -4px rgba(40, 36, 28, 0.09), 0 2px 6px -3px rgba(40, 36, 28, 0.06);
+    --shadow-lg: 0 18px 40px -12px rgba(40, 36, 28, 0.14), 0 6px 12px -6px rgba(40, 36, 28, 0.08);
+    --shadow-pop: 0 28px 60px -16px rgba(40, 36, 28, 0.22), 0 10px 20px -10px rgba(40, 36, 28, 0.12);
+
+    --font-display: "Geist", "Inter Tight", system-ui, sans-serif;
+    --font-body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, monospace;
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 60 3% 93%;
+    --card: 0 0% 9%;
+    --card-foreground: 60 3% 93%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 60 3% 93%;
+    --primary: 148 29% 49%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 11%;
+    --secondary-foreground: 60 3% 93%;
+    --muted: 0 0% 11%;
+    --muted-foreground: 45 2% 60%;
+    --accent: 0 0% 11%;
+    --accent-foreground: 60 3% 93%;
+    --destructive: 6 55% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 148 29% 49%;
+
+    --chart-1: 148 29% 49%;
+    --chart-2: 148 30% 65%;
+    --chart-3: 148 32% 55%;
+    --chart-4: 38 57% 57%;
+    --chart-5: 213 45% 62%;
+
+    --mph-bg-sunken: 0 0% 3%;
+    --mph-border-strong: 0 0% 20%;
+    --mph-fg-2: 45 2% 60%;
+    --mph-fg-3: 43 6% 37%;
+    --mph-accent-hover: 148 30% 56%;
+    --mph-success: 148 29% 49%;
+    --mph-warning: 38 57% 57%;
+    --mph-danger: 6 55% 60%;
+    --mph-info: 213 45% 62%;
+
+    --shadow-xs: 0 1px 0 rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.45);
+    --shadow-md: 0 6px 16px -4px rgba(0, 0, 0, 0.5), 0 2px 6px -3px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 18px 40px -12px rgba(0, 0, 0, 0.6), 0 6px 12px -6px rgba(0, 0, 0, 0.4);
+    --shadow-pop: 0 28px 60px -16px rgba(0, 0, 0, 0.7), 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.003em;
+  }
+}
