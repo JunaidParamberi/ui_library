@@ -1,20 +1,34 @@
-# Starter code
+# @manpowerhub/ui
 
-Copy-ready starter for the monorepo described in `../01-ARCHITECTURE.md`. Copy
-`packages/`, the root config files, and `CLAUDE.md` into a fresh repo root, then:
+Themeable, customizable React component library (TypeScript · Tailwind · shadcn/ui).
 
+## Install
 ```bash
-pnpm install
-pnpm --filter @manpowerhub/ui build
+npm install @manpowerhub/ui @manpowerhub/tokens
+npm install -D tailwindcss tailwindcss-animate
 ```
 
-**What's included (working):**
-- `packages/tokens` — the full theming layer (globals.css, Tailwind preset, typed tokens). Complete.
-- `packages/ui` — `cn()` util + example components proving the pattern: **Button**, **Badge** + **StatusBadge**, **Card**, **KPICard** — each with a `.stories.tsx`.
+## Setup
+```ts
+// tailwind.config.ts
+import preset from "@manpowerhub/tokens/preset";
+export default { presets: [preset], content: ["./src/**/*.{ts,tsx}", "./node_modules/@manpowerhub/ui/dist/**/*.js"] };
+```
+```ts
+// app entry
+import "@manpowerhub/tokens/globals.css";
+```
 
-**What Claude Code fills in:** the rest of the components from docs 03–04, using
-these as the template. Every new component follows the exact shape of `button/`
-(component + stories + index, cva variants, forwardRef, tokened classes).
+## Use
+```tsx
+import { Button } from "@manpowerhub/ui";
+<Button variant="outline">Hello</Button>
+```
 
-> Storybook, Vitest, and the shadcn CLI aren't pre-run here (they need
-> `pnpm install`). `../CLAUDE_CODE_PROMPT.md` Phase 0 wires them.
+## Customize
+1. **Tokens** — override CSS vars in your own globals: `:root { --primary: 240 80% 55%; }`
+2. **Per instance** — `<Button className="rounded-full" />` (your classes win via tailwind-merge)
+3. **Structural** — `<Button asChild><Link href="/x">Go</Link></Button>`
+
+## Docs
+Live Storybook: https://junaidparamberi.github.io/manpowerhub-ui
