@@ -12,17 +12,19 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80",
+        primary:   "bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80",
         secondary: "border border-border bg-card text-foreground hover:bg-secondary",
-        ghost: "text-foreground hover:bg-secondary",
-        danger: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-border bg-transparent text-foreground hover:bg-secondary",
+        ghost:     "text-foreground hover:bg-secondary",
+        danger:    "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:   "border border-border bg-transparent text-foreground hover:bg-secondary",
       },
       size: {
-        sm: "h-[26px] px-2.5 text-sm [&_svg]:size-[13px]",
+        sm:      "h-[26px] px-2.5 text-sm [&_svg]:size-[13px]",
         default: "h-[30px] px-3 text-base [&_svg]:size-[13px]",
-        lg: "h-[38px] px-4 text-md [&_svg]:size-[15px]",
-        icon: "h-[30px] w-[30px] [&_svg]:size-[14px]",
+        lg:      "h-[38px] px-4 text-md [&_svg]:size-[15px]",
+        icon:    "h-[30px] w-[30px] p-0 [&_svg]:size-[14px]",
+        "icon-sm": "h-[26px] w-[26px] p-0 [&_svg]:size-[13px]",
+        "icon-lg": "h-[38px] w-[38px] p-0 [&_svg]:size-[15px]",
       },
     },
     defaultVariants: { variant: "secondary", size: "default" },
@@ -32,9 +34,7 @@ export const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  /** Render as a child element (Radix Slot) instead of a <button>. */
   asChild?: boolean;
-  /** Show a spinner, preserve width, and disable the button. */
   loading?: boolean;
 }
 
@@ -49,9 +49,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-busy={loading || undefined}
         {...props}
       >
-        <span
-          className={cn("inline-flex items-center gap-1.5", loading && "invisible")}
-        >
+        <span className={cn("inline-flex items-center gap-1.5", loading && "invisible")}>
           {children}
         </span>
         {loading && (
