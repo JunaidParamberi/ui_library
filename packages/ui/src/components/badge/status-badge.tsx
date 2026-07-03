@@ -8,30 +8,33 @@ export type Status =
   | "cancelled" | "high" | "med" | "low" | "approved";
 
 const STATUS_MAP: Record<Status, { variant: BadgeProps["variant"]; label: string }> = {
-  paid: { variant: "success", label: "Paid" },
-  sent: { variant: "info", label: "Sent" },
-  draft: { variant: "outline", label: "Draft" },
-  overdue: { variant: "danger", label: "Overdue" },
+  paid:           { variant: "success", label: "Paid" },
+  sent:           { variant: "info",    label: "Sent" },
+  draft:          { variant: "outline", label: "Draft" },
+  overdue:        { variant: "danger",  label: "Overdue" },
   partially_paid: { variant: "warning", label: "Partial" },
-  written_off: { variant: "outline", label: "Written off" },
-  active: { variant: "success", label: "Active" },
-  planning: { variant: "info", label: "Planning" },
-  "on hold": { variant: "warning", label: "On hold" },
-  done: { variant: "success", label: "Done" },
-  todo: { variant: "outline", label: "To do" },
-  in_progress: { variant: "info", label: "In progress" },
-  cancelled: { variant: "outline", label: "Cancelled" },
-  high: { variant: "danger", label: "High" },
-  med: { variant: "warning", label: "Medium" },
-  low: { variant: "outline", label: "Low" },
-  approved: { variant: "success", label: "Approved" },
+  written_off:    { variant: "outline", label: "Written off" },
+  active:         { variant: "success", label: "Active" },
+  planning:       { variant: "info",    label: "Planning" },
+  "on hold":      { variant: "warning", label: "On hold" },
+  done:           { variant: "success", label: "Done" },
+  todo:           { variant: "outline", label: "To do" },
+  in_progress:    { variant: "info",    label: "In progress" },
+  cancelled:      { variant: "outline", label: "Cancelled" },
+  high:           { variant: "danger",  label: "High" },
+  med:            { variant: "warning", label: "Medium" },
+  low:            { variant: "outline", label: "Low" },
+  approved:       { variant: "success", label: "Approved" },
 };
 
-export interface StatusBadgeProps {
+export interface StatusBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   status: Status;
 }
 
-export function StatusBadge({ status }: StatusBadgeProps) {
-  const m = STATUS_MAP[status] ?? { variant: "outline" as const, label: status };
-  return <Badge variant={m.variant} dot>{m.label}</Badge>;
-}
+export const StatusBadge = React.forwardRef<HTMLSpanElement, StatusBadgeProps>(
+  ({ status, ...props }, ref) => {
+    const m = STATUS_MAP[status] ?? { variant: "outline" as const, label: status };
+    return <Badge ref={ref} variant={m.variant} dot {...props}>{m.label}</Badge>;
+  },
+);
+StatusBadge.displayName = "StatusBadge";
