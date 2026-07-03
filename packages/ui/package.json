@@ -1,7 +1,11 @@
 {
   "name": "@manpowerhub/ui",
   "version": "0.1.0",
+  "license": "MIT",
   "type": "module",
+  "publishConfig": { "access": "public", "provenance": true },
+  "repository": { "type": "git", "url": "https://github.com/junaidparamberi/manpowerhub-ui.git" },
+  "homepage": "https://junaidparamberi.github.io/manpowerhub-ui",
   "sideEffects": [
     "*.css"
   ],
