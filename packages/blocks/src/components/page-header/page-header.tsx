@@ -4,16 +4,22 @@ import { cn } from "@manpowerhub/ui";
 
 export const pageHeaderVariants = cva("flex flex-col gap-3 pb-4", {
   variants: {
-    align: {
-      start: "",
-      between: "",
-    },
     bordered: {
       true: "border-b border-border",
       false: "",
     },
   },
-  defaultVariants: { align: "between", bordered: false },
+  defaultVariants: { bordered: false },
+});
+
+const rowVariants = cva("flex gap-4", {
+  variants: {
+    align: {
+      start: "flex-col",
+      between: "items-start justify-between",
+    },
+  },
+  defaultVariants: { align: "between" },
 });
 
 export interface Breadcrumb {
@@ -24,6 +30,7 @@ export interface Breadcrumb {
 export interface PageHeaderProps
   extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof pageHeaderVariants> {
+  align?: "start" | "between";
   title: string;
   description?: string;
   badge?: React.ReactNode;
@@ -33,12 +40,12 @@ export interface PageHeaderProps
 
 export const PageHeader = React.forwardRef<HTMLElement, PageHeaderProps>(
   ({ className, align, bordered, title, description, badge, actions, breadcrumbs, ...props }, ref) => (
-    <header ref={ref} className={cn(pageHeaderVariants({ align, bordered }), className)} {...props}>
+    <header ref={ref} className={cn(pageHeaderVariants({ bordered }), className)} {...props}>
       {breadcrumbs && breadcrumbs.length > 0 && (
         <nav aria-label="Breadcrumb">
           <ol className="flex items-center gap-1.5 text-sm text-muted-foreground">
             {breadcrumbs.map((c, i) => (
-              <li key={i} className="flex items-center gap-1.5">
+              <li key={c.href ?? c.label} className="flex items-center gap-1.5">
                 {c.href ? (
                   <a href={c.href} className="hover:text-foreground">{c.label}</a>
                 ) : (
@@ -50,7 +57,7 @@ export const PageHeader = React.forwardRef<HTMLElement, PageHeaderProps>(
           </ol>
         </nav>
       )}
-      <div className={cn("flex gap-4", align === "between" ? "items-start justify-between" : "flex-col")}>
+      <div className={rowVariants({ align })}>
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <h1 className="font-display text-xl font-semibold tracking-tight text-foreground">{title}</h1>
