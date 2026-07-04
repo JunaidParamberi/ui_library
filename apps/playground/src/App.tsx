@@ -1,11 +1,13 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { KitchenSink } from "./pages/kitchen-sink";
+import { BlocksShowcase } from "./pages/blocks-showcase";
 
 type Page = { id: string; label: string; element: ReactNode };
 
 const PAGES: Page[] = [
   { id: "kitchen-sink", label: "Kitchen Sink", element: <KitchenSink /> },
+  { id: "blocks", label: "Blocks", element: <BlocksShowcase /> },
 ];
 
 export function App() {

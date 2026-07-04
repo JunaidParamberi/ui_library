@@ -35,6 +35,9 @@ importers:
 
   apps/playground:
     dependencies:
+      '@manpowerhub/blocks':
+        specifier: workspace:*
+        version: link:../../packages/blocks
       '@manpowerhub/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
@@ -69,6 +72,9 @@ importers:
       jsdom:
         specifier: ^29.1.1
         version: 29.1.1
+      lucide-react:
+        specifier: ^0.436.0
+        version: 0.436.0(react@18.3.1)
       postcss:
         specifier: ^8.4.0
         version: 8.5.16
