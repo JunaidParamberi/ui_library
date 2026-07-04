@@ -73,8 +73,8 @@ importers:
         specifier: ^8.4.0
         version: 8.5.16
       postcss-import:
-        specifier: ^15.1.0
-        version: 15.1.0(postcss@8.5.16)
+        specifier: ^16.1.1
+        version: 16.1.1(postcss@8.5.16)
       tailwindcss:
         specifier: ^3.4.0
         version: 3.4.19
