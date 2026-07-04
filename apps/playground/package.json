@@ -13,12 +13,12 @@
     "@manpowerhub/blocks": "workspace:*",
     "@manpowerhub/tokens": "workspace:*",
     "@manpowerhub/ui": "workspace:*",
+    "lucide-react": "^0.436.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.0",
-    "lucide-react": "^0.436.0",
     "@testing-library/react": "^16.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
