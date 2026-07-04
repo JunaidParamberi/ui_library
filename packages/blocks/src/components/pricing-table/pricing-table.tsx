@@ -52,7 +52,7 @@ export const PricingTable = React.forwardRef<HTMLDivElement, PricingTableProps>(
         </div>
       )}
 
-      <div className={cn(pricingGridVariants({ columns }))}>
+      <div className={pricingGridVariants({ columns })}>
         {tiers.map((tier) => (
           <Card
             key={tier.name}
