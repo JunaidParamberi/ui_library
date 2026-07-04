@@ -3,7 +3,6 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { Search } from "lucide-react";
 import {
   Input,
-  Button,
   Badge,
   Select,
   SelectTrigger,
