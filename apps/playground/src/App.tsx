@@ -1,7 +1,8 @@
 import { useState } from "react";
+import type { ReactNode } from "react";
 import { KitchenSink } from "./pages/kitchen-sink";
 
-type Page = { id: string; label: string; element: React.ReactNode };
+type Page = { id: string; label: string; element: ReactNode };
 
 const PAGES: Page[] = [
   { id: "kitchen-sink", label: "Kitchen Sink", element: <KitchenSink /> },
@@ -20,7 +21,7 @@ export function App() {
             key={p.id}
             onClick={() => setActive(p.id)}
             className="block w-full rounded-md px-3 py-2 text-left text-sm text-muted-foreground hover:bg-secondary aria-[current=true]:bg-secondary aria-[current=true]:text-foreground"
-            aria-current={p.id === active}
+            aria-current={p.id === active ? true : undefined}
           >
             {p.label}
           </button>
