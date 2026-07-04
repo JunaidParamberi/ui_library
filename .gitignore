@@ -5,3 +5,6 @@ storybook-static/
 .DS_Store
 .turbo/
 coverage/
+*.tsbuildinfo
+vite.config.d.ts
+vite.config.js
