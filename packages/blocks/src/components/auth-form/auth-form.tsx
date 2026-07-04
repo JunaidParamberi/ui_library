@@ -57,12 +57,12 @@ export const AuthForm = React.forwardRef<HTMLFormElement, AuthFormProps>(
     const pwId = React.useId();
 
     return (
-      <Card>
+      <Card className={authFormVariants({ width })}>
         <CardBody>
           <form
             ref={ref}
             onSubmit={onSubmit}
-            className={cn("flex flex-col gap-4", authFormVariants({ width }), className)}
+            className={cn("flex flex-col gap-4", className)}
             {...props}
           >
             <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">{heading}</h2>
