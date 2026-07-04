@@ -93,9 +93,6 @@ importers:
 
   packages/blocks:
     dependencies:
-      '@manpowerhub/tokens':
-        specifier: workspace:*
-        version: link:../tokens
       '@manpowerhub/ui':
         specifier: workspace:*
         version: link:../ui
@@ -112,6 +109,9 @@ importers:
         specifier: ^2.5.0
         version: 2.6.1
     devDependencies:
+      '@manpowerhub/tokens':
+        specifier: workspace:*
+        version: link:../tokens
       '@storybook/addon-a11y':
         specifier: ^8.2.0
         version: 8.6.18(storybook@8.6.18(prettier@3.9.4))
