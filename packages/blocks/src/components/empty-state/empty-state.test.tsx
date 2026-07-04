@@ -27,7 +27,7 @@ describe("EmptyState", () => {
     expect(container.firstChild).toHaveClass("custom-x");
   });
 
-  it("applies the dashed variant class", () => {
+  it("renders a dashed border for the dashed variant (via Card's dashed prop)", () => {
     const { container } = render(<EmptyState variant="dashed" title="Empty" />);
     expect(container.firstChild).toHaveClass("border-dashed");
   });

@@ -26,7 +26,6 @@
     "react-dom": "^18.3.0"
   },
   "dependencies": {
-    "@manpowerhub/tokens": "workspace:*",
     "@manpowerhub/ui": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -34,6 +33,7 @@
     "tailwind-merge": "^2.5.0"
   },
   "devDependencies": {
+    "@manpowerhub/tokens": "workspace:*",
     "@storybook/addon-a11y": "^8.2.0",
     "@storybook/addon-themes": "^8.2.0",
     "@storybook/react": "^8.6.18",
