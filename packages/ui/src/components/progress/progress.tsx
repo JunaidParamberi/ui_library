@@ -11,19 +11,22 @@ export interface ProgressProps
 export const Progress = React.forwardRef<
   React.ElementRef<typeof RadixProgress.Root>,
   ProgressProps
->(({ className, value, ...props }, ref) => (
-  <RadixProgress.Root
-    ref={ref}
-    value={value}
-    className={cn("relative h-2 w-full overflow-hidden rounded-full bg-secondary", className)}
-    {...props}
-  >
-    <RadixProgress.Indicator
-      className="h-full w-full flex-1 bg-primary transition-transform duration-normal"
-      style={{ transform: `translateX(-${100 - Math.min(100, Math.max(0, value))}%)` }}
-    />
-  </RadixProgress.Root>
-));
+>(({ className, value, ...props }, ref) => {
+  const clamped = Math.min(100, Math.max(0, value));
+  return (
+    <RadixProgress.Root
+      ref={ref}
+      value={clamped}
+      className={cn("relative h-2 w-full overflow-hidden rounded-full bg-secondary", className)}
+      {...props}
+    >
+      <RadixProgress.Indicator
+        className="h-full w-full flex-1 bg-primary transition-transform duration-fast"
+        style={{ transform: `translateX(-${100 - clamped}%)` }}
+      />
+    </RadixProgress.Root>
+  );
+});
 Progress.displayName = "Progress";
 
 export interface HealthRingProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -64,7 +67,7 @@ export const HealthRing = React.forwardRef<HTMLDivElement, HealthRingProps>(
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             strokeLinecap="round"
-            className="fill-none stroke-primary transition-[stroke-dashoffset] duration-normal"
+            className="fill-none stroke-primary transition-[stroke-dashoffset] duration-fast"
           />
         </svg>
         {label && (

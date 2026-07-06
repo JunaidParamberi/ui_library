@@ -18,6 +18,11 @@ describe("Progress", () => {
     const { container } = render(<Progress value={50} aria-label="p" />);
     expect(await axe(container)).toHaveNoViolations();
   });
+
+  it("clamps out-of-range value so aria-valuenow stays valid", () => {
+    render(<Progress value={150} aria-label="p" />);
+    expect(screen.getByRole("progressbar")).toHaveAttribute("aria-valuenow", "100");
+  });
 });
 
 describe("HealthRing", () => {
