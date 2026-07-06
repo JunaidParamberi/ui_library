@@ -32,6 +32,27 @@ describe("EmptyState", () => {
     expect(container.firstChild).toHaveClass("border-dashed");
   });
 
+  it("renders the plain variant without a Card wrapper", () => {
+    const { container } = render(
+      <EmptyState variant="plain" title="Plain empty" description="No border here" />,
+    );
+    expect(container.firstChild).not.toHaveClass("border-dashed");
+    expect(screen.getByText("Plain empty")).toBeInTheDocument();
+  });
+
+  it("renders secondaryAction button and fires its onClick", async () => {
+    const secondaryOnClick = vi.fn();
+    render(
+      <EmptyState
+        title="Empty"
+        action={{ label: "Primary", onClick: vi.fn() }}
+        secondaryAction={{ label: "Secondary", onClick: secondaryOnClick }}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Secondary" }));
+    expect(secondaryOnClick).toHaveBeenCalledOnce();
+  });
+
   it("has no a11y violations", async () => {
     const { container } = render(
       <EmptyState title="No data" description="Nothing yet" action={{ label: "Add", onClick: () => {} }} />,

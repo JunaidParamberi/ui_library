@@ -56,6 +56,22 @@ describe("AuthForm", () => {
     expect(ref.current).toHaveClass("fx");
   });
 
+  it("renders the toggle password button and calls onTogglePassword", async () => {
+    const onTogglePassword = vi.fn();
+    setup({ onTogglePassword, showPassword: false });
+    const btn = screen.getByRole("button", { name: /show password/i });
+    await userEvent.click(btn);
+    expect(onTogglePassword).toHaveBeenCalledOnce();
+  });
+
+  it("renders the remember me checkbox and fires remember.onChange", async () => {
+    const remember = { checked: false, onChange: vi.fn() };
+    setup({ remember });
+    const checkbox = screen.getByLabelText(/remember me/i);
+    await userEvent.click(checkbox);
+    expect(remember.onChange).toHaveBeenCalledWith(true);
+  });
+
   it("has no a11y violations", async () => {
     const { container } = render(
       <AuthForm

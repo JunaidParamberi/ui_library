@@ -3,6 +3,13 @@ import { expect } from "vitest";
 import type { Assertion } from "vitest";
 import { axe } from "vitest-axe";
 
+// Radix UI uses ResizeObserver internally; jsdom does not implement it.
+global.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
+
 expect.extend({
   async toHaveNoViolations(received: any) {
     const violations = received.violations ?? [];

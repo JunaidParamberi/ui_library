@@ -8,5 +8,22 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.test.tsx"],
+    coverage: {
+      provider: "v8",
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 80,
+        statements: 80,
+      },
+      include: ["src/**"],
+      exclude: [
+        "src/main.tsx",
+        "src/**/*.stories.tsx",
+        "src/**/*.test.tsx",
+        "src/index.ts",
+        "src/**/index.ts",
+      ],
+    },
   },
 });

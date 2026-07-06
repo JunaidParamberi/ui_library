@@ -45,6 +45,27 @@ describe("DataTableToolbar", () => {
     expect(container.firstChild).toHaveClass("tx");
   });
 
+  it("renders filter selects from the filters prop", () => {
+    render(
+      <DataTableToolbar
+        search={{ value: "", onChange: () => {} }}
+        filters={[
+          {
+            id: "status",
+            placeholder: "Status",
+            value: "",
+            onChange: vi.fn(),
+            options: [
+              { label: "Active", value: "active" },
+              { label: "Invited", value: "invited" },
+            ],
+          },
+        ]}
+      />,
+    );
+    expect(screen.getByText("Status")).toBeInTheDocument();
+  });
+
   it("has no a11y violations", async () => {
     const { container } = render(
       <DataTableToolbar search={{ value: "", onChange: () => {}, placeholder: "Search" }} actions={<button>New</button>} />,
