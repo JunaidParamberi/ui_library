@@ -1,18 +1,37 @@
 {
   "name": "@manpowerhub/tokens",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "type": "module",
-  "publishConfig": { "access": "public", "provenance": true },
-  "repository": { "type": "git", "url": "https://github.com/junaidparamberi/manpowerhub-ui.git" },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/junaidparamberi/manpowerhub-ui.git"
+  },
   "homepage": "https://junaidparamberi.github.io/manpowerhub-ui",
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "require": "./dist/index.cjs", "import": "./dist/index.js" },
-    "./preset": { "types": "./dist/preset.d.ts", "require": "./dist/preset.cjs", "import": "./dist/preset.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./preset": {
+      "types": "./dist/preset.d.ts",
+      "require": "./dist/preset.cjs",
+      "import": "./dist/preset.js"
+    },
     "./globals.css": "./src/globals.css"
   },
-  "files": ["dist", "src/globals.css"],
+  "files": [
+    "dist",
+    "src/globals.css"
+  ],
   "scripts": {
     "build": "tsup src/index.ts src/preset.ts --format esm,cjs --dts --clean"
   },
