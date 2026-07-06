@@ -1,0 +1,22 @@
+import { KpiCardDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# KPICard
+
+Metric card showing a label, value, optional delta/trend badge, and subtitle.
+
+<StorybookLink package="ui" story="data-viz-kpicard" />
+
+## Example
+
+<ComponentPreview>
+  <KpiCardDemo />
+</ComponentPreview>
+
+## Props
+
+| Prop | Type | Default |
+|------|------|---------|
+| `kpi` | `{ label, value, delta?, trend?, sub? }` | required |
+| `delay` | `number` | `0` |

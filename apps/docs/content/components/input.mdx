@@ -1,0 +1,24 @@
+import { InputDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# Input
+
+Text input with field wrapper, textarea, and validation states.
+
+<StorybookLink package="ui" story="core-input" />
+
+## Example
+
+<ComponentPreview>
+  <InputDemo />
+</ComponentPreview>
+
+## Props
+
+| Prop | Type | Default |
+|------|------|---------|
+| `inputSize` | `"default" \| "lg"` | `"default"` |
+| `invalid` | `boolean` | `false` |
+
+`Field` wraps inputs with `label`, `hint`, `error`, and `required` props.

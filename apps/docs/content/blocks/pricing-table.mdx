@@ -1,0 +1,19 @@
+import { PricingTableDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# PricingTable
+
+Tier comparison grid with billing period toggle.
+
+<StorybookLink package="blocks" story="blocks-pricingtable" />
+
+## Example
+
+<ComponentPreview>
+  <PricingTableDemo />
+</ComponentPreview>
+
+## Props
+
+`tiers` (`PricingTier[]`), `columns`, optional `billingPeriod` (controlled monthly/annual).

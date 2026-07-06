@@ -1,0 +1,19 @@
+import { AuthFormDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# AuthForm
+
+Login/signup form block. Fully controlled via props.
+
+<StorybookLink package="blocks" story="blocks-authform" />
+
+## Example
+
+<ComponentPreview>
+  <AuthFormDemo />
+</ComponentPreview>
+
+## Props
+
+`email`, `password` (controlled field objects), `onSubmit`, optional `mode`, `title`, `error`, `loading`, `remember`, `footer`.

@@ -1,0 +1,24 @@
+import { ButtonDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# Button
+
+Primary action control with variant and size options.
+
+<StorybookLink package="ui" story="core-button" storyId="primary" />
+
+## Example
+
+<ComponentPreview>
+  <ButtonDemo />
+</ComponentPreview>
+
+## Props
+
+| Prop | Type | Default |
+|------|------|---------|
+| `variant` | `"primary" \| "secondary" \| "ghost" \| "danger" \| "outline"` | `"secondary"` |
+| `size` | `"sm" \| "default" \| "lg" \| "icon" \| "icon-sm" \| "icon-lg"` | `"default"` |
+| `loading` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |

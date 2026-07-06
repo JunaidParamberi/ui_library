@@ -1,0 +1,26 @@
+diff --git a/dist/layout.js b/dist/layout.js
+index 57a511faacf75820f822be305d66c61494ca998a..c8a1e2f3b4d5a6e7f8g9h0i1j2k3l4m5n6o7p8 100644
+--- a/dist/layout.js
++++ b/dist/layout.js
+@@ -27,7 +27,7 @@ const Layout = (t0) => {
+     const {
+       data: t12,
+       error
+-    } = LayoutPropsSchema.safeParse(themeConfig);
++    } = LayoutPropsSchema.safeParse({ ...themeConfig, children: children ?? null });
+     data = t12;
+     if (error) {
+       throw z.prettifyError(error);
+diff --git a/dist/schemas.js b/dist/schemas.js
+index 1234567890abcdef1234567890abcdef12345678..abcdef1234567890abcdef1234567890abcdef12 100644
+--- a/dist/schemas.js
++++ b/dist/schemas.js
+@@ -65,7 +65,7 @@ const LayoutPropsSchema = z.strictObject({
+   banner: reactNode.optional().meta({
+     description: "Rendered [`<Banner>` component](/docs/built-ins/banner). E.g. `<Banner {...bannerProps} />`"
+   }),
+-  children: reactNode,
++  children: reactNode.optional(),
+   copyPageButton: z.boolean().default(true).meta({
+     description: "Hide/show copy page content button."
+   }),
