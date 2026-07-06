@@ -9,9 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/junaidparamberi/manpowerhub-ui.git"
+    "url": "https://github.com/JunaidParamberi/ui_library.git"
   },
-  "homepage": "https://junaidparamberi.github.io/manpowerhub-ui",
+  "homepage": "https://github.com/JunaidParamberi/ui_library",
   "sideEffects": [
     "*.css"
   ],
