@@ -32,13 +32,13 @@ jobs:
         run: pnpm --filter @manpowerhub/playground coverage
 
       - name: Chromatic (ui)
-        if: ${{ secrets.CHROMATIC_UI_TOKEN != '' }}
-        run: pnpm --filter @manpowerhub/ui chromatic --exit-zero-on-changes
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN != '' }}
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_UI_TOKEN }}
+        run: pnpm --filter @manpowerhub/ui chromatic --exit-zero-on-changes
 
       - name: Chromatic (blocks)
-        if: ${{ secrets.CHROMATIC_BLOCKS_TOKEN != '' }}
-        run: pnpm --filter @manpowerhub/blocks chromatic --exit-zero-on-changes
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN != '' }}
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_BLOCKS_TOKEN }}
+        run: pnpm --filter @manpowerhub/blocks chromatic --exit-zero-on-changes
