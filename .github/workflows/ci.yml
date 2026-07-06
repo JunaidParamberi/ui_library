@@ -14,10 +14,31 @@ jobs:
           version: 9.7.0
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm -r build
       - run: pnpm -r exec tsc --noEmit
       - run: pnpm lint
       - run: pnpm test
+
+      - name: Test with coverage (ui)
+        run: pnpm --filter @manpowerhub/ui coverage
+
+      - name: Test with coverage (blocks)
+        run: pnpm --filter @manpowerhub/blocks coverage
+
+      - name: Test with coverage (playground)
+        run: pnpm --filter @manpowerhub/playground coverage
+
+      - name: Chromatic (ui)
+        if: ${{ secrets.CHROMATIC_UI_TOKEN != '' }}
+        run: pnpm --filter @manpowerhub/ui chromatic --exit-zero-on-changes
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_UI_TOKEN }}
+
+      - name: Chromatic (blocks)
+        if: ${{ secrets.CHROMATIC_BLOCKS_TOKEN != '' }}
+        run: pnpm --filter @manpowerhub/blocks chromatic --exit-zero-on-changes
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_BLOCKS_TOKEN }}
