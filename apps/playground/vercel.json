@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm --filter @manpowerhub/tokens build && pnpm --filter @manpowerhub/ui build && pnpm --filter @manpowerhub/blocks build && pnpm --filter @manpowerhub/playground build",
+  "outputDirectory": "dist"
+}
