@@ -11,6 +11,15 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ["**/dist/**", "**/storybook-static/**", "node_modules/**"],
+    ignores: [
+      "**/dist/**",
+      "**/.next/**",
+      "**/out/**",
+      "**/storybook-static/**",
+      "node_modules/**",
+      "apps/docs/next-env.d.ts",
+      "apps/docs/next.config.mjs",
+      "apps/docs/postcss-conditional-tailwind.cjs",
+    ],
   }
 );
