@@ -30,6 +30,7 @@
     "dev": "tsup --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "chromatic": "chromatic",
     "test": "vitest run",
     "coverage": "vitest run --coverage"
   },
@@ -63,6 +64,7 @@
     "@vitejs/plugin-react": "^4.7.0",
     "@vitest/coverage-v8": "^2.1.9",
     "autoprefixer": "^10.4.0",
+    "chromatic": "^18.0.1",
     "jsdom": "^29.1.1",
     "postcss": "^8.4.0",
     "postcss-import": "^16.1.1",
