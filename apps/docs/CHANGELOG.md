@@ -1,5 +1,15 @@
 # @manpowerhub/docs
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [6f7c122]
+- Updated dependencies [5cf745f]
+  - @manpowerhub/ui@0.3.0
+  - @manpowerhub/blocks@0.2.0
+  - @manpowerhub/tokens@0.3.0
+
 ## 0.0.1
 
 ### Patch Changes

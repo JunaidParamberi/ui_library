@@ -1,5 +1,17 @@
 # @manpowerhub/ui
 
+## 0.3.0
+
+### Minor Changes
+
+- 6f7c122: Add Avatar, Tooltip, Dialog, DropdownMenu, Progress, HealthRing, Skeleton, Spinner, Table, DataTable, ThemeToggle, CommandMenu, AppShell, AreaChart, MiniBars, and curated Icons.
+- 5cf745f: Add @manpowerhub/blocks with six composed sections; initial public release of tokens, ui, and blocks.
+
+### Patch Changes
+
+- Updated dependencies [5cf745f]
+  - @manpowerhub/tokens@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
