@@ -20,7 +20,7 @@ export interface DataTableProps<T> {
 
 type SortDir = "asc" | "desc" | null;
 
-export function DataTable<T extends Record<string, unknown>>({
+export function DataTable<T extends object>({
   columns,
   data,
   getRowId,
@@ -45,8 +45,8 @@ export function DataTable<T extends Record<string, unknown>>({
     if (!sortKey || !sortDir) return data;
     const copy = [...data];
     copy.sort((a, b) => {
-      const av = a[sortKey];
-      const bv = b[sortKey];
+      const av = (a as Record<string, unknown>)[sortKey];
+      const bv = (b as Record<string, unknown>)[sortKey];
       if (av === bv) return 0;
       const cmp = av! > bv! ? 1 : -1;
       return sortDir === "asc" ? cmp : -cmp;
@@ -59,7 +59,12 @@ export function DataTable<T extends Record<string, unknown>>({
       <TableHeader>
         <TableRow>
           {columns.map((col) => (
-            <TableHead key={col.key}>
+            <TableHead
+              key={col.key}
+              aria-sort={
+                sortKey !== col.key ? "none" : sortDir === "asc" ? "ascending" : "descending"
+              }
+            >
               {col.sortable === false ? (
                 col.header
               ) : (
@@ -83,7 +88,7 @@ export function DataTable<T extends Record<string, unknown>>({
           <TableRow key={getRowId(row)}>
             {columns.map((col) => (
               <TableCell key={col.key}>
-                {col.render ? col.render(row) : String(row[col.key] ?? "")}
+                {col.render ? col.render(row) : String((row as Record<string, unknown>)[col.key] ?? "")}
               </TableCell>
             ))}
           </TableRow>
