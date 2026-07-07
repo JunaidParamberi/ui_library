@@ -16,3 +16,4 @@ export * from "./components/skeleton";
 export * from "./components/table";
 export * from "./components/theme-toggle";
 export * from "./components/command-menu";
+export * from "./components/app-shell";
