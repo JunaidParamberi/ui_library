@@ -1,0 +1,34 @@
+import { ProgressDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# Progress
+
+Linear and radial progress indicators: `Progress` (bar, Radix Progress) and `HealthRing` (radial SVG).
+
+<StorybookLink package="ui" story="components-progress" />
+
+## Example
+
+<ComponentPreview>
+  <ProgressDemo />
+</ComponentPreview>
+
+## Props
+
+### Progress
+
+| Prop | Type | Default |
+|------|------|---------|
+| `value` | `number` | required, clamped to 0-100 |
+| `className` | `string` | — |
+
+### HealthRing
+
+| Prop | Type | Default |
+|------|------|---------|
+| `value` | `number` | required, clamped to 0-100 |
+| `size` | `number` | `64` |
+| `strokeWidth` | `number` | `6` |
+| `label` | `string` | — |
+| `className` | `string` | — |

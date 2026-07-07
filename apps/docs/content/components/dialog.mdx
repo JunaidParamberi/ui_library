@@ -1,0 +1,19 @@
+import { DialogDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# Dialog
+
+Modal dialog for confirmations and focused tasks, built on Radix Dialog.
+
+<StorybookLink package="ui" story="components-dialog" />
+
+## Example
+
+<ComponentPreview>
+  <DialogDemo />
+</ComponentPreview>
+
+## Props
+
+`Dialog`, `DialogTrigger`, `DialogClose` are Radix `Root`/`Trigger`/`Close` re-exports. `DialogContent` extends Radix `Content` props plus `className`. `DialogHeader` and `DialogFooter` are plain layout `div`s accepting `React.HTMLAttributes<HTMLDivElement>`. `DialogTitle` and `DialogDescription` extend their Radix counterparts plus `className`.

@@ -1,0 +1,19 @@
+import { TooltipDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# Tooltip
+
+Shows contextual help text on hover or focus, built on Radix Tooltip.
+
+<StorybookLink package="ui" story="components-tooltip" />
+
+## Example
+
+<ComponentPreview>
+  <TooltipDemo />
+</ComponentPreview>
+
+## Props
+
+`Tooltip`, `TooltipTrigger` are Radix `Root`/`Trigger` re-exports. `TooltipContent` extends Radix `Content` props (`sideOffset` defaults to `6`) plus `className`. Wrap usage in a `TooltipProvider`.

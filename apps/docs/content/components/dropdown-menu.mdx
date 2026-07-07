@@ -1,0 +1,19 @@
+import { DropdownMenuDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# DropdownMenu
+
+Contextual action menu anchored to a trigger, built on Radix DropdownMenu.
+
+<StorybookLink package="ui" story="components-dropdownmenu" />
+
+## Example
+
+<ComponentPreview>
+  <DropdownMenuDemo />
+</ComponentPreview>
+
+## Props
+
+`DropdownMenu`, `DropdownMenuTrigger` are Radix `Root`/`Trigger` re-exports. `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuSeparator`, `DropdownMenuLabel` each extend their Radix counterparts plus `className`, forward `ref`, and spread remaining props.

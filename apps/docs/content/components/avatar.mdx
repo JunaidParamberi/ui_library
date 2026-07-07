@@ -1,0 +1,26 @@
+import { AvatarDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# Avatar
+
+Displays a user's profile image with a graceful fallback to initials when the image fails to load or hasn't loaded yet.
+
+<StorybookLink package="ui" story="components-avatar" />
+
+## Example
+
+<ComponentPreview>
+  <AvatarDemo />
+</ComponentPreview>
+
+## Props
+
+### Avatar
+
+| Prop | Type | Default |
+|------|------|---------|
+| `size` | `"sm" \| "default" \| "lg"` | `"default"` |
+| `className` | `string` | — |
+
+All other props are forwarded to the underlying element. Also exported: `AvatarImage`, `AvatarFallback`.
