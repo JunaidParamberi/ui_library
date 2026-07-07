@@ -11,7 +11,7 @@ export function SelectDemo() {
   return (
     <div className="w-48">
       <Select>
-        <SelectTrigger>
+        <SelectTrigger aria-label="Fruit">
           <SelectValue placeholder="Select fruit…" />
         </SelectTrigger>
         <SelectContent>

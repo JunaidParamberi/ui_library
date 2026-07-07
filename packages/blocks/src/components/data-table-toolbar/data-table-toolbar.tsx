@@ -56,7 +56,7 @@ export const DataTableToolbar = React.forwardRef<HTMLDivElement, DataTableToolba
 
       {filters?.map((f) => (
         <Select key={f.id} value={f.value} onValueChange={f.onChange}>
-          <SelectTrigger className="w-auto min-w-[140px]">
+          <SelectTrigger className="w-auto min-w-[140px]" aria-label={f.placeholder}>
             <SelectValue placeholder={f.placeholder} />
           </SelectTrigger>
           <SelectContent>
