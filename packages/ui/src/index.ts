@@ -15,3 +15,4 @@ export * from "./components/progress";
 export * from "./components/skeleton";
 export * from "./components/table";
 export * from "./components/theme-toggle";
+export * from "./components/command-menu";
