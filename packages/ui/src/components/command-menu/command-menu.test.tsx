@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { axe } from "vitest-axe";
 import { describe, expect, it, vi } from "vitest";
 import { CommandMenu } from "../../index";
 
@@ -28,5 +29,10 @@ describe("CommandMenu", () => {
     render(<CommandMenu open onOpenChange={() => {}} items={items} />);
     await user.click(screen.getByText("New project"));
     expect(items[0]!.onSelect).toHaveBeenCalled();
+  });
+
+  it("has no a11y violations", async () => {
+    const { container } = render(<CommandMenu open onOpenChange={() => {}} items={items} />);
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

@@ -13,6 +13,11 @@ describe("Skeleton", () => {
     render(<Skeleton data-testid="sk" className="h-4 w-32" />);
     expect(screen.getByTestId("sk")).toHaveClass("h-4", "w-32");
   });
+
+  it("has no a11y violations", async () => {
+    const { container } = render(<Skeleton />);
+    expect(await axe(container)).toHaveNoViolations();
+  });
 });
 
 describe("Spinner", () => {

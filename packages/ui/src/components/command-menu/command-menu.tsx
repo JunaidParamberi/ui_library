@@ -3,7 +3,7 @@ import * as React from "react";
 import { Command as Cmdk } from "cmdk";
 import { Search } from "lucide-react";
 import { cn } from "../../lib/utils";
-import { Dialog, DialogContent } from "../dialog";
+import { Dialog, DialogContent, DialogTitle } from "../dialog";
 
 export interface CommandMenuItem {
   id: string;
@@ -32,6 +32,7 @@ export function CommandMenu({ open, onOpenChange, items, className }: CommandMen
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={cn("max-w-lg p-0 top-[20%] translate-y-0", className)}>
+        <DialogTitle className="sr-only">Command menu</DialogTitle>
         <Cmdk className="flex flex-col overflow-hidden rounded-lg" label="Command menu">
           <div className="flex items-center gap-2 border-b border-border px-3">
             <Search className="size-4 text-muted-foreground" aria-hidden />
