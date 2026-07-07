@@ -4,6 +4,9 @@ import preset from "@manpowerhub/tokens/preset";
 export default {
   presets: [preset],
   darkMode: "class",
+  // Nextra ships its own base reset; Tailwind's preflight would clobber the
+  // docs typography. We only need utilities + component classes for the demos.
+  corePlugins: { preflight: false },
   content: [
     "./app/**/*.{ts,tsx}",
     "./content/**/*.{md,mdx}",
