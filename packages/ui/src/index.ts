@@ -18,3 +18,4 @@ export * from "./components/theme-toggle";
 export * from "./components/command-menu";
 export * from "./components/app-shell";
 export * from "./components/area-chart";
+export * from "./components/icons";
