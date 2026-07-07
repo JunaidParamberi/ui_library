@@ -1,0 +1,28 @@
+import { SkeletonDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# Skeleton
+
+Loading placeholders: `Skeleton` (pulsing block, shape via `className`) and `Spinner` (rotating loader).
+
+<StorybookLink package="ui" story="components-skeleton" />
+
+## Example
+
+<ComponentPreview>
+  <SkeletonDemo />
+</ComponentPreview>
+
+## Props
+
+### Skeleton
+
+Accepts `React.HTMLAttributes<HTMLDivElement>`; shape and size are controlled entirely via `className` (e.g. `h-4 w-32`, `rounded-full`).
+
+### Spinner
+
+| Prop | Type | Default |
+|------|------|---------|
+| `size` | `"sm" \| "default" \| "lg"` | `"default"` |
+| `className` | `string` | — |

@@ -1,0 +1,35 @@
+import { AreaChartDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# AreaChart
+
+Lightweight dataviz primitives rendered as inline SVG — no charting dependency: `AreaChart` (line + filled area) and `MiniBars` (sparkline-style bars).
+
+<StorybookLink package="ui" story="components-areachart" />
+
+## Example
+
+<ComponentPreview>
+  <AreaChartDemo />
+</ComponentPreview>
+
+## Props
+
+### AreaChart
+
+| Prop | Type | Default |
+|------|------|---------|
+| `data` | `{ x: number \| string; y: number }[]` | required |
+| `width` | `number` | `240` |
+| `height` | `number` | `64` |
+
+### MiniBars
+
+| Prop | Type | Default |
+|------|------|---------|
+| `data` | `number[]` | required |
+| `width` | `number` | `120` |
+| `height` | `number` | `32` |
+
+Both accept remaining `React.SVGAttributes<SVGSVGElement>`, including `className`.

@@ -63,3 +63,51 @@ export const StatCardRowDemo = dynamic(
   () => import("./demos/stat-card-row-demo").then((m) => m.StatCardRowDemo),
   { ssr: false, loading },
 );
+export const AvatarDemo = dynamic(
+  () => import("./demos/avatar-demo").then((m) => m.AvatarDemo),
+  { ssr: false, loading },
+);
+export const TooltipDemo = dynamic(
+  () => import("./demos/tooltip-demo").then((m) => m.TooltipDemo),
+  { ssr: false, loading },
+);
+export const DialogDemo = dynamic(
+  () => import("./demos/dialog-demo").then((m) => m.DialogDemo),
+  { ssr: false, loading },
+);
+export const DropdownMenuDemo = dynamic(
+  () => import("./demos/dropdown-menu-demo").then((m) => m.DropdownMenuDemo),
+  { ssr: false, loading },
+);
+export const ProgressDemo = dynamic(
+  () => import("./demos/progress-demo").then((m) => m.ProgressDemo),
+  { ssr: false, loading },
+);
+export const SkeletonDemo = dynamic(
+  () => import("./demos/skeleton-demo").then((m) => m.SkeletonDemo),
+  { ssr: false, loading },
+);
+export const TableDemo = dynamic(
+  () => import("./demos/table-demo").then((m) => m.TableDemo),
+  { ssr: false, loading },
+);
+export const ThemeToggleDemo = dynamic(
+  () => import("./demos/theme-toggle-demo").then((m) => m.ThemeToggleDemo),
+  { ssr: false, loading },
+);
+export const CommandMenuDemo = dynamic(
+  () => import("./demos/command-menu-demo").then((m) => m.CommandMenuDemo),
+  { ssr: false, loading },
+);
+export const AppShellDemo = dynamic(
+  () => import("./demos/app-shell-demo").then((m) => m.AppShellDemo),
+  { ssr: false, loading },
+);
+export const AreaChartDemo = dynamic(
+  () => import("./demos/area-chart-demo").then((m) => m.AreaChartDemo),
+  { ssr: false, loading },
+);
+export const IconsDemo = dynamic(
+  () => import("./demos/icons-demo").then((m) => m.IconsDemo),
+  { ssr: false, loading },
+);

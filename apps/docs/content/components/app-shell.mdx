@@ -1,0 +1,27 @@
+import { AppShellDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# AppShell
+
+Application layout shell: a fixed-width sidebar column, a sticky topbar row, and a scrollable content area. The sidebar collapses under the `md` breakpoint.
+
+<StorybookLink package="ui" story="components-appshell" />
+
+## Example
+
+<ComponentPreview>
+  <AppShellDemo />
+</ComponentPreview>
+
+## Props
+
+| Prop | Type | Default |
+|------|------|---------|
+| `sidebar` | `ReactNode` | required |
+| `topbar` | `ReactNode` | required |
+| `sidebarOpen` | `boolean` | `true` |
+| `sidebarWidth` | `number` | `256` |
+| `children` | `ReactNode` | required |
+
+`AppShell` holds no internal collapse state — the consumer controls `sidebarOpen`, matching the library's customization contract.

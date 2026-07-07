@@ -1,0 +1,25 @@
+import { IconsDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# Icons
+
+A curated `Record<string, LucideIcon>` re-export of the `lucide-react` icons already used across the library — one stable import surface instead of importing `lucide-react` directly.
+
+<StorybookLink package="ui" story="components-icons" />
+
+## Example
+
+<ComponentPreview>
+  <IconsDemo />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Icons } from "@manpowerhub/ui";
+
+<Icons.Search className="size-4" />
+```
+
+Each value is a `LucideIcon` component and accepts all standard `lucide-react` props (`className`, `size`, `strokeWidth`, etc).

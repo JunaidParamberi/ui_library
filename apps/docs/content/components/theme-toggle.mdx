@@ -1,0 +1,24 @@
+import { ThemeToggleDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# ThemeToggle
+
+Controlled light/dark toggle button. Has no side effects of its own — the consumer applies the theme (e.g. via `document.documentElement.classList`).
+
+<StorybookLink package="ui" story="components-themetoggle" />
+
+## Example
+
+<ComponentPreview>
+  <ThemeToggleDemo />
+</ComponentPreview>
+
+## Props
+
+| Prop | Type | Default |
+|------|------|---------|
+| `theme` | `"light" \| "dark"` | required |
+| `onThemeChange` | `(next: "light" \| "dark") => void` | required |
+
+Extends all `ButtonProps` except `onClick` and `children`.

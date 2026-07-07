@@ -1,0 +1,26 @@
+import { CommandMenuDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# CommandMenu
+
+A ⌘K-style command palette with search-as-you-type filtering and grouped items, built on `cmdk` inside a `Dialog`.
+
+<StorybookLink package="ui" story="components-commandmenu" />
+
+## Example
+
+<ComponentPreview>
+  <CommandMenuDemo />
+</ComponentPreview>
+
+## Props
+
+| Prop | Type | Default |
+|------|------|---------|
+| `open` | `boolean` | required |
+| `onOpenChange` | `(open: boolean) => void` | required |
+| `items` | `{ id: string; label: string; onSelect: () => void; group?: string }[]` | required |
+| `className` | `string` | — |
+
+Items sharing the same `group` are rendered under one heading; ungrouped items fall under "Commands".

@@ -1,0 +1,28 @@
+import { TableDemo } from "../../src/components/dynamic-demos";
+import { StorybookLink } from "../../src/components/storybook-link";
+import { ComponentPreview } from "../../src/components/component-preview";
+
+# Table
+
+Static table primitives (`Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell`) plus `DataTable<T>`, a sortable, client-rendered wrapper.
+
+<StorybookLink package="ui" story="components-table" />
+
+## Example
+
+<ComponentPreview>
+  <TableDemo />
+</ComponentPreview>
+
+## Props
+
+### DataTable
+
+| Prop | Type | Default |
+|------|------|---------|
+| `columns` | `{ key: string; header: string; render?: (row: T) => ReactNode; sortable?: boolean }[]` | required |
+| `data` | `T[]` | required |
+| `getRowId` | `(row: T) => string` | required |
+| `className` | `string` | — |
+
+Clicking a sortable header cycles ascending → descending → unsorted. All Table primitives forward `ref`, merge `className` via `cn()`, and spread remaining props.

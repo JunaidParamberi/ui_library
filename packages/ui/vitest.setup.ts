@@ -3,6 +3,17 @@ import { expect } from "vitest";
 import type { Assertion } from "vitest";
 import { axe } from "vitest-axe";
 
+// jsdom has no ResizeObserver; cmdk (CommandMenu) observes element size on mount.
+class ResizeObserverStub {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+globalThis.ResizeObserver ??= ResizeObserverStub as unknown as typeof ResizeObserver;
+
+// jsdom has no scrollIntoView; cmdk scrolls the selected item into view.
+Element.prototype.scrollIntoView ??= function scrollIntoView() {};
+
 // Register toHaveNoViolations matcher compatible with vitest 2.x
 expect.extend({
   async toHaveNoViolations(received: any) {
