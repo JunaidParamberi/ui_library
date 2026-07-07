@@ -10,6 +10,7 @@
     "gen": "node scripts/gen-demo-sources.mjs && node scripts/gen-props.mjs",
     "predev": "pnpm gen",
     "prebuild": "pnpm gen",
+    "pretest": "pnpm gen",
     "test": "vitest run"
   },
   "dependencies": {
