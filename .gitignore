@@ -11,3 +11,4 @@ vite.config.js
 .next/
 out/
 .vercel/
+.pnpm-store/
