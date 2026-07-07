@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { axe } from "vitest-axe";
 import { describe, expect, it } from "vitest";
-import { Avatar, AvatarImage, AvatarFallback } from "../../index";
+import { Avatar, AvatarFallback } from "../../index";
 
 describe("Avatar", () => {
   it("renders fallback initials when no image loads", () => {
