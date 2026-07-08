@@ -43,6 +43,13 @@ function buildComponentItems(
   fileType: FileType, symbolMap: Map<string, string>, stageDir: string, baseUrl: string,
 ): RegistryItem[] {
   const componentsDir = path.join(baseDir, "components");
+  // Staged paths are flattened to `${group}/${file}` (no per-component subdir) so shadcn's
+  // `add`, which strips the leading type segment (`ui/`), lands files flat at
+  // `components/ui/<file>` — matching the `@/components/ui/<name>` import alias. Since the
+  // per-component subdir namespace is gone, guard against two components staging the same
+  // filename and silently clobbering each other.
+  const seenPaths = new Map<string, string>(); // relPath -> owning component name
+
   return fs.readdirSync(componentsDir, { withFileTypes: true })
     .filter((d) => d.isDirectory())
     .map((d) => {
@@ -55,7 +62,15 @@ function buildComponentItems(
         const { code, registryDeps: rd } = rewriteImports(raw, symbolMap, group === "blocks" ? "block" : "ui");
         scanNpmDeps(code).forEach((x) => deps.add(x));
         rd.forEach((x) => registryDeps.add(x));
-        const relPath = `${group}/${name}/${file}`;
+        const relPath = `${group}/${file}`;
+        const prevOwner = seenPaths.get(relPath);
+        if (prevOwner && prevOwner !== name) {
+          throw new Error(
+            `Registry file path collision: "${relPath}" is staged by both "${prevOwner}" and "${name}". ` +
+              `Flattened staging drops the per-component subdir, so filenames must be unique within the "${group}" group.`,
+          );
+        }
+        seenPaths.set(relPath, name);
         stage(stageDir, relPath, code);
         return { path: relPath, type: fileType };
       });

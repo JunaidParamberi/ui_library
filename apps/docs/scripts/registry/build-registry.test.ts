@@ -30,6 +30,15 @@ describe("buildRegistry", () => {
     expect(item("button").files[0].type).toBe("registry:ui");
   });
 
+  it("stages button files flat (no per-component subdir) so shadcn lands them at components/ui/button.tsx", () => {
+    expect(item("button").files[0].path).toBe("ui/button.tsx");
+  });
+
+  it("stages badge item with two flat files: ui/badge.tsx and ui/status-badge.tsx", () => {
+    const paths = item("badge").files.map((f) => f.path).sort();
+    expect(paths).toEqual(["ui/badge.tsx", "ui/status-badge.tsx"]);
+  });
+
   it("emits pricing-table as a block that depends on card/button/badge/utils", () => {
     const pt = item("pricing-table");
     expect(pt.type).toBe("registry:block");
