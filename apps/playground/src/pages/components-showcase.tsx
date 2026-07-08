@@ -3,7 +3,25 @@ import {
   Avatar,
   AvatarImage,
   AvatarFallback,
+  Badge,
   Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardBody,
+  CardFooter,
+  Checkbox,
+  Input,
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  KPICard,
   Tooltip,
   TooltipTrigger,
   TooltipContent,
@@ -66,7 +84,91 @@ export function ComponentsShowcase() {
     <div className="space-y-10">
       <h1 className="text-2xl font-display text-foreground">Components Showcase</h1>
 
-      <section className="space-y-3">
+      <section id="button" className="space-y-3">
+        <h2 className="text-sm text-muted-foreground">Button</h2>
+        <div className="flex items-center gap-3">
+          <Button>Primary</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="danger">Danger</Button>
+        </div>
+      </section>
+
+      <section id="badge" className="space-y-3">
+        <h2 className="text-sm text-muted-foreground">Badge</h2>
+        <div className="flex items-center gap-3">
+          <Badge>Default</Badge>
+          <Badge variant="accent">Accent</Badge>
+          <Badge variant="success">Success</Badge>
+        </div>
+      </section>
+
+      <section id="card" className="space-y-3">
+        <h2 className="text-sm text-muted-foreground">Card</h2>
+        <Card className="max-w-sm">
+          <CardHeader>
+            <CardTitle>Project status</CardTitle>
+          </CardHeader>
+          <CardBody>
+            <p className="text-sm text-muted-foreground">Everything is on track.</p>
+          </CardBody>
+          <CardFooter>
+            <Button size="sm" variant="outline">View details</Button>
+          </CardFooter>
+        </Card>
+      </section>
+
+      <section id="input" className="space-y-3">
+        <h2 className="text-sm text-muted-foreground">Input</h2>
+        <div className="max-w-sm space-y-2">
+          <Input placeholder="Email address" />
+          <Input placeholder="Disabled" disabled />
+        </div>
+      </section>
+
+      <section id="select" className="space-y-3">
+        <h2 className="text-sm text-muted-foreground">Select</h2>
+        <div className="w-48">
+          <Select>
+            <SelectTrigger><SelectValue placeholder="Select fruit…" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+              <SelectItem value="cherry">Cherry</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </section>
+
+      <section id="checkbox" className="space-y-3">
+        <h2 className="text-sm text-muted-foreground">Checkbox</h2>
+        <div className="flex flex-col gap-2">
+          <Checkbox id="cb-showcase-unchecked" label="Unchecked" />
+          <Checkbox id="cb-showcase-checked" label="Checked" defaultChecked />
+        </div>
+      </section>
+
+      <section id="tabs" className="space-y-3">
+        <h2 className="text-sm text-muted-foreground">Tabs</h2>
+        <Tabs defaultValue="overview" className="w-[360px]">
+          <TabsList>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="activity">Activity</TabsTrigger>
+          </TabsList>
+          <TabsContent value="overview"><p className="text-sm text-muted-foreground">Overview content</p></TabsContent>
+          <TabsContent value="activity"><p className="text-sm text-muted-foreground">Activity feed</p></TabsContent>
+        </Tabs>
+      </section>
+
+      <section id="kpi-card" className="space-y-3">
+        <h2 className="text-sm text-muted-foreground">KPICard</h2>
+        <div className="grid max-w-md grid-cols-2 gap-3">
+          <KPICard kpi={{ label: "Revenue", value: "AED 42,180", delta: "+12%", trend: "up", sub: "vs last 30 days" }} />
+          <KPICard kpi={{ label: "Active sites", value: "24" }} />
+        </div>
+      </section>
+
+      <section id="avatar" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">Avatar</h2>
         <div className="flex items-center gap-4">
           <Avatar size="sm"><AvatarFallback>SM</AvatarFallback></Avatar>
@@ -78,7 +180,7 @@ export function ComponentsShowcase() {
         </div>
       </section>
 
-      <section className="space-y-3">
+      <section id="tooltip" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">Tooltip</h2>
         <TooltipProvider>
           <Tooltip>
@@ -90,7 +192,7 @@ export function ComponentsShowcase() {
         </TooltipProvider>
       </section>
 
-      <section className="space-y-3">
+      <section id="dialog" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">Dialog</h2>
         <Dialog>
           <DialogTrigger asChild>
@@ -111,7 +213,7 @@ export function ComponentsShowcase() {
         </Dialog>
       </section>
 
-      <section className="space-y-3">
+      <section id="dropdown-menu" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">DropdownMenu</h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -126,7 +228,7 @@ export function ComponentsShowcase() {
         </DropdownMenu>
       </section>
 
-      <section className="space-y-3">
+      <section id="progress" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">Progress / HealthRing</h2>
         <div className="flex items-center gap-8">
           <div className="flex-1 space-y-3">
@@ -137,7 +239,7 @@ export function ComponentsShowcase() {
         </div>
       </section>
 
-      <section className="space-y-3">
+      <section id="skeleton" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">Skeleton / Spinner</h2>
         <div className="flex items-center gap-8">
           <div className="flex flex-col gap-2">
@@ -148,7 +250,7 @@ export function ComponentsShowcase() {
         </div>
       </section>
 
-      <section className="space-y-3">
+      <section id="table" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">Table / DataTable</h2>
         <DataTable
           columns={[
@@ -161,18 +263,18 @@ export function ComponentsShowcase() {
         />
       </section>
 
-      <section className="space-y-3">
+      <section id="theme-toggle" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">ThemeToggle</h2>
         <ThemeToggle theme={theme} onThemeChange={setTheme} />
       </section>
 
-      <section className="space-y-3">
+      <section id="command-menu" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">CommandMenu</h2>
         <Button onClick={() => setCommandOpen(true)}>Open ⌘K</Button>
         <CommandMenu open={commandOpen} onOpenChange={setCommandOpen} items={commandItems} />
       </section>
 
-      <section className="space-y-3">
+      <section id="app-shell" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">AppShell</h2>
         <AppShell
           className="h-48 min-h-0 overflow-hidden rounded-md border border-border"
@@ -183,7 +285,7 @@ export function ComponentsShowcase() {
         </AppShell>
       </section>
 
-      <section className="space-y-3">
+      <section id="area-chart" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">AreaChart / MiniBars</h2>
         <div className="flex items-center gap-8">
           <AreaChart data={series} />
@@ -191,7 +293,7 @@ export function ComponentsShowcase() {
         </div>
       </section>
 
-      <section className="space-y-3">
+      <section id="icons" className="space-y-3">
         <h2 className="text-sm text-muted-foreground">Icons</h2>
         <div className="flex items-center gap-4">
           {Object.entries(Icons).map(([name, Icon]) => (

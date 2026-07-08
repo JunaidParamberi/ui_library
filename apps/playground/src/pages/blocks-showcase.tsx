@@ -32,50 +32,60 @@ export function BlocksShowcase() {
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-12">
-      <PageHeader
-        title="Blocks showcase"
-        description="Composed sections from @manpowerhub/blocks."
-        badge={<Badge variant="accent">Preview</Badge>}
-        actions={<Button variant="primary">Primary action</Button>}
-        bordered
-      />
+      <section id="page-header">
+        <PageHeader
+          title="Blocks showcase"
+          description="Composed sections from @manpowerhub/blocks."
+          badge={<Badge variant="accent">Preview</Badge>}
+          actions={<Button variant="primary">Primary action</Button>}
+          bordered
+        />
+      </section>
 
-      <StatCardRow stats={stats} columns={3} />
+      <section id="stat-card-row">
+        <StatCardRow stats={stats} columns={3} />
+      </section>
 
-      <DataTableToolbar
-        search={{ value: q, onChange: setQ, placeholder: "Search members…" }}
-        filters={[
-          {
-            id: "status",
-            placeholder: "Status",
-            value: status,
-            onChange: setStatus,
-            options: [
-              { label: "Active", value: "active" },
-              { label: "Invited", value: "invited" },
-            ],
-          },
-        ]}
-        actions={<Button variant="primary">Add member</Button>}
-      />
+      <section id="data-table-toolbar">
+        <DataTableToolbar
+          search={{ value: q, onChange: setQ, placeholder: "Search members…" }}
+          filters={[
+            {
+              id: "status",
+              placeholder: "Status",
+              value: status,
+              onChange: setStatus,
+              options: [
+                { label: "Active", value: "active" },
+                { label: "Invited", value: "invited" },
+              ],
+            },
+          ]}
+          actions={<Button variant="primary">Add member</Button>}
+        />
+      </section>
 
-      <EmptyState
-        icon={<FolderOpen />}
-        title="No projects yet"
-        description="Create your first project to get started."
-        action={{ label: "New project", onClick: () => {} }}
-      />
+      <section id="empty-state">
+        <EmptyState
+          icon={<FolderOpen />}
+          title="No projects yet"
+          description="Create your first project to get started."
+          action={{ label: "New project", onClick: () => {} }}
+        />
+      </section>
 
-      <div className="flex justify-center">
+      <section id="auth-form" className="flex justify-center">
         <AuthForm
           email={{ value: email, onChange: setEmail }}
           password={{ value: password, onChange: setPassword }}
           onSubmit={(e) => e.preventDefault()}
           footer={<a href="#" className="text-primary hover:underline">Forgot password?</a>}
         />
-      </div>
+      </section>
 
-      <PricingTable tiers={tiers} columns={3} billingPeriod={{ value: period, onChange: setPeriod }} />
+      <section id="pricing-table">
+        <PricingTable tiers={tiers} columns={3} billingPeriod={{ value: period, onChange: setPeriod }} />
+      </section>
     </div>
   );
 }
