@@ -35,7 +35,7 @@ export function PropsTable({ of }: { of: string }) {
             <tr key={r.name} className="border-b border-border/50 align-top">
               <td className="py-2 pr-4 font-mono">
                 {r.name}
-                {r.required && <span className="text-danger"> *</span>}
+                {r.required && <span className="text-destructive"> *</span>}
               </td>
               <td className="py-2 pr-4 font-mono text-muted-foreground">{r.type}</td>
               <td className="py-2 pr-4 font-mono">{r.defaultValue?.toString() ?? "—"}</td>

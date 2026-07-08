@@ -30,4 +30,21 @@ describe("ComponentPreview", () => {
     await userEvent.click(screen.getByRole("button", { name: /copy/i }));
     expect(writeText).toHaveBeenCalledWith("<Button>Hi</Button>");
   });
+
+  it("toggles dark class on the preview container", async () => {
+    render(
+      <ComponentPreview source={"<Button>Hi</Button>"}>
+        <span>demo</span>
+      </ComponentPreview>,
+    );
+    const container = screen.getByTestId("component-preview-container");
+    expect(container).not.toHaveClass("dark");
+
+    const toggle = screen.getByRole("button", { name: /toggle dark preview/i });
+    await userEvent.click(toggle);
+    expect(container).toHaveClass("dark");
+
+    await userEvent.click(toggle);
+    expect(container).not.toHaveClass("dark");
+  });
 });

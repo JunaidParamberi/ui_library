@@ -10,6 +10,7 @@ export function ComponentPreview({
 }) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
+  const [darkPreview, setDarkPreview] = useState(false);
 
   async function copy() {
     if (!source) return;
@@ -42,8 +43,16 @@ export function ComponentPreview({
             Code
           </button>
           <button
-            onClick={copy}
+            onClick={() => setDarkPreview((d) => !d)}
+            aria-pressed={darkPreview}
+            aria-label="Toggle dark preview"
             className="ml-auto rounded px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
+          >
+            {darkPreview ? "Light" : "Dark"}
+          </button>
+          <button
+            onClick={copy}
+            className="rounded px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
             aria-label="Copy code"
           >
             {copied ? "Copied" : "Copy"}
@@ -51,8 +60,14 @@ export function ComponentPreview({
         </div>
       )}
       {tab === "preview" || !source ? (
-        <div className="p-6">{children}</div>
+        <div
+          data-testid="component-preview-container"
+          className={`p-6${darkPreview ? " dark" : ""}`}
+        >
+          {children}
+        </div>
       ) : (
+        // Syntax highlighting deferred — plain monospace source is copyable and readable.
         <pre className="overflow-x-auto p-4 text-sm">
           <code>{source}</code>
         </pre>
