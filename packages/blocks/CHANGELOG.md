@@ -1,5 +1,11 @@
 # @manpowerhub/blocks
 
+## 0.2.1
+
+### Patch Changes
+
+- ed583bb: Fix DataTableToolbar filter selects missing an accessible name (axe `button-name` violation) by adding `aria-label={filter.placeholder}` to each filter's SelectTrigger.
+
 ## 0.2.0
 
 ### Minor Changes

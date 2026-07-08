@@ -1,5 +1,12 @@
 # @manpowerhub/docs
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [ed583bb]
+  - @manpowerhub/blocks@0.2.1
+
 ## 0.0.2
 
 ### Patch Changes
