@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
-import { buildSymbolMap } from "./symbol-map";
+import { buildSymbolMap, type SymbolEntry } from "./symbol-map";
 import { rewriteImports } from "./rewrite-imports";
 import { scanNpmDeps } from "./scan-deps";
 
 type ItemType = "registry:ui" | "registry:block" | "registry:lib";
-type FileType = "registry:ui" | "registry:component" | "registry:block" | "registry:lib";
+type FileType = "registry:ui" | "registry:block" | "registry:lib";
 export interface RegistryItem {
   name: string;
   type: ItemType;
@@ -40,7 +40,7 @@ function stage(stageDir: string, relPath: string, code: string) {
 
 function buildComponentItems(
   baseDir: string, group: "ui" | "blocks", itemType: ItemType,
-  fileType: FileType, symbolMap: Map<string, string>, stageDir: string, baseUrl: string,
+  fileType: FileType, symbolMap: Map<string, SymbolEntry>, stageDir: string, baseUrl: string,
 ): RegistryItem[] {
   const componentsDir = path.join(baseDir, "components");
   // Staged paths are flattened to `${group}/${file}` (no per-component subdir) so shadcn's
@@ -52,14 +52,15 @@ function buildComponentItems(
 
   return fs.readdirSync(componentsDir, { withFileTypes: true })
     .filter((d) => d.isDirectory())
-    .map((d) => {
-      const name = d.name;
+    .map((d) => d.name)
+    .sort()
+    .map((name) => {
       const dir = path.join(componentsDir, name);
       const deps = new Set<string>();
       const registryDeps = new Set<string>();
-      const files = fs.readdirSync(dir).filter(isShipped).map((file) => {
+      const files = fs.readdirSync(dir).sort().filter(isShipped).map((file) => {
         const raw = fs.readFileSync(path.join(dir, file), "utf8");
-        const { code, registryDeps: rd } = rewriteImports(raw, symbolMap, group === "blocks" ? "block" : "ui");
+        const { code, registryDeps: rd } = rewriteImports(raw, symbolMap);
         scanNpmDeps(code).forEach((x) => deps.add(x));
         rd.forEach((x) => registryDeps.add(x));
         const relPath = `${group}/${file}`;
@@ -103,7 +104,7 @@ export function buildRegistry(opts: Opts): Registry {
   return {
     $schema: "https://ui.shadcn.com/schema/registry.json",
     name: "manpowerhub",
-    homepage: DEFAULT_BASE_URL,
+    homepage: baseUrl,
     items: [utilsItem, ...uiItems, ...blockItems],
     stageDir: opts.stageDir,
   };
