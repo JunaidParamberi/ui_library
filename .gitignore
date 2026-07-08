@@ -12,3 +12,6 @@ vite.config.js
 out/
 .vercel/
 .pnpm-store/
+apps/docs/registry.json
+apps/docs/registry/
+apps/docs/public/r/
