@@ -200,3 +200,27 @@ export const ThemeToggleDarkState = dynamic(
   () => import("./demos/theme-toggle-demo").then((m) => m.ThemeToggleDarkState),
   { ssr: false, loading },
 );
+
+export const AuthFormDefaultState = dynamic(
+  () => import("./demos/auth-form-demo").then((m) => m.AuthFormDefaultState),
+  { ssr: false, loading },
+);
+export const AuthFormLoadingState = dynamic(
+  () => import("./demos/auth-form-demo").then((m) => m.AuthFormLoadingState),
+  { ssr: false, loading },
+);
+export const AuthFormErrorState = dynamic(
+  () => import("./demos/auth-form-demo").then((m) => m.AuthFormErrorState),
+  { ssr: false, loading },
+);
+
+export const DataTableToolbarDefaultState = dynamic(
+  () =>
+    import("./demos/data-table-toolbar-demo").then((m) => m.DataTableToolbarDefaultState),
+  { ssr: false, loading },
+);
+export const DataTableToolbarSelectedState = dynamic(
+  () =>
+    import("./demos/data-table-toolbar-demo").then((m) => m.DataTableToolbarSelectedState),
+  { ssr: false, loading },
+);

@@ -1,19 +1,45 @@
-import { AuthFormDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
+import { AuthFormDemo, AuthFormDefaultState, AuthFormLoadingState, AuthFormErrorState } from "../../src/components/dynamic-demos";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { VariantGallery, GalleryCell } from "../../src/components/variant-gallery";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # AuthForm
 
-Login/signup form block. Fully controlled via props.
+Login/signup form block, fully controlled via props.
 
-<StorybookLink package="blocks" story="blocks-authform" />
+<FullViewLinks slug="auth-form" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["auth-form-demo"]}>
   <AuthFormDemo />
 </ComponentPreview>
 
+## States
+
+<VariantGallery>
+  <GalleryCell label="Default"><AuthFormDefaultState /></GalleryCell>
+  <GalleryCell label="Loading"><AuthFormLoadingState /></GalleryCell>
+  <GalleryCell label="Error"><AuthFormErrorState /></GalleryCell>
+</VariantGallery>
+
+## Usage
+
+Pass controlled `email` and `password` field objects and an `onSubmit` handler; the form
+does not manage submission state itself. Set `loading` while a request is in flight to
+disable the submit button and show a spinner, and pass `error` to surface a server-side
+validation or auth failure above the fields. Use `mode="signup"` to switch the heading and
+submit label.
+
 ## Props
 
-`email`, `password` (controlled field objects), `onSubmit`, optional `mode`, `title`, `error`, `loading`, `remember`, `footer`.
+<PropsTable of="AuthForm" />
+
+## Accessibility
+
+The error message is rendered with `role="alert"` so screen readers announce it as soon as
+it appears. Fields are associated with their labels via generated `id`s, and the submit
+button exposes `aria-busy` while `loading`. All controls are native form elements and are
+keyboard-operable without additional wiring.
