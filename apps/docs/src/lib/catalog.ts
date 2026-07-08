@@ -18,7 +18,7 @@
 export interface CatalogEntry {
   slug: string;
   demoKey: string;
-  docgenName: string;
+  docgenName?: string;
   story: string;
   storyId: string;
   pkg: "ui" | "blocks";
@@ -36,9 +36,10 @@ export const catalog: CatalogEntry[] = [
   { slug: "command-menu", demoKey: "command-menu-demo", docgenName: "CommandMenu", story: "components-commandmenu", storyId: "default", pkg: "ui" },
   { slug: "dialog", demoKey: "dialog-demo", docgenName: "Dialog", story: "components-dialog", storyId: "default", pkg: "ui" },
   { slug: "dropdown-menu", demoKey: "dropdown-menu-demo", docgenName: "DropdownMenu", story: "components-dropdownmenu", storyId: "default", pkg: "ui" },
-  // NOTE: "Icons" is not a key in props.generated.json (it's a Record<string, LucideIcon>
-  // re-export, not a discrete component the docgen tool extracts props for). See task-4-report.md.
-  { slug: "icons", demoKey: "icons-demo", docgenName: "Icons", story: "components-icons", storyId: "default", pkg: "ui" },
+  // NOTE: "Icons" is a Record<string, LucideIcon> namespace re-export, not a discrete
+  // component — the docgen tool has no key for it in props.generated.json, so docgenName
+  // is intentionally omitted here. See task-4-report.md.
+  { slug: "icons", demoKey: "icons-demo", story: "components-icons", storyId: "default", pkg: "ui" },
   { slug: "input", demoKey: "input-demo", docgenName: "Input", story: "core-input", storyId: "default", pkg: "ui" },
   { slug: "kpi-card", demoKey: "kpi-card-demo", docgenName: "KPICard", story: "data-viz-kpicard", storyId: "default", pkg: "ui" },
   { slug: "progress", demoKey: "progress-demo", docgenName: "Progress", story: "components-progress", storyId: "default", pkg: "ui" },
