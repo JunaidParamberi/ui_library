@@ -8,3 +8,13 @@ export function InputDemo() {
     </Field>
   );
 }
+
+export function InputDefaultState() {
+  return <Input placeholder="you@example.com" />;
+}
+export function InputDisabledState() {
+  return <Input placeholder="you@example.com" disabled />;
+}
+export function InputInvalidState() {
+  return <Input placeholder="you@example.com" invalid defaultValue="not-an-email" />;
+}

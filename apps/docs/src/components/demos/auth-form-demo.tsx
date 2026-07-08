@@ -18,3 +18,41 @@ export function AuthFormDemo() {
     />
   );
 }
+
+export function AuthFormDefaultState() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  return (
+    <AuthForm
+      email={{ value: email, onChange: setEmail }}
+      password={{ value: password, onChange: setPassword }}
+      onSubmit={(e) => e.preventDefault()}
+    />
+  );
+}
+
+export function AuthFormLoadingState() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  return (
+    <AuthForm
+      email={{ value: email, onChange: setEmail }}
+      password={{ value: password, onChange: setPassword }}
+      onSubmit={(e) => e.preventDefault()}
+      loading
+    />
+  );
+}
+
+export function AuthFormErrorState() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  return (
+    <AuthForm
+      email={{ value: email, onChange: setEmail }}
+      password={{ value: password, onChange: setPassword }}
+      onSubmit={(e) => e.preventDefault()}
+      error="Invalid email or password."
+    />
+  );
+}

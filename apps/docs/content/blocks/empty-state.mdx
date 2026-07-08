@@ -1,19 +1,34 @@
 import { EmptyStateDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # EmptyState
 
-Centered empty-list placeholder with icon, copy, and optional action.
+Centered placeholder shown when a collection has no items.
 
-<StorybookLink package="blocks" story="blocks-emptystate" />
+<FullViewLinks slug="empty-state" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["empty-state-demo"]}>
   <EmptyStateDemo />
 </ComponentPreview>
 
+## Usage
+
+Use inside a `Card` or section body wherever a list, table, or search result is empty.
+Pass a short `title` and one-line `description`, and include `action` (`{ label, onClick }`)
+when there's a clear next step, such as creating the first item. Reserve the `icon` slot for
+a single decorative Lucide icon that reinforces the empty context.
+
 ## Props
 
-`icon`, `title`, `description`, optional `action` (`{ label, onClick }`), `variant`.
+<PropsTable of="EmptyState" />
+
+## Accessibility
+
+The `title` renders as a heading so it participates in the page's heading hierarchy, and the
+optional action is a real, keyboard-reachable button rather than a styled `div`. The
+decorative icon is presentational and does not need alt text.

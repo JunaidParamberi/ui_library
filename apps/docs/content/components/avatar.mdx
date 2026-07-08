@@ -1,26 +1,35 @@
 import { AvatarDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Avatar
 
-Displays a user's profile image with a graceful fallback to initials when the image fails to load or hasn't loaded yet.
+Displays a user's profile image with a graceful fallback to initials when the image fails to
+load or hasn't loaded yet.
 
-<StorybookLink package="ui" story="components-avatar" />
+<FullViewLinks slug="avatar" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["avatar-demo"]}>
   <AvatarDemo />
 </ComponentPreview>
 
+## Usage
+
+Compose `Avatar`, `AvatarImage`, and `AvatarFallback`. `AvatarFallback` renders automatically
+while the image loads and if it errors, so always provide it (typically the user's initials).
+Use the `size` variant (`sm`/`default`/`lg`) to match the surrounding density — e.g. `sm` in a
+table row, `lg` in a profile header.
+
 ## Props
 
-### Avatar
+<PropsTable of="Avatar" />
 
-| Prop | Type | Default |
-|------|------|---------|
-| `size` | `"sm" \| "default" \| "lg"` | `"default"` |
-| `className` | `string` | — |
+## Accessibility
 
-All other props are forwarded to the underlying element. Also exported: `AvatarImage`, `AvatarFallback`.
+Built on Radix `Avatar`. Always pass a meaningful `alt` to `AvatarImage` describing the person
+(e.g. `"Jane Doe"`), not generic text like `"avatar"`. The fallback initials are plain text and
+are announced by screen readers when the image isn't rendered.

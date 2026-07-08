@@ -11,13 +11,43 @@ export function SelectDemo() {
   return (
     <div className="w-48">
       <Select>
-        <SelectTrigger>
+        <SelectTrigger aria-label="Fruit">
           <SelectValue placeholder="Select fruit…" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="apple">Apple</SelectItem>
           <SelectItem value="banana">Banana</SelectItem>
           <SelectItem value="cherry">Cherry</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+
+export function SelectDefaultState() {
+  return (
+    <div className="w-48">
+      <Select>
+        <SelectTrigger aria-label="Fruit">
+          <SelectValue placeholder="Select fruit…" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana">Banana</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+export function SelectDisabledState() {
+  return (
+    <div className="w-48">
+      <Select disabled>
+        <SelectTrigger aria-label="Fruit">
+          <SelectValue placeholder="Select fruit…" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="apple">Apple</SelectItem>
         </SelectContent>
       </Select>
     </div>

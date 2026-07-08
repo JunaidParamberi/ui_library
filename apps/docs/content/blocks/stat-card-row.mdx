@@ -1,19 +1,33 @@
 import { StatCardRowDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # StatCardRow
 
 Responsive row of KPI cards for dashboard summaries.
 
-<StorybookLink package="blocks" story="blocks-statcardrow" />
+<FullViewLinks slug="stat-card-row" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["stat-card-row-demo"]}>
   <StatCardRowDemo />
 </ComponentPreview>
 
+## Usage
+
+Pass `stats` as a `KPI[]` (imported from `@manpowerhub/ui`) — each entry supplies a `label`,
+`value`, and optional `delta`/`trend`/`sub` line. Set `columns` (2, 3, or 4) to control how many
+`KPICard`s appear per row before wrapping on smaller viewports.
+
 ## Props
 
-`stats` (`KPI[]` from `@manpowerhub/ui`), `columns` (1–4).
+<PropsTable of="StatCardRow" />
+
+## Accessibility
+
+Each stat renders through `KPICard`, which pairs the numeric value with its label as
+readable text rather than relying on layout alone, so screen readers announce a coherent
+"label, value, trend" sequence for every card.

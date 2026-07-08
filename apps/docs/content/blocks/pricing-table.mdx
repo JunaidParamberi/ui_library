@@ -1,19 +1,35 @@
 import { PricingTableDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # PricingTable
 
-Tier comparison grid with billing period toggle.
+Tier comparison grid with an optional monthly/annual billing toggle.
 
-<StorybookLink package="blocks" story="blocks-pricingtable" />
+<FullViewLinks slug="pricing-table" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["pricing-table-demo"]}>
   <PricingTableDemo />
 </ComponentPreview>
 
+## Usage
+
+Pass `tiers` (`PricingTier[]`) with each tier's name, price, features, and call-to-action;
+mark one tier `highlighted` to draw the eye to the recommended plan and optionally give it a
+`badge` like "Popular". Set `columns` to match the number of tiers (2-4 reads best). Wire
+`billingPeriod` as a controlled `{ value, onChange }` pair when tiers have both monthly and
+annual pricing.
+
 ## Props
 
-`tiers` (`PricingTier[]`), `columns`, optional `billingPeriod` (controlled monthly/annual).
+<PropsTable of="PricingTable" />
+
+## Accessibility
+
+Each tier's call-to-action is a real button, so the whole grid is keyboard-navigable via tab
+order. The highlighted tier is distinguished visually and via its `badge` text, not by color
+alone, so the recommendation is conveyed to assistive technology as well.

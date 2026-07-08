@@ -1,34 +1,50 @@
-import { ProgressDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
+import { ProgressDemo, ProgressLowState, ProgressDefaultState, ProgressCompleteState } from "../../src/components/dynamic-demos";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { VariantGallery, GalleryCell } from "../../src/components/variant-gallery";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Progress
 
-Linear and radial progress indicators: `Progress` (bar, Radix Progress) and `HealthRing` (radial SVG).
+Linear and radial progress indicators: `Progress` (bar, Radix Progress) and `HealthRing`
+(radial SVG).
 
-<StorybookLink package="ui" story="components-progress" />
+<FullViewLinks slug="progress" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["progress-demo"]}>
   <ProgressDemo />
 </ComponentPreview>
 
+## States
+
+<VariantGallery>
+  <GalleryCell label="Low (12%)"><ProgressLowState /></GalleryCell>
+  <GalleryCell label="In progress (55%)"><ProgressDefaultState /></GalleryCell>
+  <GalleryCell label="Complete (100%)"><ProgressCompleteState /></GalleryCell>
+</VariantGallery>
+
+## Usage
+
+Use `Progress` for a linear, determinate task (uploads, multi-step completion) and
+`HealthRing` where a compact radial summary fits better (dashboard tiles, score widgets). Both
+clamp `value` to 0–100 — you don't need to clamp it yourself. Always pass an `aria-label`
+describing what's progressing, since neither component renders visible text by default.
+
 ## Props
 
-### Progress
-
-| Prop | Type | Default |
-|------|------|---------|
-| `value` | `number` | required, clamped to 0-100 |
-| `className` | `string` | — |
+<PropsTable of="Progress" />
 
 ### HealthRing
 
-| Prop | Type | Default |
-|------|------|---------|
-| `value` | `number` | required, clamped to 0-100 |
-| `size` | `number` | `64` |
-| `strokeWidth` | `number` | `6` |
-| `label` | `string` | — |
-| `className` | `string` | — |
+<PropsTable of="HealthRing" />
+
+## Accessibility
+
+`Progress` is built on Radix `Progress`, which exposes `role="progressbar"` with
+`aria-valuenow`/`aria-valuemin`/`aria-valuemax` so assistive tech can announce completion.
+`HealthRing` is a custom SVG with no built-in ARIA — pass `aria-label` (and consider
+`role="img"`) yourself if you use it standalone rather than as a decorative companion to
+visible text.

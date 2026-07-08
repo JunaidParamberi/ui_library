@@ -1,19 +1,34 @@
 import { PageHeaderDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # PageHeader
 
 Page title row with description, badge, breadcrumbs, and actions.
 
-<StorybookLink package="blocks" story="blocks-pageheader" />
+<FullViewLinks slug="page-header" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["page-header-demo"]}>
   <PageHeaderDemo />
 </ComponentPreview>
 
+## Usage
+
+Place at the top of a page, below any breadcrumb trail passed via `breadcrumbs`. Use
+`description` for a one-line subtitle, `badge` for a status marker (e.g. a "Preview" or
+"Beta" `Badge`), and `actions` for the page's primary and secondary buttons. Set `bordered`
+to add a bottom rule when the header sits directly above dense content like a table.
+
 ## Props
 
-`title`, optional `description`, `badge`, `actions`, `breadcrumbs`, `bordered`.
+<PropsTable of="PageHeader" />
+
+## Accessibility
+
+The `title` renders as the page's main heading, keeping the document outline predictable
+for screen-reader users navigating by heading. Actions are ordinary buttons/links and
+follow standard tab order after the breadcrumbs.

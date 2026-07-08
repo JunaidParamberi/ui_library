@@ -1,19 +1,54 @@
 import { DropdownMenuDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # DropdownMenu
 
 Contextual action menu anchored to a trigger, built on Radix DropdownMenu.
 
-<StorybookLink package="ui" story="components-dropdownmenu" />
+<FullViewLinks slug="dropdown-menu" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["dropdown-menu-demo"]}>
   <DropdownMenuDemo />
 </ComponentPreview>
 
+## Usage
+
+Compose `DropdownMenu` > `DropdownMenuTrigger` (`asChild` around a `Button`) > `DropdownMenuContent`
+with `DropdownMenuItem`s, grouped with `DropdownMenuLabel` and separated with
+`DropdownMenuSeparator`. Use for a short list of actions tied to an object (row actions, an
+overflow menu) — for navigation between views prefer `Tabs`, and for a single confirmation
+prefer `Dialog`.
+
 ## Props
 
-`DropdownMenu`, `DropdownMenuTrigger` are Radix `Root`/`Trigger` re-exports. `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuSeparator`, `DropdownMenuLabel` each extend their Radix counterparts plus `className`, forward `ref`, and spread remaining props.
+### DropdownMenuTrigger
+
+<PropsTable of="DropdownMenuTrigger" />
+
+### DropdownMenuContent
+
+<PropsTable of="DropdownMenuContent" />
+
+### DropdownMenuItem
+
+<PropsTable of="DropdownMenuItem" />
+
+### DropdownMenuLabel
+
+<PropsTable of="DropdownMenuLabel" />
+
+### DropdownMenuSeparator
+
+<PropsTable of="DropdownMenuSeparator" />
+
+## Accessibility
+
+Built on Radix `DropdownMenu`, implementing the ARIA menu pattern: the trigger opens the menu
+with Enter/Space/ArrowDown, items are navigable with arrow keys and typeahead, and Escape
+closes the menu and returns focus to the trigger. Disabled items are marked with
+`aria-disabled` and are skipped during keyboard navigation.

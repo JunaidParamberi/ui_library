@@ -1,19 +1,41 @@
 import { TooltipDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Tooltip
 
 Shows contextual help text on hover or focus, built on Radix Tooltip.
 
-<StorybookLink package="ui" story="components-tooltip" />
+<FullViewLinks slug="tooltip" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["tooltip-demo"]}>
   <TooltipDemo />
 </ComponentPreview>
 
+## Usage
+
+Wrap the app (or the section using tooltips) in a single `TooltipProvider`. Compose
+`Tooltip` > `TooltipTrigger` (usually `asChild` around an icon button) > `TooltipContent`.
+Keep tooltip text short — a label or one clause — and never put essential information only in
+a tooltip, since it isn't available on touch devices without a long-press.
+
 ## Props
 
-`Tooltip`, `TooltipTrigger` are Radix `Root`/`Trigger` re-exports. `TooltipContent` extends Radix `Content` props (`sideOffset` defaults to `6`) plus `className`. Wrap usage in a `TooltipProvider`.
+### TooltipTrigger
+
+<PropsTable of="TooltipTrigger" />
+
+### TooltipContent
+
+<PropsTable of="TooltipContent" />
+
+## Accessibility
+
+Built on Radix `Tooltip`: content is shown on both hover and keyboard focus of the trigger, and
+dismissed with Escape, so keyboard users get the same information as mouse users. The trigger
+is linked to the tooltip content via `aria-describedby`, and the tooltip is not itself
+focusable or interactive.

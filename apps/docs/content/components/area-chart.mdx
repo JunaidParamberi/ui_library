@@ -1,35 +1,36 @@
 import { AreaChartDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # AreaChart
 
-Lightweight dataviz primitives rendered as inline SVG — no charting dependency: `AreaChart` (line + filled area) and `MiniBars` (sparkline-style bars).
+Lightweight dataviz primitives rendered as inline SVG — no charting dependency: `AreaChart`
+(line + filled area) and `MiniBars` (sparkline-style bars).
 
-<StorybookLink package="ui" story="components-areachart" />
+<FullViewLinks slug="area-chart" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["area-chart-demo"]}>
   <AreaChartDemo />
 </ComponentPreview>
 
+## Usage
+
+Pass `data` as an array of `{ x, y }` points to `AreaChart` or plain numbers to `MiniBars`.
+Both are intentionally minimal (no axes, tooltips, or legends) — use them for compact trend
+indicators next to a `KPICard` or in a dashboard tile, not as a full charting solution. Adjust
+`width`/`height` to fit the surrounding layout.
+
 ## Props
 
-### AreaChart
+<PropsTable of="AreaChart" />
 
-| Prop | Type | Default |
-|------|------|---------|
-| `data` | `{ x: number \| string; y: number }[]` | required |
-| `width` | `number` | `240` |
-| `height` | `number` | `64` |
+## Accessibility
 
-### MiniBars
-
-| Prop | Type | Default |
-|------|------|---------|
-| `data` | `number[]` | required |
-| `width` | `number` | `120` |
-| `height` | `number` | `32` |
-
-Both accept remaining `React.SVGAttributes<SVGSVGElement>`, including `className`.
+Both render plain inline SVG with no default `role` or text alternative, since they're
+typically paired with a visible metric (e.g. next to a `KPICard`'s value) that already conveys
+the same information. If a chart is the sole source of information, add `role="img"` and an
+`aria-label` summarizing the trend.

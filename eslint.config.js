@@ -11,6 +11,13 @@ export default tseslint.config(
     },
   },
   {
+    // Node build-time scripts (docs codegen) run outside the browser.
+    files: ["apps/docs/scripts/**/*.mjs"],
+    languageOptions: {
+      globals: { console: "readonly", process: "readonly" },
+    },
+  },
+  {
     ignores: [
       "**/dist/**",
       "**/.next/**",

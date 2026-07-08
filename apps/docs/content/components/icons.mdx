@@ -1,16 +1,18 @@
 import { IconsDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Icons
 
-A curated `Record<string, LucideIcon>` re-export of the `lucide-react` icons already used across the library — one stable import surface instead of importing `lucide-react` directly.
+A curated `Record<string, LucideIcon>` re-export of the `lucide-react` icons already used
+across the library — one stable import surface instead of importing `lucide-react` directly.
 
-<StorybookLink package="ui" story="components-icons" />
+<FullViewLinks slug="icons" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["icons-demo"]}>
   <IconsDemo />
 </ComponentPreview>
 
@@ -22,4 +24,14 @@ import { Icons } from "@manpowerhub/ui";
 <Icons.Search className="size-4" />
 ```
 
-Each value is a `LucideIcon` component and accepts all standard `lucide-react` props (`className`, `size`, `strokeWidth`, etc).
+Each value is a `LucideIcon` component and accepts all standard `lucide-react` props
+(`className`, `size`, `strokeWidth`, etc). `Icons` is a namespace re-export rather than a
+single component, so there's no props table or states gallery for it — see each icon's own
+props via `lucide-react`.
+
+## Accessibility
+
+Icons are visual-only by default and should be marked `aria-hidden` when paired with visible
+text (as in the preview above). When an icon is the only content of an interactive element
+(e.g. an icon-only button), provide an `aria-label` on that element instead of relying on the
+icon.

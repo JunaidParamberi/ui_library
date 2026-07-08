@@ -1,19 +1,43 @@
-import { SelectDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
+import { SelectDemo, SelectDefaultState, SelectDisabledState } from "../../src/components/dynamic-demos";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { VariantGallery, GalleryCell } from "../../src/components/variant-gallery";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Select
 
 Dropdown select built on Radix Select primitives.
 
-<StorybookLink package="ui" story="core-select" />
+<FullViewLinks slug="select" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["select-demo"]}>
   <SelectDemo />
 </ComponentPreview>
 
-## Components
+## States
 
-`Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`, `SelectLabel`, `SelectSeparator`, `SelectGroup`. `SelectTrigger` accepts `inputSize`.
+<VariantGallery>
+  <GalleryCell label="Default"><SelectDefaultState /></GalleryCell>
+  <GalleryCell label="Disabled"><SelectDisabledState /></GalleryCell>
+</VariantGallery>
+
+## Usage
+
+Compose `Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, and `SelectItem`; group
+related options with `SelectGroup` + `SelectLabel`, and divide sections with
+`SelectSeparator`. Always pass an accessible name to `SelectTrigger` via `aria-label` or a
+visible `Field` label. Use `inputSize="lg"` to match larger form layouts.
+
+## Props
+
+<PropsTable of="Select" />
+
+## Accessibility
+
+Built on Radix `Select`, which implements the ARIA listbox pattern: the trigger is a native
+`<button>` opened with Enter/Space/Arrow keys, options are navigable with arrow keys and
+typeahead, and the selected value is announced. Selection updates via keyboard or pointer both
+close the popover and return focus to the trigger.

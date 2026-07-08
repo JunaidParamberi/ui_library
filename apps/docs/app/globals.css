@@ -2,3 +2,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+ * Bind Nextra theme chrome to @manpowerhub/tokens brand vars.
+ * --primary is stored as an "H S% L%" triple (see packages/tokens/src/globals.css),
+ * so we split it into the three discrete vars nextra-theme-docs' style.css expects
+ * (--nextra-primary-hue/-saturation/-lightness) to derive its primary-50..800 scale.
+ */
+:root {
+  --nextra-primary-hue: 156deg;
+  --nextra-primary-saturation: 37%;
+  --nextra-primary-lightness: 33%;
+
+  /* Route Nextra's inline-code/code-block font through the token mono stack. */
+  --x-font-mono: var(--font-mono);
+}
+
+.dark {
+  --nextra-primary-hue: 148deg;
+  --nextra-primary-saturation: 29%;
+  --nextra-primary-lightness: 49%;
+}
+
+/*
+ * MDX content surface: nextra-theme-docs v4 styles the <main data-pagefind-body>
+ * element directly (no ".nextra-content"/".prose" wrapper class exists in this
+ * version — verified against apps/docs/out/foundations/*.html), so target it
+ * directly for the brand body/display fonts.
+ */
+main[data-pagefind-body] {
+  font-family: var(--font-body);
+}
+
+main[data-pagefind-body] :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-display);
+}

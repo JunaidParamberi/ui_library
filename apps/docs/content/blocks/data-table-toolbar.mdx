@@ -1,19 +1,42 @@
-import { DataTableToolbarDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
+import { DataTableToolbarDemo, DataTableToolbarDefaultState, DataTableToolbarSelectedState } from "../../src/components/dynamic-demos";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { VariantGallery, GalleryCell } from "../../src/components/variant-gallery";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # DataTableToolbar
 
-Search, filter selects, and action slot for data tables.
+Search, filter selects, and an action slot for data tables.
 
-<StorybookLink package="blocks" story="blocks-datatabletoolbar" />
+<FullViewLinks slug="data-table-toolbar" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["data-table-toolbar-demo"]}>
   <DataTableToolbarDemo />
 </ComponentPreview>
 
+## States
+
+<VariantGallery>
+  <GalleryCell label="Default"><DataTableToolbarDefaultState /></GalleryCell>
+  <GalleryCell label="Selected"><DataTableToolbarSelectedState /></GalleryCell>
+</VariantGallery>
+
+## Usage
+
+Compose the toolbar above a `DataTable` or `Table`. The `search` field is fully controlled;
+add `filters` for one or more `Select`-backed filter dropdowns; and pass `actions` for
+page-level controls like "Add member". When rows are selected, set `selectedCount` and
+`bulkActions` to swap in a selection summary and bulk operations in place of the filters.
+
 ## Props
 
-`search` (controlled), `filters` (array of filter configs), `actions` (React node).
+<PropsTable of="DataTableToolbar" />
+
+## Accessibility
+
+Each filter `Select` receives an `aria-label` from its `placeholder` so filters remain
+identifiable without visible labels. The search input uses `type="search"` for correct
+assistive-technology semantics, and all controls are reachable via standard tab order.

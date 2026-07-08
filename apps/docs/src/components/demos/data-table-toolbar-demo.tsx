@@ -25,3 +25,29 @@ export function DataTableToolbarDemo() {
     />
   );
 }
+
+export function DataTableToolbarDefaultState() {
+  const [q, setQ] = React.useState("");
+  return (
+    <DataTableToolbar
+      search={{ value: q, onChange: setQ, placeholder: "Search members…" }}
+      actions={<Button variant="primary">Add member</Button>}
+    />
+  );
+}
+
+export function DataTableToolbarSelectedState() {
+  const [q, setQ] = React.useState("");
+  return (
+    <DataTableToolbar
+      search={{ value: q, onChange: setQ, placeholder: "Search members…" }}
+      selectedCount={3}
+      bulkActions={
+        <Button variant="ghost" size="sm">
+          Remove
+        </Button>
+      }
+      actions={<Button variant="primary">Add member</Button>}
+    />
+  );
+}
