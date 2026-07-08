@@ -48,4 +48,32 @@ describe("buildRegistry", () => {
       }
     }
   });
+
+  it("stages files with no residual cross-module relative import", () => {
+    for (const it of reg.items) {
+      for (const f of it.files) {
+        const staged = fs.readFileSync(path.join(reg.stageDir, f.path), "utf8");
+        expect(staged).not.toContain("../../lib/utils");
+        expect(staged).not.toMatch(/from ["']\.\.\//);
+      }
+    }
+  });
+
+  it("includes utils as a registry dependency of button", () => {
+    expect(item("button").registryDependencies).toContain("utils");
+  });
+
+  it("includes card, badge, and utils as registry dependencies of kpi-card", () => {
+    const kc = item("kpi-card");
+    for (const dep of ["card", "badge", "utils"]) {
+      expect(kc.registryDependencies).toContain(dep);
+    }
+  });
+
+  it("includes dialog and utils as registry dependencies of command-menu", () => {
+    const cm = item("command-menu");
+    for (const dep of ["dialog", "utils"]) {
+      expect(cm.registryDependencies).toContain(dep);
+    }
+  });
 });
