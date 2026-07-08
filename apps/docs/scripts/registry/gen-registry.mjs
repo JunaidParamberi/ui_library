@@ -19,6 +19,20 @@ const DOCS = path.resolve(__dirname, "../..");
 
 const { buildRegistry } = await import("./build-registry.ts");
 
+// Base URL baked into every registryDependency (`${base}/r/<name>.json`), so a
+// consumer's `shadcn add` resolves transitive deps against the SAME host the
+// registry is served from. Precedence:
+//   1. REGISTRY_BASE_URL          — explicit override (local smoke tests, etc.)
+//   2. VERCEL_PROJECT_PRODUCTION_URL — the deploy's stable production domain,
+//      injected by Vercel at build time, so block dep links match where the
+//      registry is actually hosted (no hardcoded domain).
+//   3. undefined                  — buildRegistry falls back to DEFAULT_BASE_URL.
+const baseUrl =
+  process.env.REGISTRY_BASE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : undefined);
+
 const registry = buildRegistry({
   uiSrc: path.join(ROOT, "packages/ui/src"),
   blocksSrc: path.join(ROOT, "packages/blocks/src"),
@@ -26,7 +40,7 @@ const registry = buildRegistry({
   tokensSrc: path.join(ROOT, "packages/tokens/src"),
   outDir: path.join(DOCS, "public/r"),
   stageDir: path.join(DOCS, "registry"),
-  baseUrl: process.env.REGISTRY_BASE_URL || undefined,
+  baseUrl,
 });
 
 const { stageDir, ...json } = registry;
