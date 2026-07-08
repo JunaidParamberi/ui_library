@@ -3,18 +3,18 @@
 Components and blocks are also distributed as source you copy into your own
 repo via the standard [shadcn CLI](https://ui.shadcn.com) — there is no
 `@manpowerhub/*` npm package to install for this path. The registry serves
-component and block definitions from `https://ui.manpowerhub.com`.
+component and block definitions from the docs site on Vercel (`out-nu-vert.vercel.app`).
 
 ## One component
 
 ```bash
-npx shadcn@latest add https://ui.manpowerhub.com/r/button.json
+npx shadcn@latest add https://out-nu-vert.vercel.app/r/button.json
 ```
 
 ## A full block (pulls its component deps automatically)
 
 ```bash
-npx shadcn@latest add https://ui.manpowerhub.com/r/pricing-table.json
+npx shadcn@latest add https://out-nu-vert.vercel.app/r/pricing-table.json
 ```
 
 This copies `pricing-table.tsx` plus its dependencies — `card`, `button`,

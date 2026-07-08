@@ -43,7 +43,7 @@ describe("buildRegistry", () => {
     const pt = item("pricing-table");
     expect(pt.type).toBe("registry:block");
     for (const dep of ["card", "button", "badge", "utils"]) {
-      expect(pt.registryDependencies).toContain(`https://ui.manpowerhub.com/r/${dep}.json`);
+      expect(pt.registryDependencies).toContain(`http://localhost:3001/r/${dep}.json`);
     }
   });
 
@@ -81,20 +81,20 @@ describe("buildRegistry", () => {
   });
 
   it("includes utils as a registry dependency of button", () => {
-    expect(item("button").registryDependencies).toContain("https://ui.manpowerhub.com/r/utils.json");
+    expect(item("button").registryDependencies).toContain("http://localhost:3001/r/utils.json");
   });
 
   it("includes card, badge, and utils as registry dependencies of kpi-card", () => {
     const kc = item("kpi-card");
     for (const dep of ["card", "badge", "utils"]) {
-      expect(kc.registryDependencies).toContain(`https://ui.manpowerhub.com/r/${dep}.json`);
+      expect(kc.registryDependencies).toContain(`http://localhost:3001/r/${dep}.json`);
     }
   });
 
   it("includes dialog and utils as registry dependencies of command-menu", () => {
     const cm = item("command-menu");
     for (const dep of ["dialog", "utils"]) {
-      expect(cm.registryDependencies).toContain(`https://ui.manpowerhub.com/r/${dep}.json`);
+      expect(cm.registryDependencies).toContain(`http://localhost:3001/r/${dep}.json`);
     }
   });
 

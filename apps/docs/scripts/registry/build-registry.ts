@@ -27,7 +27,8 @@ interface Opts {
   baseUrl?: string;
 }
 
-const DEFAULT_BASE_URL = "https://ui.manpowerhub.com";
+// Local fallback only — production builds set VERCEL_PROJECT_PRODUCTION_URL (see gen-registry.mjs).
+const DEFAULT_BASE_URL = "http://localhost:3001";
 
 const isShipped = (f: string) =>
   f.endsWith(".tsx") && !f.endsWith(".stories.tsx") && !f.endsWith(".test.tsx");

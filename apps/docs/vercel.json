@@ -3,5 +3,5 @@
   "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
   "buildCommand": "cd ../.. && pnpm --filter @manpowerhub/docs build",
   "outputDirectory": "out",
-  "framework": "nextjs"
+  "framework": null
 }
