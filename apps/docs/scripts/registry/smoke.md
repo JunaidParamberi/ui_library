@@ -10,8 +10,16 @@ resolution.
 
 1. Generate the registry and serve it locally:
 
+   Each item's `registryDependencies` are emitted as full URLs into OUR
+   registry (e.g. `https://ui.manpowerhub.com/r/card.json`) rather than bare
+   names, because the `shadcn` CLI resolves bare names against the *default*
+   shadcn/ui registry (ui.shadcn.com) — not ours — which would silently swap
+   in shadcn's `card` (missing `CardBody`) instead of our own. When smoke
+   testing locally, override the base URL so those deps point at the local
+   server instead of production:
+
    ```bash
-   pnpm --filter @manpowerhub/docs gen:registry
+   REGISTRY_BASE_URL=http://localhost:5055 pnpm --filter @manpowerhub/docs gen:registry
    npx serve apps/docs/public -l 5055   # serves /r/*.json at http://localhost:5055/r/
    ```
 

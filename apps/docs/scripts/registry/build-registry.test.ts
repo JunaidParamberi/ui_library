@@ -30,7 +30,7 @@ describe("buildRegistry", () => {
     const pt = item("pricing-table");
     expect(pt.type).toBe("registry:block");
     for (const dep of ["card", "button", "badge", "utils"]) {
-      expect(pt.registryDependencies).toContain(dep);
+      expect(pt.registryDependencies).toContain(`https://ui.manpowerhub.com/r/${dep}.json`);
     }
   });
 
@@ -60,20 +60,35 @@ describe("buildRegistry", () => {
   });
 
   it("includes utils as a registry dependency of button", () => {
-    expect(item("button").registryDependencies).toContain("utils");
+    expect(item("button").registryDependencies).toContain("https://ui.manpowerhub.com/r/utils.json");
   });
 
   it("includes card, badge, and utils as registry dependencies of kpi-card", () => {
     const kc = item("kpi-card");
     for (const dep of ["card", "badge", "utils"]) {
-      expect(kc.registryDependencies).toContain(dep);
+      expect(kc.registryDependencies).toContain(`https://ui.manpowerhub.com/r/${dep}.json`);
     }
   });
 
   it("includes dialog and utils as registry dependencies of command-menu", () => {
     const cm = item("command-menu");
     for (const dep of ["dialog", "utils"]) {
-      expect(cm.registryDependencies).toContain(dep);
+      expect(cm.registryDependencies).toContain(`https://ui.manpowerhub.com/r/${dep}.json`);
     }
+  });
+
+  it("uses a custom baseUrl when provided", () => {
+    const stageDir = fs.mkdtempSync(path.join(os.tmpdir(), "reg-stage-baseurl-"));
+    const customReg = buildRegistry({
+      uiSrc: path.join(ROOT, "packages/ui/src"),
+      blocksSrc: path.join(ROOT, "packages/blocks/src"),
+      utilsSrc: path.join(ROOT, "packages/ui/src/lib/utils.ts"),
+      tokensSrc: path.join(ROOT, "packages/tokens/src"),
+      outDir: path.join(ROOT, "apps/docs/public/r"),
+      stageDir,
+      baseUrl: "http://localhost:5055",
+    });
+    const pt = customReg.items.find((i) => i.name === "pricing-table")!;
+    expect(pt.registryDependencies).toContain("http://localhost:5055/r/card.json");
   });
 });

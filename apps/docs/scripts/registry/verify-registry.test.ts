@@ -27,7 +27,8 @@ describe("generated registry", () => {
     for (const f of files) {
       const json = JSON.parse(fs.readFileSync(path.join(R, f), "utf8"));
       for (const dep of json.registryDependencies ?? []) {
-        expect(names.has(dep)).toBe(true);
+        const depName = dep.split("/").pop().replace(/\.json$/, "");
+        expect(names.has(depName)).toBe(true);
       }
     }
   });

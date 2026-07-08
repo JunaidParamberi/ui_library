@@ -24,7 +24,10 @@ export interface Registry {
 interface Opts {
   uiSrc: string; blocksSrc: string; utilsSrc: string;
   tokensSrc: string; outDir: string; stageDir: string;
+  baseUrl?: string;
 }
+
+const DEFAULT_BASE_URL = "https://ui.manpowerhub.com";
 
 const isShipped = (f: string) =>
   f.endsWith(".tsx") && !f.endsWith(".stories.tsx") && !f.endsWith(".test.tsx");
@@ -37,7 +40,7 @@ function stage(stageDir: string, relPath: string, code: string) {
 
 function buildComponentItems(
   baseDir: string, group: "ui" | "blocks", itemType: ItemType,
-  fileType: FileType, symbolMap: Map<string, string>, stageDir: string,
+  fileType: FileType, symbolMap: Map<string, string>, stageDir: string, baseUrl: string,
 ): RegistryItem[] {
   const componentsDir = path.join(baseDir, "components");
   return fs.readdirSync(componentsDir, { withFileTypes: true })
@@ -58,16 +61,19 @@ function buildComponentItems(
       });
       const item: RegistryItem = { name, type: itemType, files };
       if (deps.size) item.dependencies = [...deps].sort();
-      if (registryDeps.size) item.registryDependencies = [...registryDeps].sort();
+      if (registryDeps.size) {
+        item.registryDependencies = [...registryDeps].sort().map((n) => `${baseUrl}/r/${n}.json`);
+      }
       return item;
     });
 }
 
 export function buildRegistry(opts: Opts): Registry {
   const symbolMap = buildSymbolMap(opts.uiSrc);
+  const baseUrl = opts.baseUrl ?? DEFAULT_BASE_URL;
 
-  const uiItems = buildComponentItems(opts.uiSrc, "ui", "registry:ui", "registry:component", symbolMap, opts.stageDir);
-  const blockItems = buildComponentItems(opts.blocksSrc, "blocks", "registry:block", "registry:block", symbolMap, opts.stageDir);
+  const uiItems = buildComponentItems(opts.uiSrc, "ui", "registry:ui", "registry:component", symbolMap, opts.stageDir, baseUrl);
+  const blockItems = buildComponentItems(opts.blocksSrc, "blocks", "registry:block", "registry:block", symbolMap, opts.stageDir, baseUrl);
 
   // utils lib item — shipped verbatim.
   const utilsCode = fs.readFileSync(opts.utilsSrc, "utf8");
@@ -82,7 +88,7 @@ export function buildRegistry(opts: Opts): Registry {
   return {
     $schema: "https://ui.shadcn.com/schema/registry.json",
     name: "manpowerhub",
-    homepage: "https://ui.manpowerhub.com",
+    homepage: DEFAULT_BASE_URL,
     items: [utilsItem, ...uiItems, ...blockItems],
     stageDir: opts.stageDir,
   };

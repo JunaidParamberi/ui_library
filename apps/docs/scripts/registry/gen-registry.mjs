@@ -26,6 +26,7 @@ const registry = buildRegistry({
   tokensSrc: path.join(ROOT, "packages/tokens/src"),
   outDir: path.join(DOCS, "public/r"),
   stageDir: path.join(DOCS, "registry"),
+  baseUrl: process.env.REGISTRY_BASE_URL || undefined,
 });
 
 const { stageDir, ...json } = registry;
