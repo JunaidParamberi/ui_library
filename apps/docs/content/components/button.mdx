@@ -1,24 +1,41 @@
-import { ButtonDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
+import { ButtonDemo, ButtonDefaultState, ButtonLoadingState, ButtonDisabledState } from "../../src/components/dynamic-demos";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { VariantGallery, GalleryCell } from "../../src/components/variant-gallery";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Button
 
 Primary action control with variant and size options.
 
-<StorybookLink package="ui" story="core-button" storyId="primary" />
+<FullViewLinks slug="button" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["button-demo"]}>
   <ButtonDemo />
 </ComponentPreview>
 
+## States
+
+<VariantGallery>
+  <GalleryCell label="Default"><ButtonDefaultState /></GalleryCell>
+  <GalleryCell label="Loading"><ButtonLoadingState /></GalleryCell>
+  <GalleryCell label="Disabled"><ButtonDisabledState /></GalleryCell>
+</VariantGallery>
+
+## Usage
+
+Use `primary` for the single most important action on a view. Use `secondary` or `ghost`
+for lower-emphasis actions. Reserve `danger` for destructive actions. Avoid more than one
+`primary` button per section.
+
 ## Props
 
-| Prop | Type | Default |
-|------|------|---------|
-| `variant` | `"primary" \| "secondary" \| "ghost" \| "danger" \| "outline"` | `"secondary"` |
-| `size` | `"sm" \| "default" \| "lg" \| "icon" \| "icon-sm" \| "icon-lg"` | `"default"` |
-| `loading` | `boolean` | `false` |
-| `asChild` | `boolean` | `false` |
+<PropsTable of="Button" />
+
+## Accessibility
+
+Renders a native `<button>`; keyboard-activatable with Enter/Space. When `loading`, the button
+is disabled and exposes `aria-busy="true"`. Icon-only buttons must pass an `aria-label`.

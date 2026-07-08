@@ -12,3 +12,13 @@ export function ProgressDemo() {
     </div>
   );
 }
+
+export function ProgressLowState() {
+  return <Progress value={12} aria-label="Upload progress" />;
+}
+export function ProgressDefaultState() {
+  return <Progress value={55} aria-label="Upload progress" />;
+}
+export function ProgressCompleteState() {
+  return <Progress value={100} aria-label="Upload progress" />;
+}

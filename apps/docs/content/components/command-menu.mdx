@@ -1,26 +1,37 @@
 import { CommandMenuDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # CommandMenu
 
-A ⌘K-style command palette with search-as-you-type filtering and grouped items, built on `cmdk` inside a `Dialog`.
+A ⌘K-style command palette with search-as-you-type filtering and grouped items, built on
+`cmdk` inside a `Dialog`.
 
-<StorybookLink package="ui" story="components-commandmenu" />
+<FullViewLinks slug="command-menu" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["command-menu-demo"]}>
   <CommandMenuDemo />
 </ComponentPreview>
 
+## Usage
+
+Control `open`/`onOpenChange` from a keyboard shortcut (typically ⌘K/Ctrl+K) as well as a
+visible trigger. Pass `items` with an `id`, `label`, `onSelect` handler, and optional `group` —
+items sharing a `group` are rendered under one heading, ungrouped items fall under "Commands".
+Use it for global, searchable navigation/actions, not as a replacement for a regular menu tied
+to one object.
+
 ## Props
 
-| Prop | Type | Default |
-|------|------|---------|
-| `open` | `boolean` | required |
-| `onOpenChange` | `(open: boolean) => void` | required |
-| `items` | `{ id: string; label: string; onSelect: () => void; group?: string }[]` | required |
-| `className` | `string` | — |
+<PropsTable of="CommandMenu" />
 
-Items sharing the same `group` are rendered under one heading; ungrouped items fall under "Commands".
+## Accessibility
+
+Renders inside a `Dialog`, so it inherits focus trapping, Escape-to-close, and a
+screen-reader-only title (`"Command menu"`). The search input is auto-focused on open; results
+update live as you type and are navigable with arrow keys, with Enter activating the
+highlighted item — the standard `cmdk` combobox pattern.

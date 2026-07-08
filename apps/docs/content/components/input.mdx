@@ -1,24 +1,45 @@
-import { InputDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
+import { InputDemo, InputDefaultState, InputDisabledState, InputInvalidState } from "../../src/components/dynamic-demos";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { VariantGallery, GalleryCell } from "../../src/components/variant-gallery";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Input
 
 Text input with field wrapper, textarea, and validation states.
 
-<StorybookLink package="ui" story="core-input" />
+<FullViewLinks slug="input" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["input-demo"]}>
   <InputDemo />
 </ComponentPreview>
 
+## States
+
+<VariantGallery>
+  <GalleryCell label="Default"><InputDefaultState /></GalleryCell>
+  <GalleryCell label="Disabled"><InputDisabledState /></GalleryCell>
+  <GalleryCell label="Invalid"><InputInvalidState /></GalleryCell>
+</VariantGallery>
+
+## Usage
+
+Wrap `Input` in `Field` to attach a `label`, `hint`, `error`, and `required` marker. Set
+`invalid` (or pass `error` to `Field`) when validation fails — it switches the border and
+focus ring to the destructive color and sets `aria-invalid`. Use `inputSize="lg"` for
+prominent, standalone forms.
+
 ## Props
 
-| Prop | Type | Default |
-|------|------|---------|
-| `inputSize` | `"default" \| "lg"` | `"default"` |
-| `invalid` | `boolean` | `false` |
+<PropsTable of="Input" />
 
-`Field` wraps inputs with `label`, `hint`, `error`, and `required` props.
+## Accessibility
+
+Renders a native `<input>`, so it's keyboard-focusable and works with browser autofill. Always
+pair it with a `Field`-provided `<label htmlFor>` rather than a placeholder alone. When
+`invalid`, `aria-invalid="true"` is set automatically. `Field`'s `error` text renders with
+`role="alert"` so it's announced when it appears; pass `invalid` to `Input` alongside `error`
+on `Field` to keep the visual and semantic states in sync.

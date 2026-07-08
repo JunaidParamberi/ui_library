@@ -1,28 +1,35 @@
 import { SkeletonDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Skeleton
 
-Loading placeholders: `Skeleton` (pulsing block, shape via `className`) and `Spinner` (rotating loader).
+Loading placeholders: `Skeleton` (pulsing block, shape via `className`) and `Spinner`
+(rotating loader).
 
-<StorybookLink package="ui" story="components-skeleton" />
+<FullViewLinks slug="skeleton" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["skeleton-demo"]}>
   <SkeletonDemo />
 </ComponentPreview>
 
+## Usage
+
+Use `Skeleton` to mirror the shape of the content that's loading (a `h-4 w-32` bar for a line
+of text, `rounded-full` for an avatar) so the layout doesn't shift once real content arrives.
+Use `Spinner` for indeterminate loading where there's no meaningful shape to mimic, such as a
+button's `loading` state or a small inline fetch.
+
 ## Props
 
-### Skeleton
+<PropsTable of="Skeleton" />
 
-Accepts `React.HTMLAttributes<HTMLDivElement>`; shape and size are controlled entirely via `className` (e.g. `h-4 w-32`, `rounded-full`).
+## Accessibility
 
-### Spinner
-
-| Prop | Type | Default |
-|------|------|---------|
-| `size` | `"sm" \| "default" \| "lg"` | `"default"` |
-| `className` | `string` | — |
+Both are decorative and carry no text content, so screen readers announce nothing on their
+own. Wrap the loading region in a container with `aria-busy="true"` (and `aria-live="polite"`
+if content replaces it in place) so assistive tech knows a loading state is in progress.

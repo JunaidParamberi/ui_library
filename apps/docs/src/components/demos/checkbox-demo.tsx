@@ -9,3 +9,23 @@ export function CheckboxDemo() {
     </div>
   );
 }
+
+export function CheckboxUncheckedState() {
+  return <Checkbox id="docs-cb-unchecked" label="Accept terms" />;
+}
+export function CheckboxCheckedState() {
+  return <Checkbox id="docs-cb-checked" label="Accept terms" defaultChecked />;
+}
+export function CheckboxIndeterminateState() {
+  return (
+    <Checkbox
+      id="docs-cb-indeterminate"
+      label="Accept terms"
+      checked="indeterminate"
+      onCheckedChange={() => {}}
+    />
+  );
+}
+export function CheckboxDisabledState() {
+  return <Checkbox id="docs-cb-disabled" label="Accept terms" disabled />;
+}

@@ -1,22 +1,44 @@
-import { KpiCardDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
+import { KpiCardDemo, KpiCardTrendUpState, KpiCardTrendDownState, KpiCardFlatState } from "../../src/components/dynamic-demos";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { VariantGallery, GalleryCell } from "../../src/components/variant-gallery";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # KPICard
 
 Metric card showing a label, value, optional delta/trend badge, and subtitle.
 
-<StorybookLink package="ui" story="data-viz-kpicard" />
+<FullViewLinks slug="kpi-card" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["kpi-card-demo"]}>
   <KpiCardDemo />
 </ComponentPreview>
 
+## States
+
+<VariantGallery>
+  <GalleryCell label="Trend up"><KpiCardTrendUpState /></GalleryCell>
+  <GalleryCell label="Trend down"><KpiCardTrendDownState /></GalleryCell>
+  <GalleryCell label="Flat"><KpiCardFlatState /></GalleryCell>
+</VariantGallery>
+
+## Usage
+
+Pass a `kpi` object with `label`, `value`, and optionally `delta`, `trend`
+(`"up"`/`"down"`/`"flat"`), and `sub`. `trend="up"` renders a success-colored badge with an
+up arrow; `"down"` and `"flat"` render a neutral outline badge. Use `delay` to stagger the
+fade-up entrance animation when rendering several `KPICard`s in a row (e.g. `delay={index}`).
+
 ## Props
 
-| Prop | Type | Default |
-|------|------|---------|
-| `kpi` | `{ label, value, delta?, trend?, sub? }` | required |
-| `delay` | `number` | `0` |
+<PropsTable of="KPICard" />
+
+## Accessibility
+
+Renders as a `Card` (a plain `<div>`) with text content in normal reading order — label,
+value, then delta/subtitle — so it's readable by screen readers without extra markup. The
+trend arrow icons are marked `aria-hidden`; the delta text itself (e.g. `"+12%"`) carries the
+meaning, so don't rely on the arrow or badge color alone to convey direction.

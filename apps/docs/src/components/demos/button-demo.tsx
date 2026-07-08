@@ -12,3 +12,13 @@ export function ButtonDemo() {
     </div>
   );
 }
+
+export function ButtonDefaultState() {
+  return <Button variant="primary">Save</Button>;
+}
+export function ButtonLoadingState() {
+  return <Button loading>Save</Button>;
+}
+export function ButtonDisabledState() {
+  return <Button disabled>Save</Button>;
+}

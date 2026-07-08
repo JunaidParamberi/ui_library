@@ -1,19 +1,35 @@
 import { TabsDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Tabs
 
 Tabbed navigation with keyboard support via Radix Tabs.
 
-<StorybookLink package="ui" story="core-tabs" />
+<FullViewLinks slug="tabs" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["tabs-demo"]}>
   <TabsDemo />
 </ComponentPreview>
 
-## Components
+## Usage
 
-`Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` — compose a tabbed interface.
+Compose `Tabs` (set `defaultValue` or control with `value`/`onValueChange`), `TabsList`,
+`TabsTrigger` (one per panel, matching `value`), and `TabsContent`. `TabsTrigger` accepts an
+optional `count` badge for showing item totals. Use tabs for switching between peer views of
+the same object, not for multi-step flows — use a stepper for those.
+
+## Props
+
+<PropsTable of="Tabs" />
+
+## Accessibility
+
+Built on Radix `Tabs`, implementing the ARIA tabs pattern: `TabsList` has `role="tablist"`,
+triggers use `role="tab"` with roving tabindex, and arrow keys move focus between tabs while
+Enter/Space activates the focused one. The active panel is exposed via `aria-selected` and
+matched to its `TabsContent` by `aria-controls`/`id`.

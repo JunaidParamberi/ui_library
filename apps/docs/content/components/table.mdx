@@ -1,28 +1,37 @@
 import { TableDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Table
 
-Static table primitives (`Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell`) plus `DataTable<T>`, a sortable, client-rendered wrapper.
+Static table primitives (`Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`,
+`TableCell`) plus `DataTable<T>`, a sortable, client-rendered wrapper.
 
-<StorybookLink package="ui" story="components-table" />
+<FullViewLinks slug="table" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["table-demo"]}>
   <TableDemo />
 </ComponentPreview>
 
+## Usage
+
+For static markup, compose the primitives directly (`Table` > `TableHeader`/`TableBody` >
+`TableRow` > `TableHead`/`TableCell`). For sortable, dynamic data, use `DataTable<T>` with a
+`columns` array (each with `key`, `header`, optional `render`, and `sortable`), `data`, and a
+`getRowId` function. Clicking a sortable header cycles ascending → descending → unsorted.
+
 ## Props
 
-### DataTable
+<PropsTable of="Table" />
 
-| Prop | Type | Default |
-|------|------|---------|
-| `columns` | `{ key: string; header: string; render?: (row: T) => ReactNode; sortable?: boolean }[]` | required |
-| `data` | `T[]` | required |
-| `getRowId` | `(row: T) => string` | required |
-| `className` | `string` | — |
+## Accessibility
 
-Clicking a sortable header cycles ascending → descending → unsorted. All Table primitives forward `ref`, merge `className` via `cn()`, and spread remaining props.
+Renders a native `<table>` with proper `<thead>`/`<tbody>`/`<tr>` structure, so row and column
+relationships are conveyed to assistive tech without extra ARIA. `DataTable`'s sortable
+headers render as buttons — activate with Enter/Space — and the header cell exposes the
+current direction via `aria-sort` (`"ascending"`/`"descending"`/`"none"`), so assistive tech
+announces sort state changes.

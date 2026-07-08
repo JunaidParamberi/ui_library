@@ -3,12 +3,12 @@ import propsData from "../generated/props.generated.json";
 interface PropRow {
   name: string;
   type: string;
-  defaultValue: string | null;
+  defaultValue: string | boolean | number | null;
   required: boolean;
   description: string;
 }
 
-const data = propsData as Record<string, PropRow[]>;
+const data = propsData as unknown as Record<string, PropRow[]>;
 
 export function PropsTable({ of }: { of: string }) {
   const rows = data[of];
@@ -38,7 +38,7 @@ export function PropsTable({ of }: { of: string }) {
                 {r.required && <span className="text-danger"> *</span>}
               </td>
               <td className="py-2 pr-4 font-mono text-muted-foreground">{r.type}</td>
-              <td className="py-2 pr-4 font-mono">{r.defaultValue ?? "—"}</td>
+              <td className="py-2 pr-4 font-mono">{r.defaultValue?.toString() ?? "—"}</td>
               <td className="py-2">{r.description}</td>
             </tr>
           ))}

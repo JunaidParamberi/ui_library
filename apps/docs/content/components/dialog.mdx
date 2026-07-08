@@ -1,19 +1,37 @@
 import { DialogDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Dialog
 
 Modal dialog for confirmations and focused tasks, built on Radix Dialog.
 
-<StorybookLink package="ui" story="components-dialog" />
+<FullViewLinks slug="dialog" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["dialog-demo"]}>
   <DialogDemo />
 </ComponentPreview>
 
+## Usage
+
+Compose `Dialog` > `DialogTrigger` (`asChild` around your trigger element) > `DialogContent`,
+using `DialogHeader`/`DialogTitle`/`DialogDescription` for the heading and
+`DialogFooter`/`DialogClose` for actions. Reserve dialogs for tasks that need the user's full
+attention (confirmations, short forms); for lightweight menus prefer `DropdownMenu`, and for
+non-blocking info prefer `Tooltip` or inline text.
+
 ## Props
 
-`Dialog`, `DialogTrigger`, `DialogClose` are Radix `Root`/`Trigger`/`Close` re-exports. `DialogContent` extends Radix `Content` props plus `className`. `DialogHeader` and `DialogFooter` are plain layout `div`s accepting `React.HTMLAttributes<HTMLDivElement>`. `DialogTitle` and `DialogDescription` extend their Radix counterparts plus `className`.
+<PropsTable of="Dialog" />
+
+## Accessibility
+
+Built on Radix `Dialog`: content renders with `role="dialog"` and `aria-modal="true"`, focus is
+trapped inside while open and restored to the trigger on close, background content is hidden
+from assistive tech, and Escape (or the built-in close button) dismisses it. Always include a
+`DialogTitle` — use the `sr-only` utility if it shouldn't be visually shown — since it's what
+screen readers announce when the dialog opens.

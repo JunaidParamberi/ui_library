@@ -1,27 +1,36 @@
 import { AppShellDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # AppShell
 
-Application layout shell: a fixed-width sidebar column, a sticky topbar row, and a scrollable content area. The sidebar collapses under the `md` breakpoint.
+Application layout shell: a fixed-width sidebar column, a sticky topbar row, and a scrollable
+content area. The sidebar collapses under the `md` breakpoint.
 
-<StorybookLink package="ui" story="components-appshell" />
+<FullViewLinks slug="app-shell" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["app-shell-demo"]}>
   <AppShellDemo />
 </ComponentPreview>
 
+## Usage
+
+Pass `sidebar` and `topbar` as `ReactNode` slots and put your page content as `children`.
+`AppShell` holds no internal collapse state — the consumer controls `sidebarOpen`, matching the
+library's customization contract, so wire it up to your own navigation/menu toggle. Adjust
+`sidebarWidth` to fit your navigation content.
+
 ## Props
 
-| Prop | Type | Default |
-|------|------|---------|
-| `sidebar` | `ReactNode` | required |
-| `topbar` | `ReactNode` | required |
-| `sidebarOpen` | `boolean` | `true` |
-| `sidebarWidth` | `number` | `256` |
-| `children` | `ReactNode` | required |
+<PropsTable of="AppShell" />
 
-`AppShell` holds no internal collapse state — the consumer controls `sidebarOpen`, matching the library's customization contract.
+## Accessibility
+
+`AppShell` already wraps the sidebar in `<aside>`, the topbar in `<header>`, and content in
+`<main>`, giving assistive tech a meaningful landmark structure out of the box. Wrap the
+`sidebar` node's navigation links in a `<nav>` with an `aria-label` (e.g. `"Main"`) so it's
+distinguishable from other landmarks when there's more than one on the page.

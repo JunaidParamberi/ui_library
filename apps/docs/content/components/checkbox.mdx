@@ -1,19 +1,46 @@
-import { CheckboxDemo } from "../../src/components/dynamic-demos";
-import { StorybookLink } from "../../src/components/storybook-link";
+import { CheckboxDemo, CheckboxUncheckedState, CheckboxCheckedState, CheckboxIndeterminateState, CheckboxDisabledState } from "../../src/components/dynamic-demos";
 import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { VariantGallery, GalleryCell } from "../../src/components/variant-gallery";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
 
 # Checkbox
 
 Checkbox, switch, and radio controls built on Radix primitives.
 
-<StorybookLink package="ui" story="core-controls" storyId="checkbox-states" />
+<FullViewLinks slug="checkbox" />
 
-## Example
+## Preview
 
-<ComponentPreview>
+<ComponentPreview source={demoSources["checkbox-demo"]}>
   <CheckboxDemo />
 </ComponentPreview>
 
+## States
+
+<VariantGallery>
+  <GalleryCell label="Unchecked"><CheckboxUncheckedState /></GalleryCell>
+  <GalleryCell label="Checked"><CheckboxCheckedState /></GalleryCell>
+  <GalleryCell label="Indeterminate"><CheckboxIndeterminateState /></GalleryCell>
+  <GalleryCell label="Disabled"><CheckboxDisabledState /></GalleryCell>
+</VariantGallery>
+
+## Usage
+
+`Checkbox` accepts an optional `label` that renders a connected, clickable `<label>`. Use
+`checked="indeterminate"` for a "select all" checkbox representing a partial selection. The
+same file also exports `Switch` (boolean on/off toggle) and `RadioGroup`/`RadioGroupItem` for
+mutually-exclusive choices — reach for `Switch` for settings that apply immediately, and
+`Checkbox` for form selections that need explicit submission.
+
 ## Props
 
-`Checkbox` extends Radix checkbox props plus optional `label`. Also exported: `Switch`, `RadioGroup`, `RadioGroupItem`.
+<PropsTable of="Checkbox" />
+
+## Accessibility
+
+Built on Radix `Checkbox`, exposing `role="checkbox"` with `aria-checked` (including
+`"mixed"` for indeterminate) and toggling with Space. The `label` prop is wired to the input
+via matching `id`/`htmlFor`, so clicking the label text also toggles the control. `Switch` uses
+Radix's switch role and behaves identically for keyboard users.
