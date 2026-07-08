@@ -16,6 +16,28 @@
 
   /* Route Nextra's inline-code/code-block font through the token mono stack. */
   --x-font-mono: var(--font-mono);
+
+  /*
+   * nextra-theme-docs v4 is compiled for Tailwind v4 and paints its surfaces
+   * (search results panel, theme menu, cards) with `bg-nextra-bg`, which
+   * resolves to `rgb(var(--nextra-bg))`. This app runs Tailwind v3 and never
+   * sets --nextra-bg, so those popovers render transparent and page content
+   * bleeds through. Bind Nextra's derived surface var straight to the token
+   * background: opaque, and theme-aware because --background flips under .dark.
+   * An unlayered :root declaration outranks Nextra's `@layer theme` default.
+   */
+  --x-color-nextra-bg: hsl(var(--background));
+}
+
+/*
+ * Nextra paints the search results panel and the sticky navbar with
+ * `bg-nextra-bg/70` — a 70%-opacity surface that is only legible atop the
+ * `backdrop-blur` it pairs with. Tailwind v4's backdrop-filter utility does
+ * not survive in this v3 app, so the blur is gone and page content bleeds
+ * through the translucent panel. Force those surfaces fully opaque.
+ */
+[class~="x:bg-nextra-bg/70"] {
+  background-color: hsl(var(--background)) !important;
 }
 
 .dark {
