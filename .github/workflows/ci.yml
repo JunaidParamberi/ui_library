@@ -22,6 +22,12 @@ jobs:
       - run: pnpm lint
       - run: pnpm test
 
+      - name: Generate registry
+        run: pnpm --filter @manpowerhub/docs gen:registry
+
+      - name: Verify registry
+        run: pnpm --filter @manpowerhub/docs exec vitest run scripts/registry/verify-registry.test.ts
+
       - name: Test with coverage (ui)
         run: pnpm --filter @manpowerhub/ui coverage
 

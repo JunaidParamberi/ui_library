@@ -4,5 +4,6 @@ export default {
   foundations: "Foundations",
   components: "Components",
   blocks: "Blocks",
+  registry: "Install via Registry",
   guides: "Guides",
 };
