@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "test": "pnpm -r test",
     "changeset": "changeset",
-    "version-packages": "changeset version",
-    "release": "pnpm -r build && changeset publish"
+    "version-packages": "changeset version"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
