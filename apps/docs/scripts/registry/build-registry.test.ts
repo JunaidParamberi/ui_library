@@ -26,6 +26,10 @@ describe("buildRegistry", () => {
     expect(item("button").type).toBe("registry:ui");
   });
 
+  it("emits button files with type registry:ui so shadcn places them in components/ui", () => {
+    expect(item("button").files[0].type).toBe("registry:ui");
+  });
+
   it("emits pricing-table as a block that depends on card/button/badge/utils", () => {
     const pt = item("pricing-table");
     expect(pt.type).toBe("registry:block");
@@ -34,10 +38,18 @@ describe("buildRegistry", () => {
     }
   });
 
+  it("emits pricing-table files with type registry:block (unchanged)", () => {
+    expect(item("pricing-table").files[0].type).toBe("registry:block");
+  });
+
   it("includes a utils lib item targeting lib/utils.ts", () => {
     const u = item("utils");
     expect(u.type).toBe("registry:lib");
     expect(u.files[0].target).toBe("lib/utils.ts");
+  });
+
+  it("emits utils files with type registry:lib (unchanged)", () => {
+    expect(item("utils").files[0].type).toBe("registry:lib");
   });
 
   it("stages files with no residual @manpowerhub import", () => {

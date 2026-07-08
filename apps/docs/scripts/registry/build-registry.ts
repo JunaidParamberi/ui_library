@@ -5,7 +5,7 @@ import { rewriteImports } from "./rewrite-imports";
 import { scanNpmDeps } from "./scan-deps";
 
 type ItemType = "registry:ui" | "registry:block" | "registry:lib";
-type FileType = "registry:component" | "registry:block" | "registry:lib";
+type FileType = "registry:ui" | "registry:component" | "registry:block" | "registry:lib";
 export interface RegistryItem {
   name: string;
   type: ItemType;
@@ -72,7 +72,7 @@ export function buildRegistry(opts: Opts): Registry {
   const symbolMap = buildSymbolMap(opts.uiSrc);
   const baseUrl = opts.baseUrl ?? DEFAULT_BASE_URL;
 
-  const uiItems = buildComponentItems(opts.uiSrc, "ui", "registry:ui", "registry:component", symbolMap, opts.stageDir, baseUrl);
+  const uiItems = buildComponentItems(opts.uiSrc, "ui", "registry:ui", "registry:ui", symbolMap, opts.stageDir, baseUrl);
   const blockItems = buildComponentItems(opts.blocksSrc, "blocks", "registry:block", "registry:block", symbolMap, opts.stageDir, baseUrl);
 
   // utils lib item — shipped verbatim.
