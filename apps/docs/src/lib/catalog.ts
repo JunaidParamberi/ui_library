@@ -53,8 +53,10 @@ export const catalog: CatalogEntry[] = [
   // Blocks (packages/blocks)
   { slug: "auth-form", demoKey: "auth-form-demo", docgenName: "AuthForm", story: "blocks-authform", storyId: "default", pkg: "blocks" },
   { slug: "data-table-toolbar", demoKey: "data-table-toolbar-demo", docgenName: "DataTableToolbar", story: "blocks-datatabletoolbar", storyId: "default", pkg: "blocks" },
+  { slug: "document-shell", demoKey: "document-shell-demo", docgenName: "DocumentShell", story: "blocks-documentshell", storyId: "default", pkg: "blocks" },
   { slug: "empty-state", demoKey: "empty-state-demo", docgenName: "EmptyState", story: "blocks-emptystate", storyId: "default", pkg: "blocks" },
   { slug: "page-header", demoKey: "page-header-demo", docgenName: "PageHeader", story: "blocks-pageheader", storyId: "default", pkg: "blocks" },
   { slug: "pricing-table", demoKey: "pricing-table-demo", docgenName: "PricingTable", story: "blocks-pricingtable", storyId: "default", pkg: "blocks" },
+  { slug: "quotation", demoKey: "quotation-demo", docgenName: "Quotation", story: "blocks-quotation", storyId: "default", pkg: "blocks" },
   { slug: "stat-card-row", demoKey: "stat-card-row-demo", docgenName: "StatCardRow", story: "blocks-statcardrow", storyId: "default", pkg: "blocks" },
 ];

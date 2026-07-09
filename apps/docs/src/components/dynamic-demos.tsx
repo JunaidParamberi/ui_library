@@ -63,6 +63,14 @@ export const StatCardRowDemo = dynamic(
   () => import("./demos/stat-card-row-demo").then((m) => m.StatCardRowDemo),
   { ssr: false, loading },
 );
+export const QuotationDemo = dynamic(
+  () => import("./demos/quotation-demo").then((m) => m.QuotationDemo),
+  { ssr: false, loading },
+);
+export const DocumentShellDemo = dynamic(
+  () => import("./demos/document-shell-demo").then((m) => m.DocumentShellDemo),
+  { ssr: false, loading },
+);
 export const AvatarDemo = dynamic(
   () => import("./demos/avatar-demo").then((m) => m.AvatarDemo),
   { ssr: false, loading },
