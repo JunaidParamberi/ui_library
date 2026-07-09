@@ -1,179 +1,214 @@
-# DocumentShell + Quote blocks — design
+# DocumentShell + Quotation block — design
 
 **Date:** 2026-07-09
 **Status:** approved, pre-implementation
 
 ## Goal
 
-Add the first two document blocks to `@manpowerhub/blocks`:
+Add two registry entries to `@manpowerhub/blocks`:
 
-1. **DocumentShell** — the reusable shell all 7 printable doc types share (header →
-   parties grid → content → footer → edge marker). Standalone registry entry.
-2. **Quote** — pricing-for-future-work document built on DocumentShell. Standalone
-   registry entry.
-
-Each is a separate shadcn registry entry, pullable via `npx shadcn add <url>`.
-Quote imports DocumentShell.
+1. **DocumentShell** — reusable printable-document shell (header → parties grid →
+   content → footer → edge marker) all 7 doc types will share. Standalone entry.
+2. **Quotation** — one combined block that does **CRUD** (list / form / detail)
+   over a quotation record **and** renders the record as a **printable document**
+   (built on DocumentShell). Ships with a **mock API** so it runs standalone.
 
 Source of truth: `manpowerhub-ui-handoff/reference/docs/Quote.jsx`,
-`doc-styles.css`, and `05-DOCUMENTS.md §Quote` + shared-shell section. Match the
-reference layout exactly; only the styling mechanism differs (see below).
+`doc-styles.css`, reference screens `quotation-list.jsx` / `quotation-form.jsx` /
+`quotation-detail.jsx`, and `05-DOCUMENTS.md`.
+
+## Contract override (explicit, user-directed)
+
+CLAUDE.md says blocks carry "no API calls, no business logic." The user has
+explicitly chosen to embed a mock API inside the Quotation block. We honor that
+but **preserve the seam**:
+
+- Mock lives in its own file `quotation.mock.ts`, not scattered through
+  components.
+- Presentational sub-components (`QuotationList`, `QuotationForm`,
+  `QuotationDetail`, `QuotationDocument`) are pure: data in, callbacks out — no
+  fetching.
+- Only the top-level `Quotation` container touches the API, and it takes an `api`
+  prop that **defaults to the mock**. A consumer swaps in a real API by passing
+  their own implementation of the `QuotationApi` interface.
 
 ## Placement
 
 - `packages/blocks/src/components/document-shell/`
-- `packages/blocks/src/components/quote/`
+- `packages/blocks/src/components/quotation/`
 - Both re-exported from `packages/blocks/src/index.ts`.
-- Docs registry generator (`apps/docs` `gen:registry`) picks them up automatically.
-
-Rationale: documents are compositions, so they live with the other blocks
-(pricing-table, auth-form…), not in `@manpowerhub/ui` core primitives.
+- Docs registry generator (`apps/docs` `gen:registry`) picks them up.
 
 ## Styling
 
-Port `doc-styles.css` atoms to **Tailwind classes referencing token CSS-vars** so
-consumers reskin globally via tokens (customization contract rule 1). No hardcoded
-Craftly hex in components.
+Port `doc-styles.css` atoms to **Tailwind + token utilities** (consumers reskin via
+tokens). Token utilities confirmed present in `@manpowerhub/tokens` preset:
+`text-foreground`, `text-muted-foreground`, `border-border`, `bg-card`,
+`text-success`/`bg-success`, `text-warning`/`bg-warning` (use with opacity, e.g.
+`bg-warning/10`), `text-accent`, `font-display`/`font-body`/`font-mono`,
+`shadow-pop`, `rounded-lg`. UI primitives available: `Card`, `Button`, `Badge`,
+`Table`, `Input`, `Select`, `Dialog`, `cn` from `@manpowerhub/ui`.
 
-Color / type mapping:
-
-| Craftly reference | Token |
-|---|---|
-| `#14161A` foreground | `text-foreground` |
-| `#54585F` muted text | `text-muted-foreground` |
-| `#898E96` dim text | `text-muted-foreground/70` |
-| `#ECECE7` hairline | `border-border` |
-| amber `#7A4A0C` / `#9A6A2E` / soft bg | `--mph-warning` / `--mph-warning-soft` |
-| accent / optional tag | `--accent` / `--mph-accent-soft` |
-| accepted green | `--mph-success` / `--mph-success-soft` |
-| Inter Tight / Inter / JetBrains Mono | `--font-display` / `--font-body` / `--font-mono` |
-| sheet shadow | `--shadow-pop` |
-| corner radius | `--radius` |
-
-**Print-only exception:** a small co-located `document-shell.css` holds ONLY what
-Tailwind handles poorly — `@page { size: A4; margin: 0 }`, `@media print`
-page-break rules, and A4 sheet geometry (800×1130 @ 96dpi). Colors/type stay
-Tailwind+token. `sideEffects: ["*.css"]` is already set in the blocks package, so
-the import is tree-shake-safe.
+**Print-only exception:** small co-located `document-shell.css` holds ONLY
+`@page`/`@media print`/A4 sheet geometry (800×1130 @ 96dpi). Colors/type stay
+Tailwind+token. `sideEffects: ["*.css"]` already set.
 
 ## Component contract (per CLAUDE.md, non-negotiable)
 
-Every component below: forward `className` via `cn()`, forward `ref`
-(`forwardRef`), spread `...props` onto root, expose visual variants via `cva`, and
-ship `<name>.tsx` + `<name>.stories.tsx` + `<name>.test.tsx` (Vitest + Testing
-Library + axe) + `index.ts`.
+Every component: forward `className` via `cn()`, forward `ref` (`forwardRef`),
+spread `...props`, cva for visual variants, and ship `<name>.tsx` +
+`.stories.tsx` + `.test.tsx` (Vitest + Testing Library + axe) + `index.ts`.
 
-## §1 DocumentShell
+## Domain types (`quotation.types.ts`)
 
-```ts
-interface Party { label: string; name: string; lines?: React.ReactNode }
-
-interface DocumentShellProps extends React.HTMLAttributes<HTMLDivElement> {
-  type: string;                 // "Quote", "Invoice"…
-  id: string;                   // "Q-0418"
-  idSuffix?: string;            // "· v2"
-  status?: React.ReactNode;     // usually a <StatusPill>
-  brand: {
-    name: string;
-    mark?: React.ReactNode;     // defaults to first letter
-    trn?: string;
-    contact?: string[];
-    preparedBy?: string;
-  };
-  parties: Party[];             // 2–3 columns
-  children: React.ReactNode;    // document-specific content
-  footer?: React.ReactNode;
-  brandStyle?: "default";       // mono | branded | serif deferred (see below)
-  pageLabel?: string;           // "Page 1 of 1"
-}
-```
-
-Renders, in order:
-1. **Sheet** root — `.sheet` geometry, `--shadow-pop`, `forwardRef` target.
-2. **DocHeader** — left: brandmark + org name + prepared-by/contact meta; right:
-   doc-type wordmark + id (+ idSuffix) + `status`.
-3. **PartiesGrid** — 2–3 `Party` columns (`label` eyebrow, `name`, `lines`).
-4. `children`.
-5. `footer` (optional).
-6. **PageNum** — absolute edge marker (`brand.name · trn` left, `pageLabel` right).
-
-Exported sub-atoms (each own contract-compliant, reused by future doc types):
-`Sheet`, `DocHeader`, `PartiesGrid`, `Party`, `ItemsTable`, `Totals`,
-`StatusPill`, `PageNum`.
-
-`brandStyle` is a cva variant on `Sheet`. **Only `default` implemented now**;
-`mono` / `branded` / `serif` are declared in the cva type but not styled yet —
-they arrive with Invoice (the type that first needs them per §05). This keeps the
-prop stable without building unused skins (YAGNI).
-
-## §2 StatusPill
-
-cva: `variant` = `default | accent | success | warn | outline`; boolean `dot`.
-Drives the §05 status matrix (draft→default, sent/viewed→accent, paid/accepted→
-success, partial/overdue→warn, declined/expired→outline). Standalone, exported
-from DocumentShell entry.
-
-## §3 Quote
+User schema, with two corrections: `Status` → `QuotationStatus`; numeric fields
+kept as `string` per the schema (form inputs are strings; totals parse with
+`Number()`).
 
 ```ts
-interface QuoteItem {
-  scope: string;
-  sub?: string;                 // description line
-  qty: number;
-  rate: number;
-  optional?: boolean;           // excluded from grand total, accent tag
+export type QuotationStatus =
+  | "DRAFT" | "PENDING_APPROVAL" | "APPROVED" | "SENT" | "REJECTED";
+export type ApprovalDecision = "PENDING" | "APPROVED" | "REJECTED";
+
+export interface ApprovalStep {
+  approverId: string;
+  approverName: string;
+  approverEmail: string;
+  decision: ApprovalDecision;
+  comment?: string;
+  requestedAt?: string;   // ISO — serializable for mock store
+  approvedAt?: string;    // ISO
 }
 
-interface QuoteProps extends React.HTMLAttributes<HTMLDivElement> {
-  brand: DocumentShellProps["brand"];
-  client: Party;
-  project: Party;
-  id: string;                   // "Q-0418"
-  version?: number;             // → "· v{n}"
-  validUntil: string;           // display date
-  validityNote?: string;        // "14 days · pricing locked at acceptance"
-  items: QuoteItem[];
-  currency?: string;            // default "AED"
-  vatRate?: number;             // e.g. 0.05; omit → no VAT row
-  terms?: string[];
-  acceptUrl?: string;
-  state?: "open" | "accepted" | "expired";  // default "open"
+export interface Customer {
+  name: string; address: string; phoneNumber: string; emailId: string;
 }
+
+export interface QuotationItem {
+  category: string; quantity: string; rate: string; otRate: string;
+}
+
+export interface QuotationPersistedMeta {
+  createdAt: string; updatedAt: string; createdBy: string; // "system" allowed
+}
+
+export interface QuotationAggregateData {
+  quotationNumber: string;
+  quotationDate: string;         // ISO
+  customer: Customer;
+  status: QuotationStatus;
+  approvers: ApprovalStep[];
+  items: QuotationItem[];
+}
+
+export type PersistedQuotation =
+  QuotationAggregateData & QuotationPersistedMeta & { id: string };
 ```
 
-Behavior:
-- **Computes** core subtotal (non-optional items), VAT (`vatRate`), grand total,
-  and optionals sum. Optionals render with accent "Optional" tag, greyed
-  `+amount`, excluded from grand total, surfaced as "With optionals: +X".
-- **Amber "Valid until" banner** — `--mph-warning-soft` bg, clock icon,
-  `validUntil` + `validityNote`, id on the right.
-- Content = `ItemsTable` (Scope / Qty / Rate / Subtotal) then a terms + `Totals`
-  two-column row.
-- Footer = Accept CTA (`acceptUrl`) + signature strip.
-- `state` cva variant:
-  - `open` — amber banner active, primary "Accept quote" CTA + ghost "Request
-    changes", empty signature line.
-  - `accepted` — green confirmation replaces CTA, signature stamped, banner
-    de-emphasized.
-  - `expired` — CTA greyed/disabled, banner muted.
+Totals helper (`quotation.totals.ts`): `lineTotal(i) = Number(i.quantity) *
+Number(i.rate)`; `otTotal(i) = Number(i.quantity) * Number(i.otRate)`;
+`subtotal = Σ lineTotal`; `otGrandTotal = Σ otTotal`. NaN-safe (treat unparseable
+as 0).
 
-## §4 Deliverables per component
+## Mock API (`quotation.mock.ts`)
 
-For **DocumentShell** and **Quote** each:
-- `<name>.tsx`
-- `<name>.stories.tsx` — states: default, dark, accepted, expired (Quote),
-  customization.
-- `<name>.test.tsx` — Vitest + Testing Library + axe; assert className forwarding,
-  ref forwarding, totals math (Quote: optionals excluded, VAT applied), state
-  variants render.
-- `index.ts`
-- re-export from `packages/blocks/src/index.ts`.
-- co-located `document-shell.css` (print/A4 only), imported by Sheet.
+```ts
+export interface QuotationApi {
+  list(): Promise<PersistedQuotation[]>;
+  get(id: string): Promise<PersistedQuotation | undefined>;
+  create(data: QuotationAggregateData): Promise<PersistedQuotation>;
+  update(id: string, patch: Partial<QuotationAggregateData>): Promise<PersistedQuotation>;
+  remove(id: string): Promise<void>;
+  submitForApproval(id: string): Promise<PersistedQuotation>;   // DRAFT → PENDING_APPROVAL
+  decide(id: string, approverId: string, decision: "APPROVED" | "REJECTED", comment?: string): Promise<PersistedQuotation>;
+}
+export function createMockQuotationApi(seed?: PersistedQuotation[]): QuotationApi;
+```
+
+- In-memory `Map<string, PersistedQuotation>`, seeded with 2–3 fixtures (one DRAFT,
+  one PENDING_APPROVAL, one APPROVED).
+- Each method wrapped in a small `await delay(120)` to mimic async; throws
+  `Error("not found")` on missing id.
+- `create` assigns `id` (crypto.randomUUID), `quotationNumber` (`Q-NNNN`
+  sequential), meta timestamps, `status: "DRAFT"`.
+- `submitForApproval` sets status `PENDING_APPROVAL`, stamps each approver
+  `requestedAt`, decision `PENDING`.
+- `decide` records one approver's decision/comment/`approvedAt`; when all
+  approvers `APPROVED` → status `APPROVED`; any `REJECTED` → status `REJECTED`.
+
+## Components
+
+### §1 DocumentShell (standalone entry)
+Props: `type`, `id`, `idSuffix?`, `status?`, `brand{name,mark?,trn?,contact?,preparedBy?}`,
+`parties: Party[]` (2–3 col), `children`, `footer?`, `brandStyle?: "default"`,
+`pageLabel?`. Renders Sheet → DocHeader → PartiesGrid → children → footer →
+PageNum. Exported sub-atoms: `Sheet`, `DocHeader`, `PartiesGrid`, `Party`,
+`ItemsTable`, `Totals`, `StatusPill`, `PageNum`. `brandStyle` cva declares
+`default | mono | branded | serif`; only `default` styled now (rest arrive with
+Invoice). Print CSS co-located.
+
+### §2 StatusPill (exported from DocumentShell)
+cva `variant`: `default | accent | success | warn | outline`, bool `dot`.
+
+### §3 QuotationStatusPill (in quotation block)
+Thin wrapper mapping `QuotationStatus` → StatusPill variant + label:
+DRAFT→default "Draft", PENDING_APPROVAL→warn+dot "Pending approval",
+APPROVED→success "Approved", SENT→accent "Sent", REJECTED→outline "Rejected".
+
+### §4 ApprovalTimeline
+Props: `steps: ApprovalStep[]`. Vertical list; each row = approver name/email,
+decision pill (PENDING→warn, APPROVED→success, REJECTED→destructive), comment,
+timestamps. Pure.
+
+### §5 QuotationList (pure)
+Props: `quotations: PersistedQuotation[]`, `onOpen(id)`, `onNew()`,
+`isLoading?`. `Table` of number / customer / date / status pill / item count;
+"New quotation" button; empty + loading states.
+
+### §6 QuotationForm (pure, create+edit)
+Props: `initial?: QuotationAggregateData`, `onSubmit(data)`, `onCancel()`,
+`submitting?`. Fields: customer (name/address/phone/email), dynamic item rows
+(category/qty/rate/otRate add+remove), approvers (name/email add+remove),
+quotationDate. Client validation: ≥1 item, customer name+email required, email
+format. Emits `QuotationAggregateData` (status defaulted DRAFT by api on create).
+
+### §7 QuotationDocument (pure, printable, built on DocumentShell)
+Props: `quotation: PersistedQuotation`. Maps record → DocumentShell:
+`type="Quotation"`, `id=quotationNumber`, status pill, brand (static demo brand),
+parties = [customer "Prepared for", meta "Details"]. Content = ItemsTable
+(Category / Qty / Rate / OT Rate / Line total) + Totals (subtotal, OT total).
+Footer = ApprovalTimeline + signature strip. Print-ready via DocumentShell CSS.
+
+### §8 Quotation (container — the only API-touching piece)
+Props: `api?: QuotationApi` (default `createMockQuotationApi()`),
+`className`, `...props`. Internal view state: `"list" | "form" | "detail"` +
+selected id. Wires:
+- mount → `api.list()` into state; loading flag.
+- list `onNew` → form (empty); `onOpen` → detail.
+- form `onSubmit` → `api.create`/`api.update` → back to list, refetch.
+- detail: shows QuotationDetail with actions submit/approve/reject/print +
+  toggle to QuotationDocument view.
+Errors surfaced inline (simple message), not thrown.
+
+### §9 QuotationDetail (pure)
+Props: `quotation`, `onEdit()`, `onSubmitForApproval()`,
+`onDecide(approverId, decision, comment?)`, `onPrint()`, `onBack()`, `busy?`.
+Header (number, status pill), customer card, items table, ApprovalTimeline,
+action buttons gated by status (submit only when DRAFT; approve/reject only when
+PENDING_APPROVAL).
+
+## Deliverables per component
+
+For DocumentShell, StatusPill, QuotationStatusPill, ApprovalTimeline,
+QuotationList, QuotationForm, QuotationDocument, QuotationDetail, Quotation:
+`<name>.tsx` + `.stories.tsx` (default, dark, relevant states, customization) +
+`.test.tsx` (Vitest+TL+axe; className+ref forwarding; behavior) + `index.ts`.
+Plus non-component units with their own tests: `quotation.types.ts`,
+`quotation.totals.ts` (+`.test.ts`), `quotation.mock.ts` (+`.test.ts`),
+`document-shell.css`. Re-export both blocks from `packages/blocks/src/index.ts`.
 
 ## Out of scope (YAGNI)
 
-- The other 6 doc types (Invoice, Proposal, PaymentVoucher, Statement, CreditNote,
-  DeliveryNote) — DocumentShell is built to serve them, but none built here.
-- `brandStyle` mono/branded/serif skins — declared, not implemented.
-- Emails (§05 second half).
-- Server-side PDF rendering pipeline — print CSS shipped, generator not.
+- Other 6 doc types; `brandStyle` mono/branded/serif skins (declared only).
+- Real persistence / network; emails; server PDF pipeline (print CSS only).
+- Auth / per-approver identity gating beyond the passed `approverId`.
