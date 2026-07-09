@@ -90,7 +90,7 @@ export const QuotationsOverview = React.forwardRef<HTMLDivElement, QuotationsOve
               <TabsTrigger
                 key={t.value}
                 value={t.value}
-                count={t.value === "ALL" ? undefined : countBy(t.value)}
+                count={countBy(t.value)}
               >
                 {t.label}
               </TabsTrigger>
@@ -133,7 +133,19 @@ export const QuotationsOverview = React.forwardRef<HTMLDivElement, QuotationsOve
                   className="cursor-pointer"
                   onClick={() => onOpen(row.id)}
                 >
-                  <TableCell className="font-mono">{row.quotationNumber}</TableCell>
+                  <TableCell className="font-mono">
+                    <button
+                      type="button"
+                      className="font-mono text-left hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 rounded-sm"
+                      aria-label={`Open ${row.quotationNumber}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpen(row.id);
+                      }}
+                    >
+                      {row.quotationNumber}
+                    </button>
+                  </TableCell>
                   <TableCell>
                     <div className="font-medium text-foreground">{row.customer.name}</div>
                     <div className="text-xs text-muted-foreground">{row.customer.emailId}</div>
