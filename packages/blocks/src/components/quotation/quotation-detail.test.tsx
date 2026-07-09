@@ -40,6 +40,14 @@ describe("QuotationDetail", () => {
     expect(h.onPrint).toHaveBeenCalledOnce();
     expect(h.onBack).toHaveBeenCalledOnce();
   });
+  it("shows an OT-inclusive grand total matching the document", () => {
+    // Q-1001: subtotal = 2*1200 + 6*400 = 4,800; OT = 2*180 + 6*60 = 720; total = 5,520.
+    render(<QuotationDetail quotation={draft!} {...handlers()} />);
+    const total = screen.getByText(/^Total:/).closest("div")!;
+    expect(total).toHaveTextContent("5,520.00");
+    expect(screen.getByText("4,800.00")).toBeInTheDocument(); // subtotal breakdown
+    expect(screen.getByText("720.00")).toBeInTheDocument(); // OT breakdown
+  });
   it("forwards className and ref", () => {
     const ref = { current: null as HTMLDivElement | null };
     const { container } = render(<QuotationDetail ref={ref} className="px" quotation={draft!} {...handlers()} />);

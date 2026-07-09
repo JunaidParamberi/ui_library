@@ -68,6 +68,37 @@ describe("QuotationForm", () => {
     expect(data.customer.address).toBe("Somewhere");
     expect(data.items[0].otRate).toBe("10");
   });
+  it("adds an approver and includes it in the submitted payload", async () => {
+    const onSubmit = vi.fn();
+    render(<QuotationForm onSubmit={onSubmit} onCancel={vi.fn()} />);
+    await userEvent.type(screen.getByLabelText(/customer name/i), "Acme");
+    await userEvent.type(screen.getByLabelText(/^email/i), "a@acme.com");
+    await userEvent.type(screen.getByLabelText(/category/i), "Mason");
+    await userEvent.click(screen.getByRole("button", { name: /add approver/i }));
+    await userEvent.type(screen.getByLabelText(/approver name/i), "Boss");
+    await userEvent.type(screen.getByLabelText(/approver email/i), "boss@acme.com");
+    await userEvent.click(screen.getByRole("button", { name: /save/i }));
+    expect(onSubmit).toHaveBeenCalledOnce();
+    const data = onSubmit.mock.calls[0]![0];
+    expect(data.approvers).toHaveLength(1);
+    expect(data.approvers[0].approverName).toBe("Boss");
+    expect(data.approvers[0].approverEmail).toBe("boss@acme.com");
+    expect(data.approvers[0].decision).toBe("PENDING");
+    expect(data.approvers[0].approverId).toBeTruthy();
+  });
+  it("blocks submit when an approver has an invalid email", async () => {
+    const onSubmit = vi.fn();
+    render(<QuotationForm onSubmit={onSubmit} onCancel={vi.fn()} />);
+    await userEvent.type(screen.getByLabelText(/customer name/i), "Acme");
+    await userEvent.type(screen.getByLabelText(/^email/i), "a@acme.com");
+    await userEvent.type(screen.getByLabelText(/category/i), "Mason");
+    await userEvent.click(screen.getByRole("button", { name: /add approver/i }));
+    await userEvent.type(screen.getByLabelText(/approver name/i), "Boss");
+    await userEvent.type(screen.getByLabelText(/approver email/i), "boss@bar");
+    await userEvent.click(screen.getByRole("button", { name: /save/i }));
+    expect(onSubmit).not.toHaveBeenCalled();
+    expect(screen.getByText(/valid email is required for each approver/i)).toBeInTheDocument();
+  });
   it("prefills from initial", () => {
     render(
       <QuotationForm

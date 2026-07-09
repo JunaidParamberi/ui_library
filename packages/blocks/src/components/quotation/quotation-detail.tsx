@@ -2,7 +2,7 @@ import * as React from "react";
 import { Button, Card, CardBody, CardHeader, CardTitle, cn } from "@manpowerhub/ui";
 import { QuotationStatusPill } from "./quotation-status-pill";
 import { ApprovalTimeline } from "./approval-timeline";
-import { subtotal } from "./quotation.totals";
+import { subtotal, otGrandTotal } from "./quotation.totals";
 import type { ApprovalStep, PersistedQuotation } from "./quotation.types";
 
 const fmt = (n: number) => n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -41,7 +41,11 @@ export const QuotationDetail = React.forwardRef<HTMLDivElement, QuotationDetailP
           <CardBody>
             <div className="text-sm text-muted-foreground">{q.customer.address}</div>
             <div className="text-sm text-muted-foreground">{q.customer.emailId} · {q.customer.phoneNumber}</div>
-            <div className="mt-4 text-sm text-foreground">Total: <span className="font-semibold tabular-nums">{fmt(subtotal(q.items))}</span></div>
+            <div className="mt-4 flex flex-col gap-0.5 text-sm text-foreground">
+              <div className="text-muted-foreground">Subtotal: <span className="tabular-nums">{fmt(subtotal(q.items))}</span></div>
+              <div className="text-muted-foreground">OT total: <span className="tabular-nums">{fmt(otGrandTotal(q.items))}</span></div>
+              <div>Total: <span className="font-semibold tabular-nums">{fmt(subtotal(q.items) + otGrandTotal(q.items))}</span></div>
+            </div>
           </CardBody>
         </Card>
 
