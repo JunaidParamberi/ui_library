@@ -67,6 +67,10 @@ export const QuotationDemo = dynamic(
   () => import("./demos/quotation-demo").then((m) => m.QuotationDemo),
   { ssr: false, loading },
 );
+export const QuotationsPageDemo = dynamic(
+  () => import("./demos/quotations-page-demo").then((m) => m.QuotationsPageDemo),
+  { ssr: false, loading },
+);
 export const DocumentShellDemo = dynamic(
   () => import("./demos/document-shell-demo").then((m) => m.DocumentShellDemo),
   { ssr: false, loading },

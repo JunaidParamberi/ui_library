@@ -6,5 +6,6 @@ export default {
   "page-header": "PageHeader",
   "pricing-table": "PricingTable",
   quotation: "Quotation",
+  "quotations-page": "QuotationsPage",
   "stat-card-row": "StatCardRow",
 };
