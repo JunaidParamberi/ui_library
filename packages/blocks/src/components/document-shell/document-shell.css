@@ -1,0 +1,11 @@
+/* Print/A4 geometry only. Colors/type come from Tailwind + tokens. */
+.mph-sheet {
+  width: 800px;
+  min-height: 1130px;
+}
+@media print {
+  body { background: #fff; }
+  .mph-sheet { box-shadow: none !important; page-break-after: always; }
+  .mph-sheet:last-child { page-break-after: auto; }
+}
+@page { size: A4; margin: 0; }
