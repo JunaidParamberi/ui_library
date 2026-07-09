@@ -30,8 +30,13 @@ interface Opts {
 // Local fallback only — production builds set VERCEL_PROJECT_PRODUCTION_URL (see gen-registry.mjs).
 const DEFAULT_BASE_URL = "http://localhost:3001";
 
-const isShipped = (f: string) =>
-  f.endsWith(".tsx") && !f.endsWith(".stories.tsx") && !f.endsWith(".test.tsx");
+const isShipped = (f: string) => {
+  // index.ts must stay excluded: staging flattens every file to `${group}/${file}`,
+  // so every component's index.ts would collide on `blocks/index.ts` (or ui/index.ts).
+  if (f === "index.ts") return false;
+  if (f.endsWith(".stories.tsx") || f.endsWith(".test.tsx") || f.endsWith(".test.ts")) return false;
+  return f.endsWith(".tsx") || f.endsWith(".ts") || f.endsWith(".css");
+};
 
 function stage(stageDir: string, relPath: string, code: string) {
   const dest = path.join(stageDir, relPath);
