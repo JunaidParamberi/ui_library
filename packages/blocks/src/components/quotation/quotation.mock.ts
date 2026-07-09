@@ -56,6 +56,50 @@ export function seedQuotations(): PersistedQuotation[] {
       ],
       createdAt: now, updatedAt: now, createdBy: "system",
     },
+    {
+      id: uid(),
+      quotationNumber: "Q-1003",
+      quotationDate: "2026-07-05",
+      status: "APPROVED",
+      customer: { name: "Emaar Properties PJSC", address: "Downtown Dubai, UAE", phoneNumber: "+971 4 555 0300", emailId: "rania@emaar.ae" },
+      items: [
+        { category: "Site Engineer", quantity: "2", rate: "1500", otRate: "220" },
+        { category: "Foreman", quantity: "3", rate: "700", otRate: "100" },
+      ],
+      approvers: [
+        { approverId: "u1", approverName: "Lena Marchetti", approverEmail: "lena@studio.com", decision: "APPROVED", requestedAt: now, approvedAt: now },
+      ],
+      createdAt: now, updatedAt: now, createdBy: "system",
+    },
+    {
+      id: uid(),
+      quotationNumber: "Q-1004",
+      quotationDate: "2026-07-06",
+      status: "SENT",
+      customer: { name: "Al Naboodah Contracting", address: "Deira, Dubai, UAE", phoneNumber: "+971 4 555 0400", emailId: "hamad@alnaboodah.ae" },
+      items: [
+        { category: "Scaffolder", quantity: "4", rate: "500", otRate: "75" },
+        { category: "Helper", quantity: "5", rate: "300", otRate: "45" },
+      ],
+      approvers: [
+        { approverId: "u1", approverName: "Lena Marchetti", approverEmail: "lena@studio.com", decision: "APPROVED", requestedAt: now, approvedAt: now },
+      ],
+      createdAt: now, updatedAt: now, createdBy: "system",
+    },
+    {
+      id: uid(),
+      quotationNumber: "Q-1005",
+      quotationDate: "2026-07-07",
+      status: "REJECTED",
+      customer: { name: "Shapoorji Pallonji M.E.", address: "Business Bay, Dubai, UAE", phoneNumber: "+971 4 555 0500", emailId: "rustom@shapoorji.ae" },
+      items: [
+        { category: "Mason", quantity: "6", rate: "400", otRate: "60" },
+      ],
+      approvers: [
+        { approverId: "u1", approverName: "Lena Marchetti", approverEmail: "lena@studio.com", decision: "REJECTED", comment: "Rates too high", requestedAt: now, approvedAt: now },
+      ],
+      createdAt: now, updatedAt: now, createdBy: "system",
+    },
   ];
 }
 

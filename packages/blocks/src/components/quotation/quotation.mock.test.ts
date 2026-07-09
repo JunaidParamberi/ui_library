@@ -15,6 +15,15 @@ const draft = (): QuotationAggregateData => ({
 });
 
 describe("createMockQuotationApi", () => {
+  it("seeds one quotation per status", async () => {
+    const api = createMockQuotationApi();
+    const list = await api.list();
+    const statuses = new Set(list.map((q) => q.status));
+    expect(statuses).toEqual(
+      new Set(["DRAFT", "PENDING_APPROVAL", "APPROVED", "SENT", "REJECTED"]),
+    );
+    expect(list.length).toBe(5);
+  });
   it("seeds and lists quotations", async () => {
     const api = createMockQuotationApi();
     expect((await api.list()).length).toBeGreaterThan(0);
