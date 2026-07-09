@@ -3,7 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { axe } from "vitest-axe";
 import { describe, it, expect } from "vitest";
 import { Quotation } from "./quotation";
-import { createMockQuotationApi, seedQuotations } from "./quotation.mock";
+import { createMockQuotationApi } from "./quotation.mock";
+import type { QuotationApi } from "./quotation.mock";
 
 describe("Quotation", () => {
   it("loads and lists seeded quotations", async () => {
@@ -29,6 +30,38 @@ describe("Quotation", () => {
     await userEvent.click(await screen.findByText("Q-1001"));
     await userEvent.click(await screen.findByRole("button", { name: /submit for approval/i }));
     await waitFor(() => expect(screen.getByText("Pending approval")).toBeInTheDocument());
+  });
+  it("edits an existing quotation through the form", async () => {
+    render(<Quotation api={createMockQuotationApi()} />);
+    await userEvent.click(await screen.findByText("Q-1001"));
+    await userEvent.click(await screen.findByRole("button", { name: /^edit/i }));
+    const nameInput = await screen.findByLabelText(/customer name/i);
+    await userEvent.clear(nameInput);
+    await userEvent.type(nameInput, "Renamed Co");
+    await userEvent.click(screen.getByRole("button", { name: /save/i }));
+    expect(await screen.findByText("Renamed Co")).toBeInTheDocument();
+  });
+  it("rejects a pending quotation through the detail view", async () => {
+    render(<Quotation api={createMockQuotationApi()} />);
+    await userEvent.click(await screen.findByText("Q-1002"));
+    await userEvent.click(await screen.findByRole("button", { name: /^reject/i }));
+    await waitFor(() => expect(screen.getAllByText("Rejected").length).toBeGreaterThan(0));
+  });
+  it("prints a quotation and returns to the detail view", async () => {
+    render(<Quotation api={createMockQuotationApi()} />);
+    await userEvent.click(await screen.findByText("Q-1001"));
+    await userEvent.click(await screen.findByRole("button", { name: /^print/i }));
+    expect(await screen.findByText(/back to detail/i)).toBeInTheDocument();
+    await userEvent.click(screen.getByText(/back to detail/i));
+    expect(await screen.findByRole("button", { name: /submit for approval/i })).toBeInTheDocument();
+  });
+  it("shows an error message when loading quotations fails", async () => {
+    const failingApi: QuotationApi = {
+      ...createMockQuotationApi([]),
+      list: () => Promise.reject(new Error("network down")),
+    };
+    render(<Quotation api={failingApi} />);
+    expect(await screen.findByRole("alert")).toHaveTextContent("network down");
   });
   it("forwards className and ref", async () => {
     const ref = { current: null as HTMLDivElement | null };

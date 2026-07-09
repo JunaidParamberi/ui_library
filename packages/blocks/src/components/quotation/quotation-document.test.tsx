@@ -18,6 +18,14 @@ describe("QuotationDocument", () => {
     render(<QuotationDocument quotation={q} />);
     expect(screen.getByText("4,800.00")).toBeInTheDocument();
   });
+  it("falls back to zero for blank rate and OT rate values", () => {
+    const blank = {
+      ...q,
+      items: [{ category: "Helper", quantity: "1", rate: "", otRate: "" }],
+    };
+    render(<QuotationDocument quotation={blank} />);
+    expect(screen.getAllByText("0.00").length).toBeGreaterThan(0);
+  });
   it("forwards className and ref", () => {
     const ref = { current: null as HTMLDivElement | null };
     const { container } = render(<QuotationDocument ref={ref} className="px" quotation={q} />);

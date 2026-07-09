@@ -26,10 +26,47 @@ describe("QuotationForm", () => {
     expect(onSubmit).not.toHaveBeenCalled();
     expect(screen.getByText(/customer name is required/i)).toBeInTheDocument();
   });
+  it("blocks submit when the customer email is invalid", async () => {
+    const onSubmit = vi.fn();
+    render(<QuotationForm onSubmit={onSubmit} onCancel={vi.fn()} />);
+    await userEvent.type(screen.getByLabelText(/customer name/i), "Acme");
+    await userEvent.type(screen.getByLabelText(/email/i), "foo@bar");
+    await userEvent.click(screen.getByRole("button", { name: /save/i }));
+    expect(onSubmit).not.toHaveBeenCalled();
+    expect(screen.getByText(/valid customer email is required/i)).toBeInTheDocument();
+  });
+  it("blocks submit when no item has a category", async () => {
+    const onSubmit = vi.fn();
+    render(<QuotationForm onSubmit={onSubmit} onCancel={vi.fn()} />);
+    await userEvent.type(screen.getByLabelText(/customer name/i), "Acme");
+    await userEvent.type(screen.getByLabelText(/email/i), "a@acme.com");
+    await userEvent.click(screen.getByRole("button", { name: /save/i }));
+    expect(onSubmit).not.toHaveBeenCalled();
+    expect(screen.getByText(/at least one item is required/i)).toBeInTheDocument();
+  });
   it("adds and removes item rows", async () => {
     render(<QuotationForm onSubmit={vi.fn()} onCancel={vi.fn()} />);
     await userEvent.click(screen.getByRole("button", { name: /add item/i }));
     expect(screen.getAllByLabelText(/category/i).length).toBe(2);
+    await userEvent.click(screen.getAllByRole("button", { name: /remove item/i })[0]!);
+    expect(screen.getAllByLabelText(/category/i).length).toBe(1);
+  });
+  it("edits phone, address, date and OT rate fields", async () => {
+    const onSubmit = vi.fn();
+    render(<QuotationForm onSubmit={onSubmit} onCancel={vi.fn()} />);
+    await userEvent.type(screen.getByLabelText(/customer name/i), "Acme");
+    await userEvent.type(screen.getByLabelText(/email/i), "a@acme.com");
+    await userEvent.type(screen.getByLabelText(/phone number/i), "12345");
+    await userEvent.type(screen.getByLabelText(/address/i), "Somewhere");
+    await userEvent.clear(screen.getByLabelText(/quotation date/i));
+    await userEvent.type(screen.getByLabelText(/quotation date/i), "2026-07-09");
+    await userEvent.type(screen.getByLabelText(/category/i), "Mason");
+    await userEvent.type(screen.getByLabelText(/^ot rate/i), "10");
+    await userEvent.click(screen.getByRole("button", { name: /save/i }));
+    const data = onSubmit.mock.calls[0]![0];
+    expect(data.customer.phoneNumber).toBe("12345");
+    expect(data.customer.address).toBe("Somewhere");
+    expect(data.items[0].otRate).toBe("10");
   });
   it("prefills from initial", () => {
     render(

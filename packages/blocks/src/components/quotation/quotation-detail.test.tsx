@@ -26,6 +26,12 @@ describe("QuotationDetail", () => {
     await userEvent.click(screen.getByRole("button", { name: /^approve/i }));
     expect(h.onDecide).toHaveBeenCalledWith(pending!.approvers[1]!.approverId, "APPROVED", undefined);
   });
+  it("fires onDecide with REJECTED when reject is clicked", async () => {
+    const h = handlers();
+    render(<QuotationDetail quotation={pending!} {...h} />);
+    await userEvent.click(screen.getByRole("button", { name: /^reject/i }));
+    expect(h.onDecide).toHaveBeenCalledWith(pending!.approvers[1]!.approverId, "REJECTED", undefined);
+  });
   it("fires onPrint and onBack", async () => {
     const h = handlers();
     render(<QuotationDetail quotation={draft!} {...h} />);

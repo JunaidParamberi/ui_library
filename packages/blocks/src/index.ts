@@ -4,3 +4,5 @@ export * from "./components/stat-card-row";
 export * from "./components/auth-form";
 export * from "./components/data-table-toolbar";
 export * from "./components/pricing-table";
+export * from "./components/document-shell";
+export * from "./components/quotation";
