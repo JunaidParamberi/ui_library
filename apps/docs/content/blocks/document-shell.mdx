@@ -1,0 +1,43 @@
+import { DocumentShellDemo } from "../../src/components/dynamic-demos";
+import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
+
+# DocumentShell
+
+Printable-document shell — a branded header, a parties grid, your content, and a
+footer with page marker — shared by every generated document type (quotations,
+invoices, and the rest). Ships its own `@page`/print geometry so the same markup
+reads correctly on screen and on A4.
+
+<FullViewLinks slug="document-shell" />
+
+## Preview
+
+<ComponentPreview source={demoSources["document-shell-demo"]}>
+  <DocumentShellDemo />
+</ComponentPreview>
+
+## Usage
+
+Give the shell a `type` (e.g. `"Quotation"`), an `id`, a `brand` (name, contact
+lines, optional `trn`), and a `parties` array (2–3 columns of who the document is
+for and about). Pass an optional `status` node for a `StatusPill`. Render your
+document body as `children` — the exported `ItemsTable` and `Totals` atoms cover
+the common line-item + totals layout, but any content works.
+
+The block re-exports its sub-atoms — `Sheet`, `DocHeader`, `PartiesGrid`,
+`Party`, `ItemsTable`, `Totals`, `StatusPill`, `PageNum` — so a new document type
+can compose the same pieces without rebuilding the frame.
+
+## Props
+
+<PropsTable of="DocumentShell" />
+
+## Accessibility
+
+The sheet is a semantic document region with a real heading for the document
+type and id, so screen readers announce the document rather than an anonymous
+box. Status is conveyed by the pill's text, not color alone. Print styles are
+scoped to `@media print`, leaving the on-screen reading order untouched.

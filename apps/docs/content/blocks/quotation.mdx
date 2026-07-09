@@ -1,0 +1,57 @@
+import { QuotationDemo } from "../../src/components/dynamic-demos";
+import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
+
+# Quotation
+
+End-to-end quotation block: list, create/edit, and review quotations, then render
+the selected record as a printable document on [DocumentShell](/blocks/document-shell).
+It ships with an in-memory mock API so it runs standalone — swap in your own
+`QuotationApi` implementation to wire real persistence.
+
+<FullViewLinks slug="quotation" />
+
+## Preview
+
+<ComponentPreview source={demoSources["quotation-demo"]}>
+  <QuotationDemo />
+</ComponentPreview>
+
+## Usage
+
+Render `<Quotation />` and it manages its own list → form → detail flow. By
+default it uses `createMockQuotationApi()`; pass an `api` prop implementing the
+`QuotationApi` interface (`list`, `get`, `create`, `update`, `remove`,
+`submitForApproval`, `decide`) to back it with a real service:
+
+```tsx
+import { Quotation, createMockQuotationApi } from "@manpowerhub/blocks";
+
+// Demo: isolated in-memory store, reset on reload.
+<Quotation api={createMockQuotationApi()} />;
+
+// Production: your own implementation of QuotationApi.
+<Quotation api={myQuotationApi} />;
+```
+
+The presentational sub-components — `QuotationList`, `QuotationForm`,
+`QuotationDetail`, `QuotationDocument`, `ApprovalTimeline`,
+`QuotationStatusPill` — are pure (data in, callbacks out) and exported for
+reuse. Only the top-level `Quotation` container touches the API.
+
+The grand total is OT-inclusive (`subtotal + overtime`), consistent between the
+detail view and the printable document.
+
+## Props
+
+<PropsTable of="Quotation" />
+
+## Accessibility
+
+Actions are gated by status — submit-for-approval only from `DRAFT`,
+approve/reject only from `PENDING_APPROVAL` — so the workflow never offers an
+invalid transition. Status is conveyed via pill text, form errors surface in an
+`alert` region, and every control is a real button or labeled field, keeping the
+flow keyboard-navigable.
