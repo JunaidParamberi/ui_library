@@ -23,6 +23,11 @@ describe("StatCardRow", () => {
     expect(container.firstChild).toHaveClass("lg:grid-cols-4");
   });
 
+  it("applies the 5-column grid class", () => {
+    const { container } = render(<StatCardRow stats={stats} columns={5} />);
+    expect(container.firstChild).toHaveClass("lg:grid-cols-5");
+  });
+
   it("renders skeletons and no stat labels when loading", () => {
     render(<StatCardRow stats={stats} loading columns={3} />);
     expect(screen.queryByText("Revenue")).not.toBeInTheDocument();
