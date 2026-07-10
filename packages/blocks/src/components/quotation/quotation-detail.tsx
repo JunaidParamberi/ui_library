@@ -13,12 +13,13 @@ export interface QuotationDetailProps extends React.HTMLAttributes<HTMLDivElemen
   onSubmitForApproval: () => void;
   onDecide: (approverId: string, decision: "APPROVED" | "REJECTED", comment?: string) => void;
   onPrint: () => void;
-  onBack: () => void;
+  onBack?: () => void;
+  onFullView?: () => void;
   busy?: boolean;
 }
 
 export const QuotationDetail = React.forwardRef<HTMLDivElement, QuotationDetailProps>(
-  ({ className, quotation, onEdit, onSubmitForApproval, onDecide, onPrint, onBack, busy = false, ...props }, ref) => {
+  ({ className, quotation, onEdit, onSubmitForApproval, onDecide, onPrint, onBack, onFullView, busy = false, ...props }, ref) => {
     const q = quotation;
     // First still-pending approver acts as the current actor for the demo.
     const nextApprover: ApprovalStep | undefined = q.approvers.find((a) => a.decision === "PENDING");
@@ -26,11 +27,12 @@ export const QuotationDetail = React.forwardRef<HTMLDivElement, QuotationDetailP
       <div ref={ref} className={cn("flex flex-col gap-4", className)} {...props}>
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={onBack}>← Back</Button>
+            {onBack && <Button variant="ghost" size="sm" onClick={onBack}>← Back</Button>}
             <h2 className="font-display text-lg font-semibold text-foreground">{q.quotationNumber}</h2>
             <QuotationStatusPill status={q.status} />
           </div>
           <div className="flex gap-2">
+            {onFullView && <Button variant="secondary" size="sm" onClick={onFullView}>Full view</Button>}
             <Button variant="secondary" size="sm" onClick={onPrint}>Print</Button>
             <Button variant="ghost" size="sm" onClick={onEdit}>Edit</Button>
           </div>

@@ -1,3 +1,4 @@
+import * as React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "vitest-axe";
@@ -11,6 +12,9 @@ const handlers = () => ({
   onEdit: vi.fn(), onSubmitForApproval: vi.fn(), onDecide: vi.fn(),
   onPrint: vi.fn(), onBack: vi.fn(),
 });
+
+const renderDetail = (overrides: Partial<React.ComponentProps<typeof QuotationDetail>> = {}) =>
+  render(<QuotationDetail quotation={draft!} {...handlers()} {...overrides} />);
 
 describe("QuotationDetail", () => {
   it("shows submit action only for DRAFT", async () => {
@@ -57,5 +61,15 @@ describe("QuotationDetail", () => {
   it("has no a11y violations", async () => {
     const { container } = render(<QuotationDetail quotation={pending!} {...handlers()} />);
     expect(await axe(container)).toHaveNoViolations();
+  });
+  it("renders Full view button and fires onFullView when provided", async () => {
+    const onFullView = vi.fn();
+    renderDetail({ onFullView });
+    await userEvent.click(screen.getByRole("button", { name: /full view/i }));
+    expect(onFullView).toHaveBeenCalledTimes(1);
+  });
+  it("omits Full view button when onFullView is not provided", () => {
+    renderDetail({});
+    expect(screen.queryByRole("button", { name: /full view/i })).not.toBeInTheDocument();
   });
 });
