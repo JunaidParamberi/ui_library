@@ -7,7 +7,7 @@ import { QuotationsPage } from "./quotations-page";
 const findFirstRowButton = async () => {
   // list pane rows are buttons labelled "Open <number>"
   const btns = await screen.findAllByRole("button", { name: /open q/i });
-  return btns[0];
+  return btns[0]!;
 };
 
 describe("QuotationsPage (master-detail)", () => {
