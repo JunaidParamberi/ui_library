@@ -71,7 +71,6 @@ export const QuotationListPane = React.forwardRef<HTMLDivElement, QuotationListP
                       active ? "bg-accent" : "hover:bg-accent/60",
                     )}
                   >
-                    {active && <span aria-hidden className="absolute -left-4 top-0 bottom-0 w-[3px] bg-primary" />}
                     <span className="h-fit flex-none rounded-sm border border-border px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-muted-foreground">QUO</span>
                     <span className="flex min-w-0 flex-1 flex-col gap-2">
                       <span className="flex items-center justify-between gap-2">
