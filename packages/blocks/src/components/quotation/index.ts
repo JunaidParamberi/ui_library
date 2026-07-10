@@ -1,5 +1,6 @@
 export * from "./quotation";
 export * from "./quotation-list";
+export * from "./quotation-list-pane";
 export * from "./quotation-form";
 export * from "./quotation-detail";
 export * from "./quotation-document";
