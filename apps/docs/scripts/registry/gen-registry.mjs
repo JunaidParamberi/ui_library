@@ -57,7 +57,10 @@ fs.writeFileSync(path.join(stageDir, "registry.json"), serialized);
 
 execFileSync(
   "npx",
-  ["shadcn", "build", path.join(stageDir, "registry.json"), "--output", path.join(DOCS, "public/r")],
+  // `--yes` so npx never blocks on the interactive "Need to install shadcn? (y)"
+  // prompt: cwd is a temp staging dir with no local shadcn bin, so on a fresh CI
+  // box (no npx cache, no TTY) npx would otherwise hang forever waiting on stdin.
+  ["--yes", "shadcn", "build", path.join(stageDir, "registry.json"), "--output", path.join(DOCS, "public/r")],
   { cwd: stageDir, stdio: "inherit" },
 );
 
