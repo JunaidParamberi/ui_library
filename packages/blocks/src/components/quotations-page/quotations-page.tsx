@@ -97,6 +97,15 @@ export const QuotationsPage = React.forwardRef<HTMLDivElement, QuotationsPagePro
         await apiRef.current.decide(id, approverId, decision, comment);
         await refetch();
       });
+    const handleDelete = (id: string) =>
+      run(async () => {
+        await apiRef.current.remove(id);
+        await refetch();
+        if (id === selectedId) {
+          setSelectedId(null);
+          setMode("split");
+        }
+      });
 
     const listPane = (
       <QuotationListPane
@@ -139,6 +148,7 @@ export const QuotationsPage = React.forwardRef<HTMLDivElement, QuotationsPagePro
         onPrint={() => setMode("full")}
         onSubmitForApproval={() => handleSubmit(current.id)}
         onDecide={(approverId, decision, comment) => handleDecide(current.id, approverId, decision, comment)}
+        onDelete={() => handleDelete(current.id)}
       />
     ) : undefined;
 

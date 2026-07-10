@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "vitest-axe";
 import { describe, it, expect, vi } from "vitest";
@@ -71,5 +71,23 @@ describe("QuotationDetail", () => {
   it("omits Full view button when onFullView is not provided", () => {
     renderDetail({});
     expect(screen.queryByRole("button", { name: /full view/i })).not.toBeInTheDocument();
+  });
+  it("omits Delete button when onDelete is not provided", () => {
+    renderDetail({});
+    expect(screen.queryByRole("button", { name: /^delete/i })).not.toBeInTheDocument();
+  });
+  it("clicking Delete opens the confirm dialog", async () => {
+    renderDetail({ onDelete: vi.fn() });
+    await userEvent.click(screen.getByRole("button", { name: /^delete/i }));
+    expect(await screen.findByText(`Delete ${draft!.quotationNumber}?`)).toBeInTheDocument();
+    expect(screen.getByText(/this can.t be undone/i)).toBeInTheDocument();
+  });
+  it("confirming the dialog calls onDelete once", async () => {
+    const onDelete = vi.fn();
+    renderDetail({ onDelete });
+    await userEvent.click(screen.getByRole("button", { name: /^delete/i }));
+    const dialog = await screen.findByRole("dialog");
+    await userEvent.click(within(dialog).getByRole("button", { name: /^delete/i }));
+    expect(onDelete).toHaveBeenCalledOnce();
   });
 });

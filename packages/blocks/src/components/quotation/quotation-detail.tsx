@@ -1,5 +1,9 @@
 import * as React from "react";
-import { Button, Card, CardBody, CardHeader, CardTitle, cn } from "@manpowerhub/ui";
+import {
+  Button, Card, CardBody, CardHeader, CardTitle,
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose,
+  cn,
+} from "@manpowerhub/ui";
 import { QuotationStatusPill } from "./quotation-status-pill";
 import { ApprovalTimeline } from "./approval-timeline";
 import { subtotal, otGrandTotal } from "./quotation.totals";
@@ -15,12 +19,14 @@ export interface QuotationDetailProps extends React.HTMLAttributes<HTMLDivElemen
   onPrint: () => void;
   onBack?: () => void;
   onFullView?: () => void;
+  onDelete?: () => void;
   busy?: boolean;
 }
 
 export const QuotationDetail = React.forwardRef<HTMLDivElement, QuotationDetailProps>(
-  ({ className, quotation, onEdit, onSubmitForApproval, onDecide, onPrint, onBack, onFullView, busy = false, ...props }, ref) => {
+  ({ className, quotation, onEdit, onSubmitForApproval, onDecide, onPrint, onBack, onFullView, onDelete, busy = false, ...props }, ref) => {
     const q = quotation;
+    const [confirmDelete, setConfirmDelete] = React.useState(false);
     // First still-pending approver acts as the current actor for the demo.
     const nextApprover: ApprovalStep | undefined = q.approvers.find((a) => a.decision === "PENDING");
     return (
@@ -35,6 +41,9 @@ export const QuotationDetail = React.forwardRef<HTMLDivElement, QuotationDetailP
             {onFullView && <Button variant="secondary" size="sm" onClick={onFullView}>Full view</Button>}
             <Button variant="secondary" size="sm" onClick={onPrint}>Print</Button>
             <Button variant="ghost" size="sm" onClick={onEdit}>Edit</Button>
+            {onDelete && (
+              <Button variant="danger" size="sm" onClick={() => setConfirmDelete(true)}>Delete</Button>
+            )}
           </div>
         </div>
 
@@ -64,6 +73,31 @@ export const QuotationDetail = React.forwardRef<HTMLDivElement, QuotationDetailP
             </>
           )}
         </div>
+
+        {onDelete && (
+          <Dialog open={confirmDelete} onOpenChange={setConfirmDelete}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Delete {q.quotationNumber}?</DialogTitle>
+                <DialogDescription>This can&rsquo;t be undone.</DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="secondary">Cancel</Button>
+                </DialogClose>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    onDelete();
+                    setConfirmDelete(false);
+                  }}
+                >
+                  Delete
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
     );
   },

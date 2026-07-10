@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "vitest-axe";
 import { describe, it, expect } from "vitest";
@@ -41,5 +41,14 @@ describe("QuotationsPage (master-detail)", () => {
     const { container } = render(<QuotationsPage />);
     await findFirstRowButton();
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it("Delete confirms in dialog and clears selection, showing the placeholder again", async () => {
+    render(<QuotationsPage />);
+    await userEvent.click(await findFirstRowButton());
+    await userEvent.click(await screen.findByRole("button", { name: /^delete$/i }));
+    const dialog = await screen.findByRole("dialog");
+    await userEvent.click(within(dialog).getByRole("button", { name: /^delete$/i }));
+    expect(await screen.findByText(/select a quotation/i)).toBeInTheDocument();
   });
 });
