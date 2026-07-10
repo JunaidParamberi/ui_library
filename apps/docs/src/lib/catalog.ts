@@ -55,6 +55,7 @@ export const catalog: CatalogEntry[] = [
   { slug: "data-table-toolbar", demoKey: "data-table-toolbar-demo", docgenName: "DataTableToolbar", story: "blocks-datatabletoolbar", storyId: "default", pkg: "blocks" },
   { slug: "document-shell", demoKey: "document-shell-demo", docgenName: "DocumentShell", story: "blocks-documentshell", storyId: "default", pkg: "blocks" },
   { slug: "empty-state", demoKey: "empty-state-demo", docgenName: "EmptyState", story: "blocks-emptystate", storyId: "default", pkg: "blocks" },
+  { slug: "master-detail-shell", demoKey: "master-detail-shell-demo", docgenName: "MasterDetailShell", story: "blocks-masterdetailshell", storyId: "default", pkg: "blocks" },
   { slug: "page-header", demoKey: "page-header-demo", docgenName: "PageHeader", story: "blocks-pageheader", storyId: "default", pkg: "blocks" },
   { slug: "pricing-table", demoKey: "pricing-table-demo", docgenName: "PricingTable", story: "blocks-pricingtable", storyId: "default", pkg: "blocks" },
   { slug: "quotation", demoKey: "quotation-demo", docgenName: "Quotation", story: "blocks-quotation", storyId: "default", pkg: "blocks" },

@@ -75,6 +75,10 @@ export const DocumentShellDemo = dynamic(
   () => import("./demos/document-shell-demo").then((m) => m.DocumentShellDemo),
   { ssr: false, loading },
 );
+export const MasterDetailShellDemo = dynamic(
+  () => import("./demos/master-detail-shell-demo").then((m) => m.MasterDetailShellDemo),
+  { ssr: false, loading },
+);
 export const AvatarDemo = dynamic(
   () => import("./demos/avatar-demo").then((m) => m.AvatarDemo),
   { ssr: false, loading },

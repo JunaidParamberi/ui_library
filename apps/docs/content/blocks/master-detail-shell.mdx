@@ -1,0 +1,59 @@
+import { MasterDetailShellDemo } from "../../src/components/dynamic-demos";
+import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
+
+# MasterDetailShell
+
+Responsive list/detail frame — a left list pane that stays mounted, a right
+detail pane with room for Edit/Delete actions, and an optional full-width mode
+for a printable or expanded view (e.g. a document). On mobile the two panes
+stack: the list fills the screen until something is selected, then the detail
+pane takes over with a back control.
+
+<FullViewLinks slug="master-detail-shell" />
+
+## Preview
+
+<ComponentPreview source={demoSources["master-detail-shell-demo"]}>
+  <MasterDetailShellDemo />
+</ComponentPreview>
+
+## Usage
+
+Give the shell a `list` (always mounted) and a `detail` for the selected item,
+plus a `detailPlaceholder` shown on desktop when nothing is selected yet. Drive
+`hasSelection` from your own selection state — it decides which pane shows on
+mobile, and whether desktop shows `detail` or `detailPlaceholder`. Pass an
+`onBack` handler to render a back control on mobile detail and in full view.
+
+For a full-width mode (e.g. a printable document), pass `full` and set
+`isFull`. `QuotationsPage` composes `MasterDetailShell` with `QuotationListPane`
+and `QuotationDetail` to get exactly this list → detail → full flow, including
+Edit and Delete actions on the detail pane.
+
+```tsx
+import { MasterDetailShell } from "@manpowerhub/blocks";
+
+<MasterDetailShell
+  list={<QuotationListPane {...listProps} />}
+  detail={selected && <QuotationDetail quotation={selected} onDelete={...} />}
+  detailPlaceholder={<EmptyState title="Select a quotation" />}
+  full={selected && <QuotationDocument quotation={selected} />}
+  isFull={mode === "full"}
+  hasSelection={!!selected}
+  onBack={() => setSelected(null)}
+/>;
+```
+
+## Props
+
+<PropsTable of="MasterDetailShell" />
+
+## Accessibility
+
+The back control is a real `Button`, focusable and labeled by its "← Back"
+text. Only one pane is present on mobile at a time — the hidden pane is not
+just visually hidden but excluded from `display`, so it isn't reachable by
+keyboard or screen reader while off-screen.
