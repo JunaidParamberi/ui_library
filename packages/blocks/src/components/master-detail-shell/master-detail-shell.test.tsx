@@ -57,6 +57,20 @@ describe("MasterDetailShell", () => {
     expect(onBack).toHaveBeenCalledTimes(1);
   });
 
+  it("merges consumer style without dropping the list-width var", () => {
+    render(
+      <MasterDetailShell
+        data-testid="shell"
+        list={<div>LIST</div>}
+        listWidth="30rem"
+        style={{ marginTop: "8px" }}
+      />,
+    );
+    const el = screen.getByTestId("shell");
+    expect(el.style.getPropertyValue("--md-list-w")).toBe("30rem");
+    expect(el.style.marginTop).toBe("8px");
+  });
+
   it("forwards ref, className, and props; axe clean", async () => {
     const ref = React.createRef<HTMLDivElement>();
     const { container } = render(

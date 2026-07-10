@@ -22,7 +22,7 @@ export interface MasterDetailShellProps extends React.HTMLAttributes<HTMLDivElem
 
 export const MasterDetailShell = React.forwardRef<HTMLDivElement, MasterDetailShellProps>(
   (
-    { className, list, detail, detailPlaceholder, full, isFull = false, hasSelection = false, onBack, listWidth = "20rem", ...props },
+    { className, style, list, detail, detailPlaceholder, full, isFull = false, hasSelection = false, onBack, listWidth = "20rem", ...props },
     ref,
   ) => {
     const backButton = onBack ? (
@@ -45,7 +45,7 @@ export const MasterDetailShell = React.forwardRef<HTMLDivElement, MasterDetailSh
           "grid gap-4 md:grid-cols-[var(--md-list-w)_1fr]",
           className,
         )}
-        style={{ ["--md-list-w" as string]: listWidth, ...props.style }}
+        style={{ "--md-list-w": listWidth, ...style } as React.CSSProperties}
         {...props}
       >
         {/* List: full-width on mobile only when nothing selected; always visible on desktop */}
