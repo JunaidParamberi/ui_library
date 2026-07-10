@@ -31,7 +31,7 @@ export const MasterDetailShell = React.forwardRef<HTMLDivElement, MasterDetailSh
 
     if (isFull) {
       return (
-        <div ref={ref} className={cn("flex flex-col gap-4", className)} {...props}>
+        <div ref={ref} className={cn("flex flex-col gap-4", className)} style={style} {...props}>
           {backButton}
           <div>{full}</div>
         </div>

@@ -71,6 +71,20 @@ describe("MasterDetailShell", () => {
     expect(el.style.marginTop).toBe("8px");
   });
 
+  it("keeps consumer style in full view", () => {
+    render(
+      <MasterDetailShell
+        data-testid="shell"
+        list={<div>LIST</div>}
+        full={<div>FULL</div>}
+        isFull
+        hasSelection
+        style={{ marginTop: "8px" }}
+      />,
+    );
+    expect(screen.getByTestId("shell").style.marginTop).toBe("8px");
+  });
+
   it("forwards ref, className, and props; axe clean", async () => {
     const ref = React.createRef<HTMLDivElement>();
     const { container } = render(
