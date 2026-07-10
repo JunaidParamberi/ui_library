@@ -54,7 +54,7 @@ export const QuotationListPane = React.forwardRef<HTMLDivElement, QuotationListP
         ) : visible.length === 0 ? (
           <p className="py-8 text-center text-sm text-muted-foreground">No quotations match.</p>
         ) : (
-          <ul className="flex flex-col">
+          <ul className="flex flex-col divide-y divide-border">
             {visible.map((q) => {
               const active = q.id === selectedId;
               const s = STATUS_DOT[q.status] ?? STATUS_DOT.DRAFT!;
@@ -66,7 +66,7 @@ export const QuotationListPane = React.forwardRef<HTMLDivElement, QuotationListP
                     aria-label={`Open ${q.quotationNumber}`}
                     onClick={() => onOpen(q.id)}
                     className={cn(
-                      "relative flex w-full gap-3 border-b border-border px-1 py-3.5 text-left transition-colors last:border-b-0",
+                      "relative flex w-full gap-3 px-1 py-3.5 text-left transition-colors",
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
                       active ? "bg-accent" : "hover:bg-accent/60",
                     )}
