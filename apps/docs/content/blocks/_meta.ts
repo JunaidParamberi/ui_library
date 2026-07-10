@@ -3,6 +3,7 @@ export default {
   "data-table-toolbar": "DataTableToolbar",
   "document-shell": "DocumentShell",
   "empty-state": "EmptyState",
+  "master-detail-shell": "MasterDetailShell",
   "page-header": "PageHeader",
   "pricing-table": "PricingTable",
   quotation: "Quotation",
