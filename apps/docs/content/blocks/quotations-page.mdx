@@ -1,0 +1,47 @@
+import { QuotationsPageDemo } from "../../src/components/dynamic-demos";
+import { ComponentPreview } from "../../src/components/component-preview";
+import { PropsTable } from "../../src/components/props-table";
+import { FullViewLinks } from "../../src/components/full-view-links";
+import { demoSources } from "../../src/generated/demo-sources.generated";
+
+# QuotationsPage
+
+Full-feature quotations screen: summary stats, status tabs, search, and an
+enriched list, with the built-in create / edit / detail / print flow. Ships with
+an in-memory mock API so it runs standalone — swap in your own `QuotationApi`
+implementation to wire real persistence.
+
+<FullViewLinks slug="quotations-page" />
+
+## Preview
+
+<ComponentPreview source={demoSources["quotations-page-demo"]}>
+  <QuotationsPageDemo />
+</ComponentPreview>
+
+## Usage
+
+Render `<QuotationsPage />` and it manages its own list → form → detail flow. By
+default it uses `createMockQuotationApi()`; pass an `api` prop implementing the
+`QuotationApi` interface to back it with a real service. Pass `currency` (default
+`"AED"`) to change the value formatting.
+
+```tsx
+import { QuotationsPage, createMockQuotationApi } from "@manpowerhub/blocks";
+
+// Demo: isolated in-memory store, reset on reload.
+<QuotationsPage api={createMockQuotationApi()} />;
+
+// Production: your own implementation of QuotationApi.
+<QuotationsPage api={myQuotationApi} />;
+```
+
+## Props
+
+<PropsTable of="QuotationsPage" />
+
+## Accessibility
+
+- Rows are keyboard-focusable and open on Enter.
+- Row edit/delete actions have explicit `aria-label`s and stop row propagation.
+- Delete is guarded by a confirmation dialog.

@@ -58,5 +58,6 @@ export const catalog: CatalogEntry[] = [
   { slug: "page-header", demoKey: "page-header-demo", docgenName: "PageHeader", story: "blocks-pageheader", storyId: "default", pkg: "blocks" },
   { slug: "pricing-table", demoKey: "pricing-table-demo", docgenName: "PricingTable", story: "blocks-pricingtable", storyId: "default", pkg: "blocks" },
   { slug: "quotation", demoKey: "quotation-demo", docgenName: "Quotation", story: "blocks-quotation", storyId: "default", pkg: "blocks" },
+  { slug: "quotations-page", demoKey: "quotations-page-demo", docgenName: "QuotationsPage", story: "blocks-quotationspage", storyId: "default", pkg: "blocks" },
   { slug: "stat-card-row", demoKey: "stat-card-row-demo", docgenName: "StatCardRow", story: "blocks-statcardrow", storyId: "default", pkg: "blocks" },
 ];
