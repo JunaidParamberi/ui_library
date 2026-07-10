@@ -21,8 +21,8 @@ describe("Quotation", () => {
     await userEvent.click(await screen.findByRole("button", { name: /new quotation/i }));
     await userEvent.type(screen.getByLabelText(/customer name/i), "Acme");
     await userEvent.type(screen.getByLabelText(/email/i), "a@acme.com");
-    await userEvent.type(screen.getByLabelText(/category/i), "Mason");
-    await userEvent.click(screen.getByRole("button", { name: /save/i }));
+    await userEvent.type(screen.getByLabelText(/item details/i), "Mason");
+    await userEvent.click(screen.getByRole("button", { name: /save as draft/i }));
     expect(await screen.findByText("Acme")).toBeInTheDocument();
   });
   it("submitForApproval moves a draft to pending", async () => {
@@ -38,7 +38,7 @@ describe("Quotation", () => {
     const nameInput = await screen.findByLabelText(/customer name/i);
     await userEvent.clear(nameInput);
     await userEvent.type(nameInput, "Renamed Co");
-    await userEvent.click(screen.getByRole("button", { name: /save/i }));
+    await userEvent.click(screen.getByRole("button", { name: /save as draft/i }));
     expect(await screen.findByText("Renamed Co")).toBeInTheDocument();
   });
   it("rejects a pending quotation through the detail view", async () => {

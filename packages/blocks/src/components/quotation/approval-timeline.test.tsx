@@ -31,4 +31,12 @@ describe("ApprovalTimeline", () => {
     const { container } = render(<ApprovalTimeline steps={steps} />);
     expect(await axe(container)).toHaveNoViolations();
   });
+  it("renders a state-colored tile per decision", () => {
+    render(<ApprovalTimeline steps={[
+      { approverId: "a", approverName: "Ada", approverEmail: "ada@x.com", decision: "APPROVED" },
+      { approverId: "b", approverName: "Ben", approverEmail: "ben@x.com", decision: "PENDING" },
+    ]} />);
+    expect(screen.getByTestId("tl-tile-a")).toHaveAttribute("data-decision", "APPROVED");
+    expect(screen.getByTestId("tl-tile-b")).toHaveAttribute("data-decision", "PENDING");
+  });
 });

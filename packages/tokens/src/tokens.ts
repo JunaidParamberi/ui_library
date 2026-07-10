@@ -13,12 +13,12 @@ export const layout = {
 } as const;
 
 export const radius = {
-  xs: 5,
-  sm: 7,
-  md: 9,
-  lg: 13,
-  xl: 18,
-  "2xl": 24,
+  xs: 3,
+  sm: 4,
+  md: 6,
+  lg: 8,
+  xl: 12,
+  "2xl": 16,
   full: 9999,
 } as const;
 

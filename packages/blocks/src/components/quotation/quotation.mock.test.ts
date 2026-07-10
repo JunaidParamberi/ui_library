@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createMockQuotationApi } from "./quotation.mock";
+import { createMockQuotationApi, seedQuotations } from "./quotation.mock";
 import type { QuotationAggregateData } from "./quotation.types";
 
 const draft = (): QuotationAggregateData => ({
@@ -69,5 +69,16 @@ describe("createMockQuotationApi", () => {
   it("throws on missing id", async () => {
     const api = createMockQuotationApi([]);
     await expect(api.update("nope", {})).rejects.toThrow();
+  });
+});
+
+describe("seedQuotations", () => {
+  it("seeds quotations carrying the new optional fields", () => {
+    const seed = seedQuotations();
+    const withTerms = seed.find((q) => q.terms);
+    expect(withTerms).toBeDefined();
+    expect(withTerms!.dueDate).toBeTruthy();
+    expect(withTerms!.customerNotes).toBeTruthy();
+    expect(withTerms!.items.some((i) => i.description)).toBe(true);
   });
 });

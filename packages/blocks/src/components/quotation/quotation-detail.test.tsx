@@ -47,10 +47,24 @@ describe("QuotationDetail", () => {
   it("shows an OT-inclusive grand total matching the document", () => {
     // Q-1001: subtotal = 2*1200 + 6*400 = 4,800; OT = 2*180 + 6*60 = 720; total = 5,520.
     render(<QuotationDetail quotation={draft!} {...handlers()} />);
-    const total = screen.getByText(/^Total:/).closest("div")!;
-    expect(total).toHaveTextContent("5,520.00");
+    expect(screen.getByTestId("detail-total")).toHaveTextContent("5,520.00");
     expect(screen.getByText("4,800.00")).toBeInTheDocument(); // subtotal breakdown
     expect(screen.getByText("720.00")).toBeInTheDocument(); // OT breakdown
+  });
+  it("shows financial summary and details sidebar", () => {
+    render(<QuotationDetail
+      quotation={{
+        id: "1", quotationNumber: "QUO-1", quotationDate: "2026-07-10", status: "DRAFT",
+        terms: "NET_15", dueDate: "2026-07-25", customerNotes: "Thanks",
+        customer: { name: "Nova", address: "Dubai", phoneNumber: "1", emailId: "n@x.com" },
+        items: [{ category: "Mason", quantity: "2", rate: "100", otRate: "10" }],
+        approvers: [], createdAt: "", updatedAt: "", createdBy: "system",
+      }}
+      onEdit={vi.fn()} onSubmitForApproval={vi.fn()} onDecide={vi.fn()} onPrint={vi.fn()} />);
+    expect(screen.getByText(/financial summary/i)).toBeInTheDocument();
+    expect(screen.getByTestId("detail-total")).toHaveTextContent("220.00");
+    expect(screen.getByText(/net 15/i)).toBeInTheDocument();
+    expect(screen.getByText(/thanks/i)).toBeInTheDocument();
   });
   it("forwards className and ref", () => {
     const ref = { current: null as HTMLDivElement | null };

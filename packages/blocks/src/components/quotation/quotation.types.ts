@@ -1,6 +1,8 @@
 export type QuotationStatus =
   | "DRAFT" | "PENDING_APPROVAL" | "APPROVED" | "SENT" | "REJECTED";
 export type ApprovalDecision = "PENDING" | "APPROVED" | "REJECTED";
+export type QuotationTerms =
+  | "DUE_ON_RECEIPT" | "NET_15" | "NET_30" | "NET_45" | "CUSTOM";
 
 export interface ApprovalStep {
   approverId: string;
@@ -24,6 +26,7 @@ export interface QuotationItem {
   quantity: string;
   rate: string;
   otRate: string;
+  description?: string;
 }
 
 export interface QuotationPersistedMeta {
@@ -39,6 +42,10 @@ export interface QuotationAggregateData {
   status: QuotationStatus;
   approvers: ApprovalStep[];
   items: QuotationItem[];
+  terms?: QuotationTerms;
+  dueDate?: string;
+  customerNotes?: string;
+  termsAndConditions?: string;
 }
 
 export type PersistedQuotation =

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { axe } from "vitest-axe";
 import { describe, it, expect, vi } from "vitest";
@@ -12,7 +12,9 @@ describe("QuotationListPane", () => {
   it("renders a row per quotation", () => {
     render(<QuotationListPane quotations={rows} onOpen={() => {}} onNew={() => {}} />);
     expect(screen.getByText(rows[0]!.quotationNumber)).toBeInTheDocument();
-    expect(screen.getByText(rows[0]!.customer.name)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: new RegExp(`open ${rows[0]!.quotationNumber}`, "i") }),
+    ).toBeInTheDocument();
   });
 
   it("filters by search", async () => {
@@ -62,5 +64,20 @@ describe("QuotationListPane", () => {
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
     expect(screen.getByTestId("pane")).toHaveClass("cx");
     expect(await axe(container)).toHaveNoViolations();
+  });
+
+  it("renders a flat QUO chip row with amount and status", () => {
+    render(<QuotationListPane
+      quotations={[{
+        id: "1", quotationNumber: "QUO-1", quotationDate: "2026-07-10", status: "DRAFT",
+        customer: { name: "Nova", address: "", phoneNumber: "", emailId: "n@x.com" },
+        items: [{ category: "Mason", quantity: "2", rate: "100", otRate: "10" }],
+        approvers: [], createdAt: "", updatedAt: "", createdBy: "system",
+      }]}
+      onOpen={vi.fn()} onNew={vi.fn()} />);
+    const row = screen.getByRole("button", { name: /open quo-1/i });
+    expect(within(row).getByText("QUO")).toBeInTheDocument();
+    expect(within(row).getByText(/AED 200/)).toBeInTheDocument();
+    expect(within(row).getByText(/draft/i)).toBeInTheDocument();
   });
 });

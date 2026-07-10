@@ -1,10 +1,17 @@
 import * as React from "react";
 import { Button, Input, cn } from "@manpowerhub/ui";
-import { QuotationStatusPill } from "./quotation-status-pill";
 import { subtotal } from "./quotation.totals";
 import type { PersistedQuotation } from "./quotation.types";
 
 const fmt = (n: number) => Math.round(n).toLocaleString("en-US");
+
+const STATUS_DOT: Record<string, { cls: string; label: string }> = {
+  DRAFT: { cls: "bg-muted-foreground", label: "Draft" },
+  PENDING_APPROVAL: { cls: "bg-warning", label: "Pending approval" },
+  APPROVED: { cls: "bg-success", label: "Approved" },
+  SENT: { cls: "bg-primary", label: "Sent" },
+  REJECTED: { cls: "bg-destructive", label: "Rejected" },
+};
 
 export interface QuotationListPaneProps extends React.HTMLAttributes<HTMLDivElement> {
   quotations: PersistedQuotation[];
@@ -47,9 +54,10 @@ export const QuotationListPane = React.forwardRef<HTMLDivElement, QuotationListP
         ) : visible.length === 0 ? (
           <p className="py-8 text-center text-sm text-muted-foreground">No quotations match.</p>
         ) : (
-          <ul className="flex flex-col gap-1">
+          <ul className="flex flex-col">
             {visible.map((q) => {
               const active = q.id === selectedId;
+              const s = STATUS_DOT[q.status] ?? STATUS_DOT.DRAFT!;
               return (
                 <li key={q.id}>
                   <button
@@ -58,22 +66,23 @@ export const QuotationListPane = React.forwardRef<HTMLDivElement, QuotationListP
                     aria-label={`Open ${q.quotationNumber}`}
                     onClick={() => onOpen(q.id)}
                     className={cn(
-                      "w-full rounded-lg border px-3 py-2.5 text-left transition-colors",
+                      "relative flex w-full gap-3 border-t border-border/60 px-1 py-3.5 text-left transition-colors first:border-t-0",
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
-                      active
-                        ? "border-ring bg-accent"
-                        : "border-border hover:bg-muted/50",
+                      active ? "bg-accent" : "hover:bg-accent/60",
                     )}
                   >
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-sm text-foreground">{q.quotationNumber}</span>
-                      <QuotationStatusPill status={q.status} />
-                    </div>
-                    <div className="mt-1 truncate text-sm font-medium text-foreground">{q.customer.name}</div>
-                    <div className="mt-0.5 flex items-center justify-between text-xs text-muted-foreground">
-                      <span className="truncate">{q.customer.emailId}</span>
-                      <span className="tabular-nums">{currency} {fmt(subtotal(q.items))}</span>
-                    </div>
+                    {active && <span aria-hidden className="absolute -left-4 top-0 bottom-0 w-[3px] bg-primary" />}
+                    <span className="h-fit flex-none rounded-sm border border-border px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-muted-foreground">QUO</span>
+                    <span className="flex min-w-0 flex-1 flex-col gap-2">
+                      <span className="flex items-center justify-between gap-2">
+                        <span className="truncate font-mono text-sm text-foreground">{q.quotationNumber}</span>
+                        <span className="tabular-nums text-xs font-semibold text-foreground">{currency} {fmt(subtotal(q.items))}</span>
+                      </span>
+                      <span className="flex items-center justify-end gap-1.5 text-xs text-muted-foreground">
+                        <span className={cn("h-1.5 w-1.5 rounded-full", s.cls)} aria-hidden />
+                        {s.label}
+                      </span>
+                    </span>
                   </button>
                 </li>
               );
