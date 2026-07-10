@@ -66,7 +66,7 @@ export const QuotationListPane = React.forwardRef<HTMLDivElement, QuotationListP
                     aria-label={`Open ${q.quotationNumber}`}
                     onClick={() => onOpen(q.id)}
                     className={cn(
-                      "relative flex w-full gap-3 border-b border-[hsl(var(--mph-border-strong))] px-1 py-3.5 text-left transition-colors last:border-b-0",
+                      "relative flex w-full gap-3 border-b border-border px-1 py-3.5 text-left transition-colors last:border-b-0",
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
                       active ? "bg-accent" : "hover:bg-accent/60",
                     )}
