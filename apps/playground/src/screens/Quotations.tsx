@@ -11,7 +11,7 @@ import {
 import { FileText } from "lucide-react";
 import { useQuotationApi } from "../data/quotation-api";
 
-export function QuotationDetailScreen() {
+export function QuotationsScreen() {
   const api = useQuotationApi();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();

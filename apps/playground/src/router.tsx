@@ -3,8 +3,7 @@ import { Outlet } from "react-router-dom";
 import { AppShell } from "./app/AppShell";
 import { QuotationApiProvider } from "./data/quotation-api";
 import { Dashboard } from "./screens/Dashboard";
-import { QuotationsList } from "./screens/QuotationsList";
-import { QuotationDetailScreen } from "./screens/QuotationDetail";
+import { QuotationsScreen } from "./screens/Quotations";
 import { QuotationFormScreen } from "./screens/QuotationForm";
 
 function PlaceholderOutlet() {
@@ -23,9 +22,9 @@ export const routes: RouteObject[] = [
           </QuotationApiProvider>
         ),
         children: [
-          { path: "quotations", element: <QuotationsList /> },
+          { path: "quotations", element: <QuotationsScreen /> },
           { path: "quotations/new", element: <QuotationFormScreen /> },
-          { path: "quotations/:id", element: <QuotationDetailScreen /> },
+          { path: "quotations/:id", element: <QuotationsScreen /> },
           { path: "quotations/:id/edit", element: <QuotationFormScreen /> },
         ],
       },

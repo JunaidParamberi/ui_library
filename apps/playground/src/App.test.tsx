@@ -18,11 +18,9 @@ describe("Playground app frame", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the quotations list route", () => {
+  it("renders the quotations route with the list pane and no selection", async () => {
     renderAt("/quotations");
-    expect(
-      screen.getByText("Create, review, and approve quotations."),
-    ).toBeInTheDocument();
+    expect(await screen.findByText("Select a quotation")).toBeInTheDocument();
   });
 
   it("renders a quotation detail route", async () => {
