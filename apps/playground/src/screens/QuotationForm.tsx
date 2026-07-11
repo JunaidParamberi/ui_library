@@ -5,6 +5,7 @@ import {
   type QuotationAggregateData,
   type PersistedQuotation,
 } from "@manpowerhub/blocks";
+import { Button } from "@manpowerhub/ui";
 import { useQuotationApi } from "../data/quotation-api";
 
 export function QuotationFormScreen() {
@@ -15,6 +16,7 @@ export function QuotationFormScreen() {
 
   const [initial, setInitial] = React.useState<PersistedQuotation | undefined>(undefined);
   const [ready, setReady] = React.useState(!isEdit);
+  const [notFound, setNotFound] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
 
   React.useEffect(() => {
@@ -22,6 +24,11 @@ export function QuotationFormScreen() {
     let alive = true;
     api.get(id).then((q) => {
       if (!alive) return;
+      if (!q) {
+        setNotFound(true);
+        setReady(true);
+        return;
+      }
       setInitial(q);
       setReady(true);
     });
@@ -41,6 +48,15 @@ export function QuotationFormScreen() {
 
   if (!ready) {
     return <p className="text-sm text-muted-foreground">Loading…</p>;
+  }
+
+  if (notFound) {
+    return (
+      <div className="flex flex-col items-start gap-3 rounded-md border border-border p-6">
+        <p className="text-sm text-muted-foreground">Quotation not found.</p>
+        <Button onClick={() => navigate("/quotations")}>Back to quotations</Button>
+      </div>
+    );
   }
 
   return (

@@ -58,13 +58,23 @@ export function QuotationsList() {
         </div>
       )}
 
-      {status !== "error" && status === "loaded" && filtered.length === 0 && (
+      {status === "loaded" && items.length === 0 && (
         <EmptyState
           variant="dashed"
           icon={<FileText />}
           title="No quotations yet"
           description="Create your first quotation to get started."
           action={{ label: "New quotation", onClick: () => navigate("/quotations/new") }}
+        />
+      )}
+
+      {status === "loaded" && items.length > 0 && filtered.length === 0 && (
+        <EmptyState
+          variant="dashed"
+          icon={<FileText />}
+          title="No matching quotations"
+          description="No quotations match your search."
+          action={{ label: "Clear search", onClick: () => setSearch("") }}
         />
       )}
 

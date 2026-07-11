@@ -4,7 +4,8 @@ import { createMockQuotationApi, type QuotationApi } from "@manpowerhub/blocks";
 const QuotationApiContext = React.createContext<QuotationApi | null>(null);
 
 export function QuotationApiProvider({ children }: { children: React.ReactNode }) {
-  const apiRef = React.useRef<QuotationApi>(createMockQuotationApi());
+  const apiRef = React.useRef<QuotationApi | null>(null);
+  if (apiRef.current === null) apiRef.current = createMockQuotationApi();
   return (
     <QuotationApiContext.Provider value={apiRef.current}>{children}</QuotationApiContext.Provider>
   );
