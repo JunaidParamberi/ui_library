@@ -20,7 +20,9 @@ describe("Playground app frame", () => {
 
   it("renders the quotations list route", () => {
     renderAt("/quotations");
-    expect(screen.getByText(/Quotations list/)).toBeInTheDocument();
+    expect(
+      screen.getByText("Create, review, and approve quotations."),
+    ).toBeInTheDocument();
   });
 
   it("renders a quotation detail route", () => {
