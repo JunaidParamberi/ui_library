@@ -1,19 +1,26 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { App } from "./App";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { routes } from "./router";
 
-describe("Playground App", () => {
-  it("renders the nav and the kitchen-sink page with a Button", () => {
-    render(<App />);
-    expect(screen.getByText("Playground")).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Primary" }),
-    ).toBeInTheDocument();
+function renderAt(path: string) {
+  const router = createMemoryRouter(routes, { initialEntries: [path] });
+  render(<RouterProvider router={router} />);
+}
+
+describe("Playground app frame", () => {
+  it("renders the shell and Dashboard at /", () => {
+    renderAt("/");
+    expect(screen.getByText("ManpowerHub")).toBeInTheDocument();
+    expect(screen.getByText(/Dashboard — coming in a later task/)).toBeInTheDocument();
   });
 
-  it("navigates to the Blocks page when clicking the nav link", async () => {
-    render(<App />);
-    await userEvent.click(screen.getByRole("button", { name: "Blocks" }));
-    expect(screen.getByText("Blocks showcase")).toBeInTheDocument();
+  it("renders the quotations list route", () => {
+    renderAt("/quotations");
+    expect(screen.getByText(/Quotations list/)).toBeInTheDocument();
+  });
+
+  it("renders a quotation detail route", () => {
+    renderAt("/quotations/abc");
+    expect(screen.getByText(/Quotation detail/)).toBeInTheDocument();
   });
 });

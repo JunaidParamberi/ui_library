@@ -1,0 +1,34 @@
+import type { RouteObject } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { AppShell } from "./app/AppShell";
+import { QuotationApiProvider } from "./data/quotation-api";
+
+function Placeholder({ name }: { name: string }) {
+  return <div className="text-muted-foreground">{name} — coming in a later task.</div>;
+}
+
+function PlaceholderOutlet() {
+  return <Outlet />;
+}
+
+export const routes: RouteObject[] = [
+  {
+    element: <AppShell />,
+    children: [
+      { index: true, element: <Placeholder name="Dashboard" /> },
+      {
+        element: (
+          <QuotationApiProvider>
+            <PlaceholderOutlet />
+          </QuotationApiProvider>
+        ),
+        children: [
+          { path: "quotations", element: <Placeholder name="Quotations list" /> },
+          { path: "quotations/new", element: <Placeholder name="Quotation form" /> },
+          { path: "quotations/:id", element: <Placeholder name="Quotation detail" /> },
+          { path: "quotations/:id/edit", element: <Placeholder name="Quotation form" /> },
+        ],
+      },
+    ],
+  },
+];
