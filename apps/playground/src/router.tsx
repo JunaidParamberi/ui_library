@@ -2,6 +2,7 @@ import type { RouteObject } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { AppShell } from "./app/AppShell";
 import { QuotationApiProvider } from "./data/quotation-api";
+import { Dashboard } from "./screens/Dashboard";
 
 function Placeholder({ name }: { name: string }) {
   return <div className="text-muted-foreground">{name} — coming in a later task.</div>;
@@ -15,7 +16,7 @@ export const routes: RouteObject[] = [
   {
     element: <AppShell />,
     children: [
-      { index: true, element: <Placeholder name="Dashboard" /> },
+      { index: true, element: <Dashboard /> },
       {
         element: (
           <QuotationApiProvider>

@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { routes } from "./router";
+import { StateToggleProvider } from "./data/state-toggle";
+import { Dashboard } from "./screens/Dashboard";
 
 function renderAt(path: string) {
   const router = createMemoryRouter(routes, { initialEntries: [path] });
@@ -11,7 +13,9 @@ describe("Playground app frame", () => {
   it("renders the shell and Dashboard at /", () => {
     renderAt("/");
     expect(screen.getByText("ManpowerHub")).toBeInTheDocument();
-    expect(screen.getByText(/Dashboard — coming in a later task/)).toBeInTheDocument();
+    expect(
+      screen.getByText("Overview of your workforce and quotations."),
+    ).toBeInTheDocument();
   });
 
   it("renders the quotations list route", () => {
@@ -22,5 +26,34 @@ describe("Playground app frame", () => {
   it("renders a quotation detail route", () => {
     renderAt("/quotations/abc");
     expect(screen.getByText(/Quotation detail/)).toBeInTheDocument();
+  });
+});
+
+describe("Dashboard states", () => {
+  it("shows the empty state when forced empty", () => {
+    render(
+      <StateToggleProvider initial="empty">
+        <Dashboard />
+      </StateToggleProvider>,
+    );
+    expect(screen.getByText("Nothing to show yet")).toBeInTheDocument();
+  });
+
+  it("shows retry when forced error", () => {
+    render(
+      <StateToggleProvider initial="error">
+        <Dashboard />
+      </StateToggleProvider>,
+    );
+    expect(screen.getByRole("button", { name: "Retry" })).toBeInTheDocument();
+  });
+
+  it("renders KPIs when forced loaded", () => {
+    render(
+      <StateToggleProvider initial="loaded">
+        <Dashboard />
+      </StateToggleProvider>,
+    );
+    expect(screen.getByText("Active workers")).toBeInTheDocument();
   });
 });
