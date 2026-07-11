@@ -25,9 +25,16 @@ describe("Playground app frame", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders a quotation detail route", () => {
+  it("renders a quotation detail route", async () => {
     renderAt("/quotations/abc");
-    expect(screen.getByText(/Quotation detail/)).toBeInTheDocument();
+    expect(await screen.findByText("Select a quotation")).toBeInTheDocument();
+  });
+});
+
+describe("Quotation detail route", () => {
+  it("shows the select-a-quotation placeholder for an unknown id", async () => {
+    renderAt("/quotations/does-not-exist");
+    expect(await screen.findByText("Select a quotation")).toBeInTheDocument();
   });
 });
 

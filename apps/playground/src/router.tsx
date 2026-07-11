@@ -4,6 +4,7 @@ import { AppShell } from "./app/AppShell";
 import { QuotationApiProvider } from "./data/quotation-api";
 import { Dashboard } from "./screens/Dashboard";
 import { QuotationsList } from "./screens/QuotationsList";
+import { QuotationDetailScreen } from "./screens/QuotationDetail";
 
 function Placeholder({ name }: { name: string }) {
   return <div className="text-muted-foreground">{name} — coming in a later task.</div>;
@@ -27,7 +28,7 @@ export const routes: RouteObject[] = [
         children: [
           { path: "quotations", element: <QuotationsList /> },
           { path: "quotations/new", element: <Placeholder name="Quotation form" /> },
-          { path: "quotations/:id", element: <Placeholder name="Quotation detail" /> },
+          { path: "quotations/:id", element: <QuotationDetailScreen /> },
           { path: "quotations/:id/edit", element: <Placeholder name="Quotation form" /> },
         ],
       },
