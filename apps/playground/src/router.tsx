@@ -5,10 +5,7 @@ import { QuotationApiProvider } from "./data/quotation-api";
 import { Dashboard } from "./screens/Dashboard";
 import { QuotationsList } from "./screens/QuotationsList";
 import { QuotationDetailScreen } from "./screens/QuotationDetail";
-
-function Placeholder({ name }: { name: string }) {
-  return <div className="text-muted-foreground">{name} — coming in a later task.</div>;
-}
+import { QuotationFormScreen } from "./screens/QuotationForm";
 
 function PlaceholderOutlet() {
   return <Outlet />;
@@ -27,9 +24,9 @@ export const routes: RouteObject[] = [
         ),
         children: [
           { path: "quotations", element: <QuotationsList /> },
-          { path: "quotations/new", element: <Placeholder name="Quotation form" /> },
+          { path: "quotations/new", element: <QuotationFormScreen /> },
           { path: "quotations/:id", element: <QuotationDetailScreen /> },
-          { path: "quotations/:id/edit", element: <Placeholder name="Quotation form" /> },
+          { path: "quotations/:id/edit", element: <QuotationFormScreen /> },
         ],
       },
     ],

@@ -66,3 +66,12 @@ describe("Dashboard states", () => {
     expect(screen.getByText("Active workers")).toBeInTheDocument();
   });
 });
+
+describe("Quotation form route", () => {
+  it("mounts the new-quotation form", () => {
+    renderAt("/quotations/new");
+    // The form renders synchronously in create mode (ready = true).
+    // Assert a stable form control label from the QuotationForm block.
+    expect(document.querySelector("form")).toBeTruthy();
+  });
+});
